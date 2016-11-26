@@ -1,0 +1,16 @@
+C:\Users\MTellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\bin\Debug\CScore.dll
+C:\Users\MTellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\bin\Debug\CScore.pdb
+C:\Users\MTellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\obj\Debug\CScore.csprojResolveAssemblyReference.cache
+C:\Users\MTellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\obj\Debug\CScore.dll
+C:\Users\MTellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\obj\Debug\CScore.pdb
+C:\Users\Mtellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\bin\Debug\SQLite.Net.Async.dll
+C:\Users\Mtellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\bin\Debug\SQLite.Net.dll
+C:\Users\Mtellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\obj\Debug\CScore.dll.mdb
+C:\Users\Mtellesy\Google Drive\Project Era\Codes\CS.core\CScore\CScore\bin\Debug\CScore.dll.mdb
+J:\Codes\CS.core\CScore\CScore\bin\Debug\CScore.dll
+J:\Codes\CS.core\CScore\CScore\bin\Debug\CScore.pdb
+J:\Codes\CS.core\CScore\CScore\bin\Debug\SQLite.Net.Async.dll
+J:\Codes\CS.core\CScore\CScore\bin\Debug\SQLite.Net.dll
+J:\Codes\CS.core\CScore\CScore\obj\Debug\CScore.csprojResolveAssemblyReference.cache
+J:\Codes\CS.core\CScore\CScore\obj\Debug\CScore.dll
+J:\Codes\CS.core\CScore\CScore\obj\Debug\CScore.pdb

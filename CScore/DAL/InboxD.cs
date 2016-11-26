@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CScore.DataLayer;
+using SQLite.Net;
+
+namespace CScore.DAL
+{
+    public class InboxD 
+    {
+
+    }
+}
