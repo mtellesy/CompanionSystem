@@ -38,7 +38,6 @@
     <Compile Include="BCL\Major.cs" />
     <Compile Include="BCL\Messages.cs" />
     <Compile Include="BCL\User.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="DAL\InboxD.cs" />
     <Compile Include="DAL\UsersD.cs" />
     <Compile Include="DataLayer\DBDestroyer.cs" />
