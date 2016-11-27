@@ -8,6 +8,6 @@ namespace CScore.BCL
 {
   public static class User
     {
-
+        public static int Use_id;
     }
 }
