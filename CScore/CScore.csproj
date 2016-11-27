@@ -38,7 +38,11 @@
     <Compile Include="BCL\Major.cs" />
     <Compile Include="BCL\Messages.cs" />
     <Compile Include="BCL\User.cs" />
-    <Compile Include="DAL\InboxD.cs" />
+    <Compile Include="DAL\AnnouncementD.cs" />
+    <Compile Include="DAL\CourseD.cs" />
+    <Compile Include="DAL\MessageD.cs" />
+    <Compile Include="DAL\ResultD.cs" />
+    <Compile Include="DAL\SemesterD.cs" />
     <Compile Include="DAL\UsersD.cs" />
     <Compile Include="DataLayer\DBDestroyer.cs" />
     <Compile Include="DataLayer\DBuilder.cs" />
