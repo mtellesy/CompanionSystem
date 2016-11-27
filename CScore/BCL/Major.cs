@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    public class Major
+    public static class Major
     {
 
     }
