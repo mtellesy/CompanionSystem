@@ -37,6 +37,7 @@
     <Compile Include="BCL\Enrollment.cs" />
     <Compile Include="BCL\Major.cs" />
     <Compile Include="BCL\Messages.cs" />
+    <Compile Include="BCL\OtherUsers.cs" />
     <Compile Include="BCL\Timetable.cs" />
     <Compile Include="BCL\User.cs" />
     <Compile Include="DAL\AnnouncementD.cs" />
