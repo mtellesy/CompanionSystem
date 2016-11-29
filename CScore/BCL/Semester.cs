@@ -10,8 +10,6 @@ namespace CScore.BCL
     {
         public int ter_id { get; set; }
 
-      //  public int RealTer_id { get; set; }
-
         public String ter_nameAR { get; set; }
 
         public String ter_nameEN { get; set; }

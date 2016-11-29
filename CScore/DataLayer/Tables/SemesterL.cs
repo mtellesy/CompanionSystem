@@ -10,12 +10,11 @@ using SQLite.Net.Attributes;
 
 namespace CScore.DataLayer.Tables
 {
-   public class SemesterL
+    [Table("SemesterL")]
+    public class SemesterL
     {
         [PrimaryKey]
         public int Ter_id { get; set; }
-
-        //public int RealTer_id { get; set; }
 
         public String Ter_nameAR { get; set; }
 
