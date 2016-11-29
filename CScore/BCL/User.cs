@@ -8,6 +8,9 @@ namespace CScore.BCL
 {
   public static class User
     {
+        public static int use_id { get; set; }
+        public static String use_nameAR { get; set; }
+        public static String use_nameEN { get; set; }
         public static int dep_id { get; set; }
         public static String dep_nameAR { get; set; }
         public static String dep_nameEN { get; set; }
