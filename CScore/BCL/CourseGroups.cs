@@ -21,10 +21,10 @@ namespace CScore.BCL
         public int classTimeID2{ get; set; }
         public int classRoomID2{ get; set; }
 
-        public getCourseGroup(String cou_id)
+        public void getCourseGroup(String cou_id)
         {
 
-
+            
         }
 
 

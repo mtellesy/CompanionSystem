@@ -52,6 +52,7 @@ namespace CScore.DAL
 
         }
 
+
         public static async Task<OtherUsers> getOtherUser(int user_id)
         {
            // get data 
@@ -124,10 +125,10 @@ namespace CScore.DAL
         public static async Task<Boolean> getUsers()
         {
             // get data 
-            var DBuser = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(User.user_id)).ToListAsync();
+            var DBuser = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(User.use_id)).ToListAsync();
 
             // to check if the user we requisted is exsited or not ( if not return null) 
-            var checker = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(User.user_id)).CountAsync();
+            var checker = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(User.use_id)).CountAsync();
 
             if (checker > 0)
             {

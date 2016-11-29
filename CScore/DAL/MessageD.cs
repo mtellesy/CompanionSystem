@@ -12,14 +12,14 @@ namespace CScore.DAL
 {
     public static class MessageD 
     {
-        public static async Task<List<Messages>> getSentMessages(int NumberOfMessages, int StartFrom)
+        //need some work on the query
+        public static async Task<List<Messages>> getSentMessages(int NumberOfMessages, int StartFrom,int user_id)
         {
-            var results = await  DBuilder._connection.Table<InboxL>().Where(i => i.Mes_sender.Equals(User.use_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
+            // var results = await DBuilder._connection.Table<InboxL>().ToListAsync();//.Where(i => i.Mes_sender.Equals(User.use_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
             // how limit and start from
-        // var resul =  await DBuilder._connection.QueryAsync<InboxL>(
-           //    "SELECT * FROM InboxL Where Mes_sender = ? Limit ?",User.use_id,NumberOfMessages
-         //      );
-         
+            var results = await DBuilder._connection.QueryAsync<InboxL>(
+                "SELECT * FROM InboxL ");// Where Mes_sender = ? Limit ?,?",user_id,NumberOfMessages,StartFrom );
+
             List<Messages> messages = new List<Messages>();
 
             foreach(var mesg in results)
@@ -33,6 +33,26 @@ namespace CScore.DAL
             }
 
             return messages;
+        }
+
+        public static async Task<Messages> getMessage(int messageId)
+        {
+            var checker = await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(messageId)).CountAsync();
+
+            if (checker > 0)
+            {
+                var results = await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(messageId)).ToListAsync();
+
+                Messages message = new Messages();
+                message.mes_id = results.Select(i => i.Mes_id).First();
+                message.mes_sender = results.Select(i => i.Mes_sender).First();
+                message.mes_content = results.Select(i => i.Mes_content).First();
+                message.mes_status = results.Select(i => i.Mes_status).First();
+
+                return message;
+            }
+            else
+                return null;
         }
 
         public static async Task saveMessage(Messages message)
