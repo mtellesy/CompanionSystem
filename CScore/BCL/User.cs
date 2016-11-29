@@ -27,9 +27,10 @@ namespace CScore.BCL
       /*
         public static void saveUser()
         {
-            await DAL.UsersD.saveUser(this); 
+            await DAL.UsersD.saveUser(); 
         }
   */
+       
 
     }
 }
