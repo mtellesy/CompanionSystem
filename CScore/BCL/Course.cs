@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    public  class CourseGroups
+    public  class Course
     {
         public String cou_id { get; set; }
         public int gro_id { get; set; }
@@ -20,14 +20,32 @@ namespace CScore.BCL
         public int classRoomID { get; set; }
         public int classTimeID2{ get; set; }
         public int classRoomID2{ get; set; }
-
-        public getCourseGroup(String cou_id)
+        /*
+        public Course getCourse(String cou_id)
         {
+            Course cg = new Course();
+            Status s= new Status();
+            s = internetChecker();
+            if (s.status)
+            {
+                cg = SAL.CourseS.getCourse(cou_id);
+                DAL.CourseD.saveCourse();
+            }else
+            {
+                //return the status message
+            }
 
-
+        }*/
+        /*
+        public void saveCourse()
+        {
+           // DAL.CourseD.saveCourse(this);
         }
 
-
+        public void deleteCourse()
+        {
+            DAL.CourseD.deleteCourse(this);
+        }*/
 
     }
 }
