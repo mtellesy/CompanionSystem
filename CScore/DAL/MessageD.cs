@@ -12,28 +12,119 @@ namespace CScore.DAL
 {
     public static class MessageD 
     {
-        //need some work on the query
-        public static async Task<List<Messages>> getSentMessages(int NumberOfMessages, int StartFrom,int user_id)
+
+        public static async Task<List<Messages>> getReceivedMessages(int NumberOfMessages, int StartFrom, int user_id)
         {
-            // var results = await DBuilder._connection.Table<InboxL>().ToListAsync();//.Where(i => i.Mes_sender.Equals(User.use_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
-            // how limit and start from
-            var results = await DBuilder._connection.QueryAsync<InboxL>(
-                "SELECT * FROM InboxL ");// Where Mes_sender = ? Limit ?,?",user_id,NumberOfMessages,StartFrom );
+            var results = await DBuilder._connection.Table<InboxL>().Where(t => t.Mes_receiver.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
+
+            int index = 1;
+            if (NumberOfMessages <= 0)
+                NumberOfMessages = 10;
 
             List<Messages> messages = new List<Messages>();
 
-            foreach(var mesg in results)
+            if (StartFrom <= 0)
             {
-                Messages newMess = new Messages();
-                newMess.mes_id = mesg.Mes_id;
-                newMess.mes_sender = mesg.Mes_sender;
-                newMess.mes_content = mesg.Mes_content;
-                newMess.mes_status = mesg.Mes_status;
-                messages.Add(newMess);
-            }
+                foreach (var mesg in results)
+                {
+                    if (index <= NumberOfMessages)
+                    {
+                        Messages newMess = new Messages();
+                        newMess.mes_id = mesg.Mes_id;
+                        newMess.mes_sender = mesg.Mes_sender;
+                        newMess.mes_content = mesg.Mes_content;
+                        newMess.mes_status = mesg.Mes_status;
+                        messages.Add(newMess);
+                        index++;
 
+                    }
+                    else break;
+                }
+            }
+            else
+            {
+                int whenToStart = StartFrom; // when we start fetching
+                foreach (var mesg in results)
+                {
+                    if (whenToStart >= 1 && index <= NumberOfMessages)
+                    {
+                        // if (index <= NumberOfMessages)
+                        //{
+                        Messages newMess = new Messages();
+                        newMess.mes_id = mesg.Mes_id;
+                        newMess.mes_sender = mesg.Mes_sender;
+                        newMess.mes_content = mesg.Mes_content;
+                        newMess.mes_status = mesg.Mes_status;
+                        messages.Add(newMess);
+                        index++;
+                        // }
+
+                    }
+                    else break;
+                    whenToStart--;
+
+                }
+            }
             return messages;
         }
+
+
+        public static async Task<List<Messages>> getSentMessages(int NumberOfMessages, int StartFrom,int user_id)
+        {
+            var results = await DBuilder._connection.Table<InboxL>().Where(t=>t.Mes_sender.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
+          
+            int index = 1;
+            if (NumberOfMessages <= 0)
+                NumberOfMessages = 10;
+            
+            List<Messages> messages = new List<Messages>();
+
+            if(StartFrom <= 0)
+            {
+                foreach (var mesg in results)
+                {
+                    if (index <= NumberOfMessages)
+                    {
+                        Messages newMess = new Messages();
+                        newMess.mes_id = mesg.Mes_id;
+                        newMess.mes_sender = mesg.Mes_sender;
+                        newMess.mes_content = mesg.Mes_content;
+                        newMess.mes_status = mesg.Mes_status;
+                        messages.Add(newMess);
+                        index++;
+                       
+                    }
+                    else break;
+                }
+            }
+            else
+            {
+                int whenToStart = StartFrom; // when we start fetching
+                foreach (var mesg in results)
+                {
+                    if (whenToStart >= 1 && index <= NumberOfMessages)
+                    {
+                        // if (index <= NumberOfMessages)
+                        //{
+                        Messages newMess = new Messages();
+                        newMess.mes_id = mesg.Mes_id;
+                        newMess.mes_sender = mesg.Mes_sender;
+                        newMess.mes_content = mesg.Mes_content;
+                        newMess.mes_status = mesg.Mes_status;
+                        messages.Add(newMess);
+                        index++;
+                        // }
+
+                    }
+                    else break;
+                    whenToStart--;
+                           
+                }
+            }
+            return messages;
+        }
+
+
 
         public static async Task<Messages> getMessage(int messageId)
         {
