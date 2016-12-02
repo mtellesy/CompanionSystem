@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    class Timetable
+    public class Status
     {
+        public bool status { set; get; }
+        public String message { set; get; }
     }
 }

@@ -8,6 +8,28 @@ namespace CScore.BCL
 {
   public static class User
     {
-        public static int Use_id;
+        public static int use_id { get; set; }
+        public static String use_nameAR { get; set; }
+        public static String use_nameEN { get; set; }
+        public static int dep_id { get; set; }
+        public static String dep_nameAR { get; set; }
+        public static String dep_nameEN { get; set; }
+        public static String use_email { get; set; }
+        public static long use_phone { get; set; }
+        public static String use_gender { get; set; }
+        public static String use_picture { get; set; }
+        public static String use_avatar { get; set; }
+        public static int use_typeID { get; set; }
+        public static int academicRankID { get; set; }
+        public static String academicRankAR { get; set; }
+        public static String academicRankEN { get; set; }
+
+      /*
+        public static void saveUser()
+        {
+            await DAL.UsersD.saveUser(this); 
+        }
+  */
+
     }
 }
