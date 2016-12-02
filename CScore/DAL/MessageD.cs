@@ -17,13 +17,13 @@ namespace CScore.DAL
         {
             var results = await DBuilder._connection.Table<InboxL>().Where(t => t.Mes_receiver.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
 
-            int index = 1;
-            if (NumberOfMessages <= 0)
-                NumberOfMessages = 10;
+            int index = 1; // start from one when you fetch the messages
+            if (NumberOfMessages <= 0) // if you got zero or less send the default number of messages
+                NumberOfMessages = 10; // the default number of messages
 
-            List<Messages> messages = new List<Messages>();
+            List<Messages> messages = new List<Messages>(); // list of the returned messages
 
-            if (StartFrom <= 0)
+            if (StartFrom <= 0) // if they tell you start from zero or less then just fetch from the first message
             {
                 foreach (var mesg in results)
                 {
@@ -35,20 +35,20 @@ namespace CScore.DAL
                         newMess.mes_content = mesg.Mes_content;
                         newMess.mes_status = mesg.Mes_status;
                         messages.Add(newMess);
-                        index++;
+                        index++; // okay go and fetch the next one 
 
                     }
                     else break;
                 }
             }
-            else
+            else // if they tell you to start from somewhere not from the first message
             {
                 int whenToStart = StartFrom; // when we start fetching
                 foreach (var mesg in results)
                 {
-                    if (whenToStart >= 1 && index <= NumberOfMessages)
+                    if (whenToStart >= 1 && index <= NumberOfMessages) // <==
                     {
-                        // if (index <= NumberOfMessages)
+                        // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
                         Messages newMess = new Messages();
                         newMess.mes_id = mesg.Mes_id;
@@ -61,7 +61,8 @@ namespace CScore.DAL
 
                     }
                     else break;
-                    whenToStart--;
+
+                    whenToStart--; 
 
                 }
             }
