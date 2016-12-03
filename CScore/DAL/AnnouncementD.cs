@@ -13,28 +13,30 @@ namespace CScore.DAL
     public static class AnnouncementD
     {
 
-        public static async Task<List<Messages>> getReceivedAnnouncements(int NumberOfMessages, int StartFrom, int user_id)
+        public static async Task<List<Announcements>> getReceivedAnnouncements(int NumberOfAnnouncements, int StartFrom, String CourseID)
         {
-            var results = await DBuilder._connection.Table<InboxL>().Where(t => t.Mes_receiver.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
+            var results = await DBuilder._connection.Table<AnboxL>().Where(t => t.Cou_id.Equals(CourseID)).OrderByDescending(i => i.Ano_id).ToListAsync();
 
             int index = 1; // start from one when you fetch the messages
-            if (NumberOfMessages <= 0) // if you got zero or less send the default number of messages
-                NumberOfMessages = 10; // the default number of messages
+            if (NumberOfAnnouncements <= 0) // if you got zero or less send the default number of Announcements
+                NumberOfAnnouncements = 10; // the default number of Announcements
 
-            List<Messages> messages = new List<Messages>(); // list of the returned messages
+            List<Announcements> announcements = new List<Announcements>(); // list of the returned Announcements
 
-            if (StartFrom <= 0) // if they tell you start from zero or less then just fetch from the first message
+            if (StartFrom <= 0) // if they tell you start from zero or less then just fetch from the first Announcements
             {
-                foreach (var mesg in results)
+                foreach (var anno in results)
                 {
-                    if (index <= NumberOfMessages)
+                    if (index <= NumberOfAnnouncements)
                     {
-                        Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
-                        messages.Add(newMess);
+                        Announcements newAnno = new Announcements();
+                        newAnno.ano_id = anno.Ano_id;
+                        newAnno.ano_sender = anno.Ano_sender;
+                        newAnno.ano_content = anno.Ano_content;
+                        newAnno.ano_time = anno.Ano_time;
+                        newAnno.cou_id = anno.Cou_id;
+                       // newAnno.ano_status = anno.Ano_status;
+                        announcements.Add(newAnno);
                         index++; // okay go and fetch the next one 
 
                     }
@@ -44,18 +46,19 @@ namespace CScore.DAL
             else // if they tell you to start from somewhere not from the first message
             {
                 int whenToStart = StartFrom; // when we start fetching
-                foreach (var mesg in results)
+                foreach (var anno in results)
                 {
-                    if (whenToStart >= 1 && index <= NumberOfMessages) // <==
+                    if (whenToStart >= 1 && index <= NumberOfAnnouncements) // <==
                     {
                         // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
-                        Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
-                        messages.Add(newMess);
+                        Announcements newAnno = new Announcements();
+                        newAnno.ano_id = anno.Ano_id;
+                        newAnno.ano_sender = anno.Ano_sender;
+                        newAnno.ano_content = anno.Ano_content;
+                        newAnno.cou_id = anno.Cou_id;
+                        // newAnno.ano_status = anno.Ano_status;
+                        announcements.Add(newAnno);
                         index++;
                         // }
 
@@ -66,104 +69,115 @@ namespace CScore.DAL
 
                 }
             }
-            return messages;
+            return announcements;
         }
 
 
-        public static async Task<List<Messages>> getSentAnnouncements(int NumberOfMessages, int StartFrom, int user_id)
+        public static async Task<List<Announcements>> getSentAnnouncements(int NumberOfAnnouncements, int StartFrom, int user_id)
         {
-            var results = await DBuilder._connection.Table<InboxL>().Where(t => t.Mes_sender.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
+            var results = await DBuilder._connection.Table<AnboxL>().Where(t => t.Ano_sender.Equals(user_id)).OrderByDescending(i => i.Ano_id).ToListAsync();
 
-            int index = 1;
-            if (NumberOfMessages <= 0)
-                NumberOfMessages = 10;
 
-            List<Messages> messages = new List<Messages>();
+            int index = 1; // start from one when you fetch the messages
+            if (NumberOfAnnouncements <= 0) // if you got zero or less send the default number of Announcements
+                NumberOfAnnouncements = 10; // the default number of Announcements
 
-            if (StartFrom <= 0)
+            List<Announcements> announcements = new List<Announcements>(); // list of the returned Announcements
+
+            if (StartFrom <= 0) // if they tell you start from zero or less then just fetch from the first Announcements
             {
-                foreach (var mesg in results)
+                foreach (var anno in results)
                 {
-                    if (index <= NumberOfMessages)
+                    if (index <= NumberOfAnnouncements)
                     {
-                        Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
-                        messages.Add(newMess);
-                        index++;
+                        Announcements newAnno = new Announcements();
+                        newAnno.ano_id = anno.Ano_id;
+                        newAnno.ano_sender = anno.Ano_sender;
+                        newAnno.ano_content = anno.Ano_content;
+                        newAnno.ano_time = anno.Ano_time;
+                        newAnno.cou_id = anno.Cou_id;
+                        // newAnno.ano_status = anno.Ano_status;
+                        announcements.Add(newAnno);
+                        index++; // okay go and fetch the next one 
 
                     }
                     else break;
                 }
             }
-            else
+            else // if they tell you to start from somewhere not from the first message
             {
                 int whenToStart = StartFrom; // when we start fetching
-                foreach (var mesg in results)
+                foreach (var anno in results)
                 {
-                    if (whenToStart >= 1 && index <= NumberOfMessages)
+                    if (whenToStart >= 1 && index <= NumberOfAnnouncements) // <==
                     {
-                        // if (index <= NumberOfMessages)
+                        // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
-                        Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
-                        messages.Add(newMess);
+                        Announcements newAnno = new Announcements();
+                        newAnno.ano_id = anno.Ano_id;
+                        newAnno.ano_sender = anno.Ano_sender;
+                        newAnno.ano_content = anno.Ano_content;
+                        newAnno.cou_id = anno.Cou_id;
+                        // newAnno.ano_status = anno.Ano_status;
+                        announcements.Add(newAnno);
                         index++;
                         // }
 
                     }
                     else break;
+
                     whenToStart--;
 
                 }
             }
-            return messages;
+            return announcements;
         }
 
 
 
-        public static async Task<Messages> getAnnouncement(int announcementID)
+        public static async Task<Announcements> getAnnouncement(int announcementID)
         {
-            var checker = await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(announcementID)).CountAsync();
+            var checker = await DBuilder._connection.Table<AnboxL>().Where(i => i.Ano_id.Equals(announcementID)).CountAsync();
 
             if (checker > 0)
             {
-                var results = await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(announcementID)).ToListAsync();
+                var results = await DBuilder._connection.Table<AnboxL>().Where(i => i.Ano_id.Equals(announcementID)).ToListAsync();
 
-                Messages message = new Messages();
-                message.mes_id = results.Select(i => i.Mes_id).First();
-                message.mes_sender = results.Select(i => i.Mes_sender).First();
-                message.mes_content = results.Select(i => i.Mes_content).First();
-                message.mes_status = results.Select(i => i.Mes_status).First();
+                Announcements announcements = new Announcements();
+                announcements.ano_id = results.Select(i => i.Ano_id).First();
+                announcements.ano_sender = results.Select(i => i.Ano_sender).First();
+                announcements.ano_content = results.Select(i => i.Ano_content).First();
+                announcements.ano_time = results.Select(i => i.Ano_time).First();
+                //   announcements.mes_status = results.Select(i => i.Ano_status).First();
+                announcements.cou_id = results.Select(i => i.Cou_id).First();
+                announcements.ter_id = results.Select(i => i.Ter_id).First();
 
-                return message;
+                return announcements;
             }
             else
                 return null;
         }
 
-        public static async Task saveAnnouncement(Messages announcement)
+        public static async Task saveAnnouncement(Announcements announcement)
         {
-            CScore.DataLayer.Tables.InboxL DbMessage = new InboxL();
-            DbMessage.Mes_id = announcement.mes_id;
-            DbMessage.Mes_sender = announcement.mes_sender;
-            DbMessage.Mes_status = announcement.mes_status;
-            //DbMessage.Mes_time = current time 
-            DbMessage.Mes_content = announcement.mes_content;
+            CScore.DataLayer.Tables.AnboxL DbAnnouncement = new AnboxL();
+            DbAnnouncement.Ano_id = announcement.ano_id;
+            DbAnnouncement.Ano_sender = announcement.ano_sender;
+            //DbAnnouncement.Ano_status = announcement.Ano_status;
+            DbAnnouncement.Ano_time = announcement.ano_time;  
+            DbAnnouncement.Ano_content = announcement.ano_content;
+            DbAnnouncement.Cou_id = announcement.cou_id;
+            DbAnnouncement.Ter_id = announcement.ter_id;
 
-            var results = await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(announcement.mes_id)).CountAsync();
+
+            var results = await DBuilder._connection.Table<AnboxL>().Where(i => i.Ano_id.Equals(announcement.ano_id)).CountAsync();
 
             if (results <= 0)
             {
-                await DBuilder._connection.InsertAsync(DbMessage);
+                await DBuilder._connection.InsertAsync(DbAnnouncement);
             }
             else
-                await DBuilder._connection.UpdateAsync(DbMessage);
+                await DBuilder._connection.UpdateAsync(DbAnnouncement);
 
         }
     }

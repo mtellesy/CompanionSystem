@@ -8,11 +8,11 @@ namespace CScore.BCL
 {
     public class Announcements
     {
-        public int ano_id { get; set; }
+        public int ano_id { get; set; } 
 
         public int ano_sender { get; set; }
 
-        public String ano_subject { get; set; }
+       // public String ano_subject { get; set; }
 
         public String ano_time { get; set; }
 
@@ -20,7 +20,7 @@ namespace CScore.BCL
 
         public String cou_id { get; set; }
 
-        public int gro_id { get; set; }
+       // public int gro_id { get; set; }
 
         public int ter_id { get; set; }
     }
