@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BCL\Announcements.cs" />
     <Compile Include="BCL\CourseGroups.cs" />
     <Compile Include="BCL\Status.cs" />
     <Compile Include="BCL\Enrollment.cs" />
