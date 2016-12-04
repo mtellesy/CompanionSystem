@@ -12,6 +12,8 @@ namespace CScore.DAL
 {
   public static  class SemesterD
     {
+
+        // get the last semester schedule based on the first one on the desc order
         public static async Task<Semester> getSemesterSchedule()
         {
            Semester termSchedule = new BCL.Semester() ;
@@ -34,7 +36,9 @@ namespace CScore.DAL
             else 
             return null;
         }
+        
 
+        //save user Schedule
         public static async Task saveSemesterSchedule(Semester termSchedule)
         {
             var count = await DBuilder._connection.Table<SemesterL>().Where(i => i.Ter_id.Equals(termSchedule.ter_id)).CountAsync();
@@ -58,5 +62,7 @@ namespace CScore.DAL
                 await DBuilder._connection.UpdateAsync(term);
             }
         }
+
+        public static async Task<S>
     }
 }
