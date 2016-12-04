@@ -24,7 +24,7 @@ namespace CScore.BCL
 
         public int ter_id { get; set; }
 
-        public static Announcements getAnnouncement(int announcementId)
+        public static async Task<Announcements> getAnnouncement(int announcementId)
         {
             
             Announcements announcement = new Announcements();
@@ -34,7 +34,7 @@ namespace CScore.BCL
             return announcement;
         }
 
-        public static Boolean sendMessage(Messages Message)
+        public static Boolean sendAnnouncement(Announcements announcement)
         {
             if (UpdateBox.CheckForInternetConnection() == true)
             {
@@ -47,7 +47,7 @@ namespace CScore.BCL
                 return false;
         }
 
-        public static List<Messages> getMessages(int NumberOfMessages, int startFrom, String type)
+        public static List<Announcements> getAnnouncements(int NumberOfAnnouncements, int startFrom, String type)
         {
             if (UpdateBox.CheckForInternetConnection() == true)
             {
@@ -57,10 +57,10 @@ namespace CScore.BCL
 
             }
             //get messages from dal
-            List<Messages> tt = new List<Messages>();
+            List<Announcements> tt = new List<Announcements>();
             return tt;
         }
 
     }
 }
-}
+

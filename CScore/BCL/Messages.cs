@@ -20,11 +20,12 @@ namespace CScore.BCL
 
         public String mes_content { get; set; }
 
-        public static Messages getMesssage(int messageId)
+        public static async Task<Messages> getMesssage(int messageId)
         {
             Messages Message = new Messages();
  
-            // Message = await DAL.MessageD.getMessage(messageId);
+            Message = await DAL.MessageD.getMessage(messageId);
+
             return Message;
         }
 
