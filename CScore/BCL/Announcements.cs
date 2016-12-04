@@ -47,18 +47,31 @@ namespace CScore.BCL
                 return false;
         }
 
-        public static List<Announcements> getAnnouncements(int NumberOfAnnouncements, int startFrom, String type)
+        public static async Task<List<Announcements>> getAnnouncements(int NumberOfAnnouncements, int startFrom, String type , String courseID)
         {
+            // type is used for to know which type of Announcements it will return (received or sent)
+            List<Announcements> announcements = new List<Announcements>();
+            //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
             if (UpdateBox.CheckForInternetConnection() == true)
             {
 
                 //SAL stuff
-                // save messages in dal
+                // save announcements in dal
 
             }
-            //get messages from dal
-            List<Announcements> tt = new List<Announcements>();
-            return tt;
+            //get announcements from dal
+
+            //Sent
+            if (type == "sent" || type == "S" || type == "Sent" || type == "SENT")
+                announcements = await DAL.AnnouncementD.getSentAnnouncements(NumberOfAnnouncements, startFrom, User.use_id);
+            //Receive
+            else if (type == "received" || type == "R" || type == "Received" || type == "RECEIVED")
+                announcements = await DAL.AnnouncementD.getReceivedAnnouncements(NumberOfAnnouncements, startFrom, courseID);
+            else
+                return null;
+
+            return announcements;
+          
         }
 
     }

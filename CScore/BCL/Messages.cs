@@ -42,18 +42,28 @@ namespace CScore.BCL
                 return false;
         }
 
-        public static List<Messages> getMessages(int NumberOfMessages, int startFrom,String type)
+        public static async Task<List<Messages>> getMessages(int NumberOfMessages, int startFrom,String type)
         {
+            // type is used for to know which type of Messages it will return (received or sent)
+
+            List<Messages> messages = new List<Messages>(); // type Messages
+            //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
             if (UpdateBox.CheckForInternetConnection() == true)
             {
-
                 //SAL stuff
                 // save messages in dal
                
             }
             //get messages from dal
-            List<Messages> tt = new List<Messages>();
-            return tt ;
+            //Sent
+            if (type == "sent" || type == "S" || type == "Sent" || type == "SENT")
+                messages = await DAL.MessageD.getSentMessages(NumberOfMessages, startFrom, User.use_id);
+            //Receive
+            else if (type == "received" || type == "R" || type == "Received" || type == "RECEIVED")
+                messages = await DAL.MessageD.getReceivedMessages(NumberOfMessages, startFrom, User.use_id);
+            else return null;
+
+                return messages ;
         }
 
     }
