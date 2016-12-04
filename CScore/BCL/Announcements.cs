@@ -23,5 +23,44 @@ namespace CScore.BCL
        // public int gro_id { get; set; }
 
         public int ter_id { get; set; }
+
+        public static Announcements getAnnouncement(int announcementId)
+        {
+            
+            Announcements announcement = new Announcements();
+            announcement = await DAL.AnnouncementD.getAnnouncement(announcementId);
+
+          
+            return announcement;
+        }
+
+        public static Boolean sendMessage(Messages Message)
+        {
+            if (UpdateBox.CheckForInternetConnection() == true)
+            {
+
+                //SAL stuff
+                // save message in dal
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public static List<Messages> getMessages(int NumberOfMessages, int startFrom, String type)
+        {
+            if (UpdateBox.CheckForInternetConnection() == true)
+            {
+
+                //SAL stuff
+                // save messages in dal
+
+            }
+            //get messages from dal
+            List<Messages> tt = new List<Messages>();
+            return tt;
+        }
+
     }
+}
 }

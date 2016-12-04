@@ -155,7 +155,11 @@ namespace CScore.DAL
                 return announcements;
             }
             else
-                return null;
+            {
+                Announcements announcements = null;
+                return announcements;
+            }
+                
         }
 
         public static async Task saveAnnouncement(Announcements announcement)
