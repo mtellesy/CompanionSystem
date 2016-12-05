@@ -68,23 +68,23 @@ namespace CScore.BCL
             return s1;
         }
 
-        private static void addCreditSum(CourseGroups c)
+        private static void addCreditSum(Course c)
         {
             creditSum += c.cou_credits;
         }
 
-        private static void subCreditSum(CourseGroups c)
+        private static void subCreditSum(Course c)
         {
             creditSum -= c.cou_credits;
         }
 
-        private static void addReservedLectureTime(CourseGroups c)
+        private static void addReservedLectureTime(Course c)
         {
             reservedLectureTimes.Add(c.classTimeID);
             reservedLectureTimes.Add(c.classTimeID2);
         }
 
-        private static void deleteReservedLectureTime(CourseGroups c)
+        private static void deleteReservedLectureTime(Course c)
         {
             reservedLectureTimes.Remove(c.classTimeID);
             reservedLectureTimes.Remove(c.classTimeID2);

@@ -34,7 +34,7 @@ namespace CScore.DAL
             {
                 // first the get the basic info of the course
                 Course course = new Course();
-                course.cou_id = data.Cou_id
+                course.cou_id = data.Cou_id;
                 course.cou_nameAR = data.Cou_nameAR;
                 course.cou_nameEN = data.Cou_nameEN;
 
@@ -44,17 +44,63 @@ namespace CScore.DAL
                 foreach(var courseGro in schedule)
                 {
                     Schedule courseSchedule = new Schedule();
+                    courseSchedule.gro_id = courseGro.Gro_id;
+                    courseSchedule.gro_NameAR = courseGro.Gro_nameAR;
+                    courseSchedule.gro_NameEN = courseGro.Gro_nameEN;
+                    courseSchedule.tea_id = courseGro.Tea_ID;
                     courseSchedule.classRoomAR = courseGro.classRoomAR;
                     courseSchedule.classRoomEN = courseGro.classRoomEN;
                     courseSchedule.classRoomID = courseGro.classRoomID;
                     courseSchedule.classTimeID = courseGro.classTimeID;
                     courseSchedule.classStart = courseGro.classStart;
-                    //complete the rest
+                    courseSchedule.classDuration = courseGro.classDuration;
+                    courseSchedule.dayID = courseGro.dayID;
+                    //days name will be named based on the id from 1-7 from sat to fri
+                    course.schedule.Add(courseSchedule);
                 }
+                courses.Add(course);
             }
-
 
             return courses;
         }
+
+        public static async Task saveUserCoursesSchedule(List<Course> courses)
+        {
+            ScheduleL schedule = new ScheduleL();
+
+            foreach(Course course in courses)
+            {
+                schedule.Cou_id = course.cou_id;
+                schedule.Cou_nameAR = course.cou_nameAR;
+                schedule.Cou_nameEN = course.cou_nameEN;
+                schedule.Ter_id = course.Ter_id;
+                foreach(Schedule courseSchedule in course.schedule)
+                {
+                    schedule.Gro_id = courseSchedule.gro_id;
+                    schedule.Gro_nameAR = courseSchedule.gro_NameAR;
+                    schedule.Gro_nameEN = courseSchedule.gro_NameEN;
+                    schedule.Tea_ID = courseSchedule.tea_id;
+                    schedule.dayID = courseSchedule.dayID;
+                    schedule.classTimeID = courseSchedule.classTimeID;
+                    schedule.classStart = courseSchedule.classStart;
+                    schedule.classDuration = courseSchedule.classDuration;
+                    schedule.classRoomID = courseSchedule.classRoomID;
+                    schedule.classRoomAR = courseSchedule.classRoomAR;
+                    schedule.classRoomEN = courseSchedule.classRoomEN;
+                    //now add it to database so you'll have row for every course time
+                    //but before that make sure that the coulmn does exsits
+                    var checker = await DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(schedule.Cou_id))
+                        .Where(i => i.Gro_id.Equals(schedule.Gro_id))
+                        .Where(i => i.classTimeID.Equals(schedule.classTimeID)).CountAsync();
+                    if (checker <= 0)
+                        await DBuilder._connection.InsertAsync(schedule);
+                    else
+                        await DBuilder._connection.UpdateAsync(schedule);
+                }
+            }
+           
+        }
+
+      
     }
 }

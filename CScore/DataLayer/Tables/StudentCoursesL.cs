@@ -21,7 +21,7 @@ namespace CScore.DataLayer.Tables
 
         public int Cou_credits { get; set; }
 
-        public String Tea_id { get; set; }
+        public int Tea_id { get; set; }
         
         public float finalMark { get; set; } 
 

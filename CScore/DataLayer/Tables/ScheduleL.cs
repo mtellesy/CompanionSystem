@@ -19,7 +19,11 @@ namespace CScore.DataLayer.Tables
        
         public int Ter_id { get; set; }
 
-        public String Gro_name { get; set; }
+        public int Tea_ID { get; set; }
+
+        public String Gro_nameAR { get; set; }
+
+        public String Gro_nameEN { get; set; }
 
         public String Cou_nameAR { get; set; }
 
