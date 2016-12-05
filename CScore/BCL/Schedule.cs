@@ -21,7 +21,7 @@ namespace CScore.BCL
         public String classRoomEN { get; set; }
         public int classRoomID { get; set; }
         public int classTimeID { get; set; }
-        public DateTime timeSrart{ get; set; }
-        public float timeDuration { get; set; }
+        public float classStart { get; set; } // maybe it will be changed
+        public float classDuration { get; set; }
     }
 }

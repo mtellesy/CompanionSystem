@@ -63,6 +63,6 @@ namespace CScore.DAL
             }
         }
 
-        public static async Task<S>
+        
     }
 }
