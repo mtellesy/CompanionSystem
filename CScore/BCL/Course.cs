@@ -14,5 +14,40 @@ namespace CScore.BCL
         public int cou_credits { get; set; }
         public int Ter_id { get; set; }
         public List<Schedule> schedule { get; set; }
+
+
+       public static async Task<Course> getCourse(String courseID)
+        {
+            Course course = new Course();
+            if(UpdateBox.CheckForInternetConnection() == true)
+            {
+                //SAL stuff
+            }
+            //use_type must be set from Application layer
+            course = await DAL.CourseD.getCourse(courseID,User.use_type);
+
+            return course;
+
+
+        }
+
+       public static async Task<List<Course>> getUserCoursesSchedule()
+        {
+            List<Course> myCourses = new List<Course>();
+
+            if (UpdateBox.CheckForInternetConnection() == true)
+            {
+                //SAL stuff
+            }
+            //current_term must be set from Application layer
+
+            myCourses = await DAL.CourseD.getUserCoursesSchedule(BCL.Semester.current_term);
+
+            return myCourses;
+
+        }
+
+       
+
     }
 }

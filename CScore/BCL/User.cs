@@ -8,6 +8,10 @@ namespace CScore.BCL
 {
   public static class User
     {
+        // this shluld be set from Application layer 
+        public static String use_type { get; set; } // S for student and L for Lecturer
+
+
         public static int use_id { get; set; }
         public static String use_nameAR { get; set; }
         public static String use_nameEN { get; set; }
