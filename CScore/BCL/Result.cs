@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    class Result
+  public  class Result
     {
-        private String cou_id;
-        private float final;
-        private List<float> midExams;
+        public String cou_id;
+        public float final;
+        public List<float> midExams;
 
         public void saveResult()
         {
-       //     DAL.ResultD.saveSemesterResult(this);
+            //     DAL.ResultD.saveSemesterResult(this);
         }
         /*
         public static void getAndSaveAllResults()
@@ -28,17 +28,31 @@ namespace CScore.BCL
 
                 DAL.ResultD.saveAllResults(r);
             }
-            else
-           {
-               
+           
+            r=DAL.ResultD.getAllResults()
+            return r
+        }*/
+        /*
+        public static List<Result> getSemesterResults()
+        {
+            List<Result> r = new List<Result>();
+            Status s = new Status();
+            s = internetChecker();
+            if (s.status)
+            {
+                r = SAL.ResultS.getSemesterResults(User.use_id, Semester.ter_id);
+
+                DAL.ResultD.saveSemesterResults(r);
             }
 
+            r = DAL.ResultD.getSemesterResults(Semester.ter_id);
+            return r;
         }*/
 
         public float getTotalResult()
         {
             float total = 0;
-            foreach(float x in midExams)
+            foreach (float x in midExams)
             {
                 total += x;
             }
@@ -46,8 +60,8 @@ namespace CScore.BCL
             return total;
         }
 
-      
 
 
+    }
 
 }

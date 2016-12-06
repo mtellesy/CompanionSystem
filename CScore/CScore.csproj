@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="BCL\Department.cs" />
     <Compile Include="BCL\Course.cs" />
+    <Compile Include="BCL\MidMarkDistribution.cs" />
     <Compile Include="BCL\Result.cs" />
     <Compile Include="BCL\Status.cs" />
     <Compile Include="BCL\Enrollment.cs" />
