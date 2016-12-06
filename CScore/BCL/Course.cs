@@ -6,48 +6,46 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    public class Course
+    public  class Course
     {
         public String cou_id { get; set; }
+        public int gro_id { get; set; }
+        public int ter_id { get; set; }
+        public int cou_credits { get; set; }    
+        public String tea_id { get; set; }
+        public float finalMark { get; set; }
+        public int classTimeID { get; set; }
         public String cou_nameAR { get; set; }
         public String cou_nameEN { get; set; }
-        public int cou_credits { get; set; }
-        public int Ter_id { get; set; }
-        public List<Schedule> schedule { get; set; }
-
-
-       public static async Task<Course> getCourse(String courseID)
+        public int classRoomID { get; set; }
+        public int classTimeID2{ get; set; }
+        public int classRoomID2{ get; set; }
+        /*
+        public Course getCourse(String cou_id)
         {
-            Course course = new Course();
-            if(UpdateBox.CheckForInternetConnection() == true)
+            Course cg = new Course();
+            Status s= new Status();
+            s = internetChecker();
+            if (s.status)
             {
-                //SAL stuff
+                cg = SAL.CourseS.getCourse(cou_id);
+                DAL.CourseD.saveCourse();
+            }else
+            {
+                //return the status message
             }
-            //use_type must be set from Application layer
-            course = await DAL.CourseD.getCourse(courseID,User.use_type);
 
-            return course;
-
-
+        }*/
+        /*
+        public void saveCourse()
+        {
+           // DAL.CourseD.saveCourse(this);
         }
 
-       public static async Task<List<Course>> getUserCoursesSchedule()
+        public void deleteCourse()
         {
-            List<Course> myCourses = new List<Course>();
-
-            if (UpdateBox.CheckForInternetConnection() == true)
-            {
-                //SAL stuff
-            }
-            //current_term must be set from Application layer
-
-            myCourses = await DAL.CourseD.getUserCoursesSchedule(BCL.Semester.current_term);
-
-            return myCourses;
-
-        }
-
-       
+            DAL.CourseD.deleteCourse(this);
+        }*/
 
     }
 }

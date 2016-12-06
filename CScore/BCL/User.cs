@@ -28,12 +28,37 @@ namespace CScore.BCL
         public static String academicRankAR { get; set; }
         public static String academicRankEN { get; set; }
 
+        //ASK TOTO how to do it
+      /*
+        public static Status login(int use_id, String password)
+        {
+            Status s = new Status();
+            s = internetChecker();
+            if (s.status)
+            {
+                SAL.UserS.getUser(use_id);
+                saveUser();
+            }
+            else
+            {
+                
+            }
+
+        }
+        */
+
       /*
         public static void saveUser()
         {
-            await DAL.UsersD.saveUser(this); 
+            await DAL.UsersD.saveUser(; 
         }
+
   */
+     //  public static OtherUsers getUser()
+      //  {
+          //  OtherUsers ou = new OtherUsers();
+        //
+//        }
 
     }
 }

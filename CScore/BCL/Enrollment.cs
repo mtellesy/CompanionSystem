@@ -11,8 +11,8 @@ namespace CScore.BCL
         private static int creditSum{ get; set; }
         private static int creditMax { get; set; }
         private static List<int> reservedLectureTimes{ get; set; }
-        private static List<CourseGroups> enrollableCourses { get; set; }
-        private static List<CourseGroups> enrolledCourses { get; set; }
+        private static List<Course> enrollableCourses { get; set; }
+        private static List<Course> enrolledCourses { get; set; }
 
         private static bool isCreditAtMax()
         {
@@ -39,7 +39,7 @@ namespace CScore.BCL
         }
 
         //      CHECK IF A CERTAIN COURSE IS ENROLLABLE
-        private static Status isEnrollable(CourseGroups c)
+        private static Status isEnrollable(Course c)
         {
             Status s1 = new Status();
             s1.status = true;
@@ -90,25 +90,25 @@ namespace CScore.BCL
             reservedLectureTimes.Remove(c.classTimeID2);
         }
 
-        /*
-        public static List<CourseGroups> getEnrollableCourses(int use_id)
+        
+        public static List<Course> getEnrollableCourses()
         {
 
-            // enrollableCourses= SAL.getAvailableCourses(use_id);
+           //  enrollableCourses= SAL.getAvailableCourses(User.use_id);
             return enrollableCourses;
-        }*/
+        }
 
         /*
-        public static List<CourseGroups> getEnrolledCourses(int use_id)
+        public static List<Courses> getEnrolledCourses()
         {
 
-            // enrolledCourses= SAL.EnrollmentS.getEnrolledCourses(use_id);
+            // enrolledCourses= SAL.EnrollmentS.getEnrolledCourses(User.use_id);
             return enrolledCourses;
         }*/
         /*
-        public static Status enrollCourse(int use_id, String cou_id, int cou_group)
+        public static Status enrollCourse(String cou_id, int cou_group)
         {
-            return SAL.EmrollmentS.sendEnrolledCourse(use_id,cou_id,cou_group);
+            return SAL.EmrollmentS.sendEnrolledCourse(User.use_id,cou_id,cou_group);
         }*/
         /*
         public static bool isEnrollmentEnabled()
@@ -116,19 +116,19 @@ namespace CScore.BCL
             return SAL.EnrollmentS.enrollmentStatus()
         }*/
 
-      /*  public static Status dropCourse(String cou_id, int use_id)
+      /*  public static Status dropCourse(String cou_id)
         {
-            CourseGroups c1 = new CourseGroups();
-       //     c1.getCourseGroups(cou_id);
+            Course c1 = new Course();
+       //     c1.getCourse(cou_id);
             subCreditSum(c1);
             deleteReservedLectureTime(c1);
             deleteReservedLectureTime(c1);
-            //     c1.deleteCourse();
-            return SAL.EnrollmentS.sendDroppedCourses(use_id, c1.cou_id);
+            //    c1.deleteCourse();
+            return SAL.EnrollmentS.sendDroppedCourses(User.use_id, c1.cou_id);
         }*/
         public static void saveEnrolledCourses()
         {
-            foreach ( CourseGroups x in enrolledCourses)
+            foreach ( Course x in enrolledCourses)
             {
             //    x.deleteCourse();
             }
