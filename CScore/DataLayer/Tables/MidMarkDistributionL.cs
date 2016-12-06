@@ -17,9 +17,9 @@ namespace CScore.DataLayer.Tables
 
         public String Cou_id { get; set; }
 
-        public String nameAR { get; set; }
+        public String Mid_nameAR { get; set; }
 
-        public String nameEN { get; set; }
+        public String Mid_nameEN { get; set; }
 
         public float grade { get; set; }
     }
