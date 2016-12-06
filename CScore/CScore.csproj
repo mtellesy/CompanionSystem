@@ -34,16 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="BCL\Announcements.cs" />
-    <Compile Include="BCL\Course.cs" />
-    <Compile Include="BCL\Schedule.cs" />
-=======
     <Compile Include="BCL\Department.cs" />
     <Compile Include="BCL\Course.cs" />
     <Compile Include="BCL\MidMarkDistribution.cs" />
     <Compile Include="BCL\Result.cs" />
->>>>>>> refs/remotes/origin/master
+    <Compile Include="BCL\Schedule.cs" />
     <Compile Include="BCL\Status.cs" />
     <Compile Include="BCL\Enrollment.cs" />
     <Compile Include="BCL\Major.cs" />

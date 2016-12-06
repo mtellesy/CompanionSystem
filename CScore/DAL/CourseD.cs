@@ -100,7 +100,8 @@ namespace CScore.DAL
                 schedule.Cou_nameAR = course.cou_nameAR;
                 schedule.Cou_nameEN = course.cou_nameEN;
                 schedule.Ter_id = course.Ter_id;
-                foreach(Schedule courseSchedule in course.schedule)
+               
+                foreach (Schedule courseSchedule in course.schedule)
                 {
                     schedule.Gro_id = courseSchedule.gro_id;
                     schedule.Gro_nameAR = courseSchedule.gro_NameAR;
