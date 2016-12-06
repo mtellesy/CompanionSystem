@@ -12,22 +12,23 @@ namespace CScore.DataLayer.Tables
 {
     public class AnboxL
     {
+        // its the discussingPost in sis
         [PrimaryKey]
-        public int Ano_id { get; set; }
+        public int Ano_id { get; set; } //postID 
 
-        public int Ano_status { get; set; } 
+        public int Ano_status { get; set; } //maybe I will delete it 
 
-        public int Ano_sender { get; set; }
+        public int Ano_sender { get; set; } // postBy in SIS
 
-        public String Ano_subject { get; set; }
+        //public String Ano_subject { get; set; }
 
-        public String Ano_time { get; set; }
+        public String Ano_time { get; set; } //insertTime
 
-        public String Ano_content { get; set; }
+        public String Ano_content { get; set; } //postText
 
-        public String Cou_id { get; set; }
+        public String Cou_id { get; set; } //CourseID discussingGroup table
 
-        public int Gro_id { get; set; }
+        //public int Gro_id { get; set; }
 
         public int Ter_id { get; set; }
 

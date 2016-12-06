@@ -8,6 +8,10 @@ namespace CScore.BCL
 {
     public class Semester
     {
+        // Current term id must be set from Application layer from the start of the APP
+        public static int current_term {get; set;}
+
+
         public int ter_id { get; set; }
 
         public String ter_nameAR { get; set; }
