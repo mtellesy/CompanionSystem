@@ -12,7 +12,147 @@ namespace CScore.DAL
 {
     public static class ResultD
     {
-        public static List<String> results;
+        public static List<String> result;
+
+        public static async Task<List<Result>> getSemesterResult()
+        {
+            List<Result> r = new List<Result>();
+            var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i=>i.Ter_id.Equals(Semester.current_term)).ToListAsync();//NEEDS NOT NULL OPERATOR FOR FINALMARK
+               var checker = await DBuilder._connection.Table<ResultsL>().CountAsync();
+            if (checker > 0)
+            {
+                foreach (var x in results)
+                {
+                    Result returnResult = new Result();
+                    returnResult.cou_id = x.Cou_id;
+                    returnResult.final = x.finalMark;
+                    r.Add(returnResult);
+                }
+                return r;
+            }
+            else
+            {
+                return null;
+            }
+         }
+
+        public static async Task<List<AllResult>> getAllResult()
+        {
+            List<AllResult> r = new List<AllResult>();
+            var results = await DBuilder._connection.Table<ResultsL>().ToListAsync();
+            //    var checker = await DBuilder._connection.Table<ResultsL>().CountAsync();
+            foreach (var x in results)
+            {
+                AllResult returnResult = new AllResult();
+                returnResult.cou_id= x.Cou_id;
+                returnResult.cou_credits = x.Cou_credits;
+                returnResult.cou_nameAR = x.Cou_nameAR;
+                returnResult.cou_nameEN = x.Cou_nameEN;
+                returnResult.res_total = x.Res_total;
+                returnResult.ter_id = x.Ter_id;
+                returnResult.ter_nameAR = x.Ter_nameAR;
+                returnResult.ter_nameEN = x.Ter_nameEN;
+                returnResult.year = x.year; 
+                r.Add(returnResult);
+            }
+            return r;
+        }
+
+        public static async Task saveSemesterResult(Result r)
+        {
+            CScore.DataLayer.Tables.StudentCoursesL studentCourses = new StudentCoursesL();
+            studentCourses.Cou_id = r.cou_id;
+            studentCourses.finalMark = r.final;
+            studentCourses.Ter_id = Semester.current_term;
+            var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Cou_id.Equals(r.cou_id)).CountAsync();
+
+            if (results <= 0)
+            {
+                await DBuilder._connection.InsertAsync(studentCourses);
+            }
+            else
+                await DBuilder._connection.UpdateAsync(studentCourses);
+
+        }
+
+        public static async Task saveAllResult(AllResult r)
+        {
+            CScore.DataLayer.Tables.ResultsL result = new ResultsL();
+            result.Cou_id = r.cou_id;
+            result.Cou_nameEN = r.cou_nameEN;
+            result.Cou_nameAR = r.cou_nameAR;
+            result.Cou_credits = r.cou_credits;
+            result.Ter_id = r.ter_id;
+            result.Ter_nameAR = r.ter_nameAR;
+            result.Ter_nameEN = r.ter_nameEN;
+            result.year = r.year;
+            result.Res_total = r.res_total;
+            var results = await DBuilder._connection.Table<ResultsL>().Where(i => i.Cou_id.Equals(r.cou_id)).CountAsync();
+
+            if (results <= 0)
+            {
+                await DBuilder._connection.InsertAsync(result);
+            }
+            else
+            {
+                await DBuilder._connection.UpdateAsync(result);
+            }
+        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
+
+
+
 
 
         // NEEDS TO ASK TOTO ABOUT IT
@@ -87,6 +227,7 @@ namespace CScore.DAL
             }
             
         }*/
+        /*
 
         public static async Task saveResult(Result x)
         {
@@ -127,6 +268,8 @@ namespace CScore.DAL
 
             await DBuilder._connection.InsertAsync(result);
         }
+
+    */
     }
 
     
