@@ -51,7 +51,7 @@ namespace CScore.BCL
             {
                 s1.message += "Sorry, you have reached the maximum limit of credit for this semester.";
             }
-            res2 = isGroupFull(c.cou_id, c.gro_id);
+            res2 = isGroupFull(c.cou_id, c.schedule[0].gro_id);
             if (res2)
             {
                 s1.message += "Sorry, the group is full.";                
@@ -80,14 +80,14 @@ namespace CScore.BCL
 
         private static void addReservedLectureTime(Course c)
         {
-            reservedLectureTimes.Add(c.classTimeID);
-            reservedLectureTimes.Add(c.classTimeID2);
+           // reservedLectureTimes.Add(c.classTimeID);
+           // reservedLectureTimes.Add(c.classTimeID2);
         }
 
         private static void deleteReservedLectureTime(Course c)
         {
-            reservedLectureTimes.Remove(c.classTimeID);
-            reservedLectureTimes.Remove(c.classTimeID2);
+           // reservedLectureTimes.Remove(c.classTimeID);
+         //   reservedLectureTimes.Remove(c.classTimeID2);
         }
 
         
