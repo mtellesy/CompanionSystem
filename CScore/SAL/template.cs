@@ -8,14 +8,14 @@ namespace CScore.SAL
 {
    public abstract class Template
     {
-        private String response;
+        private List<String> response;
 
-        public String getResponse()
+        public List<String> getResponse()
         {
             return response;
         }
 
-        public void setResponse(String newResponse)
+        public void setResponse(List<String> newResponse)
         {
            this.response = newResponse;
         }
