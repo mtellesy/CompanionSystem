@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using Newtonsoft.Json;
 using CScore.BCL;
+using System.Net.Http;
 
 namespace CScore.SAL
 {
@@ -16,8 +17,14 @@ namespace CScore.SAL
         private static String token;
 
 
-        public static  Object sendRequest(String path, Object requestObject, String requestType)
+
+        public static async Task<Object> sendRequest(String path, Object requestObject, String requestType)
         {
+            String fullPath = domain + path;
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.CreateHttp(fullPath);
+            HttpClient request = new HttpClient();
+            HttpResponseMessage httpResponse = await request.PostAsync(fullPath,null);
+           //httpResponse
             BCL.Announcements aa = new Announcements();
             return aa;
         }
