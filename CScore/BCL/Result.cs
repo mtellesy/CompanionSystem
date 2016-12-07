@@ -10,51 +10,58 @@ namespace CScore.BCL
     {
         public String cou_id;
         public float final;
-        public List<float> midExams;
+        public List<MidMarkDistribution> midExams;
 
-        public void saveResult()
-        {
-            //     DAL.ResultD.saveSemesterResult(this);
-        }
-        /*
-        public static void getAndSaveAllResults()
-        {
-            List < Result> r = new List<Result>();
-            Status s = new Status();
-            s = internetChecker();
-            if (s.status)
-            {
-                r = SAL.ResultS.getAllResults(User.use_id);
-
-                DAL.ResultD.saveAllResults(r);
-            }
-           
-            r=DAL.ResultD.getAllResults()
-            return r
-        }*/
-        /*
-        public static List<Result> getSemesterResults()
+     
+    
+        
+        public static async  Task<List<Result>> getSemesterResults()
         {
             List<Result> r = new List<Result>();
-            Status s = new Status();
-            s = internetChecker();
-            if (s.status)
+      
+            if (UpdateBox.CheckForInternetConnection())
             {
-                r = SAL.ResultS.getSemesterResults(User.use_id, Semester.ter_id);
-
-                DAL.ResultD.saveSemesterResults(r);
+             //   r = SAL.ResultS.getSemesterResults(User.use_id, Semester.current_term);
+                foreach(Result x in r)
+                {
+                    await DAL.ResultD.saveSemesterResult(x);
+                    foreach (MidMarkDistribution y in x.midExams)
+                    {
+                       await DAL.MidMarkDistributionD.saveSemesterMidMarkDistribution(y);
+                    }
+                }
+         
+                foreach(Result x in r)
+                {
+                    await DAL.ResultD.saveSemesterResult(x);
+                    foreach (MidMarkDistribution y in x.midExams)
+                    {
+                        await DAL.MidMarkDistributionD.saveSemesterMidMarkDistribution(y);
+                    }
+                }
+                return r;
             }
+            List<Result> r2 = new List<Result>();
+            r2 =  
+              await  DAL.ResultD.getSemesterResult();
 
-            r = DAL.ResultD.getSemesterResults(Semester.ter_id);
-            return r;
-        }*/
+            foreach (Result x in r2)
+            {
+                //foreach (MidMarkDistribution y in x.midExams)
+                {
+                    x.midExams=await DAL.MidMarkDistributionD.getSemeterMidMarkDistribution(x.cou_id);
+                }
+            }
+          //  r = DAL.ResultD.getSemeterResult(Semester.ter_id);
+            return r2;
+        }
 
         public float getTotalResult()
         {
             float total = 0;
-            foreach (float x in midExams)
+            foreach (MidMarkDistribution x in midExams)
             {
-                total += x;
+                total += x.grade;
             }
             total += final;
             return total;

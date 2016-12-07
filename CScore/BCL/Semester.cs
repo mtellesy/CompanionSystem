@@ -12,7 +12,7 @@ namespace CScore.BCL
         public static int current_term {get; set;}
 
 
-        public int ter_id { get; set; }
+        public  int ter_id { get; set; }
 
         public String ter_nameAR { get; set; }
 

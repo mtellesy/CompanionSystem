@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BCL\AllResult.cs" />
     <Compile Include="BCL\Announcements.cs" />
     <Compile Include="BCL\Department.cs" />
     <Compile Include="BCL\Course.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="DAL\AnnouncementD.cs" />
     <Compile Include="DAL\CourseD.cs" />
     <Compile Include="DAL\MessageD.cs" />
+    <Compile Include="DAL\MidMarkDistributionD.cs" />
     <Compile Include="DAL\ResultD.cs" />
     <Compile Include="DAL\SemesterD.cs" />
     <Compile Include="DAL\UsersD.cs" />
