@@ -24,7 +24,7 @@ namespace CScore.SAL
             String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
             //HttpWebRequest request = (HttpWebRequest)WebRequest.CreateHttp(fullPath);
             HttpClient request = new HttpClient();
-            if (UpdateBox.CheckForInternetConnection() == true)
+            if (await UpdateBox.CheckForInternetConnection() == true)
             {
                 /*  try
                   {

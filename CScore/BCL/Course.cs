@@ -28,7 +28,7 @@ namespace CScore.BCL
         {
             List<Course> courses = new List<Course>();
 
-            if(UpdateBox.CheckForInternetConnection() == true)
+            if(await UpdateBox.CheckForInternetConnection() == true)
             {
                 //SAL stuff
                 //save what you got from sal anyway
