@@ -31,3 +31,5 @@ E:\CompanionSystem\CScore\bin\Debug\CScore.pdb
 E:\CompanionSystem\CScore\bin\Debug\SQLite.Net.Async.dll
 E:\CompanionSystem\CScore\bin\Debug\SQLite.Net.dll
 >>>>>>> refs/remotes/origin/master
+X:\CompanionSystem\CScore\bin\Debug\Newtonsoft.Json.dll
+X:\CompanionSystem\CScore\bin\Debug\Newtonsoft.Json.xml
