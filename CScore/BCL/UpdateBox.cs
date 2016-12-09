@@ -9,17 +9,26 @@ using System.Net.Http;
 
 
 
+
 namespace CScore.BCL
 {
 
  
   public class UpdateBox
     {
-      
+      public static async Task<Boolean> test()
+        {
+            return await Plugin.Connectivity.CrossConnectivity.Current.IsRemoteReachable("www.google.com");
+            
+        }
         public static async Task<bool> CheckForInternetConnection()
         {
             try
             {
+                if (await test() == true)
+                    return true;
+                else return false;
+                /*
                 HttpClient request = new HttpClient();
                 request.Timeout = TimeSpan.FromMilliseconds(11500);
                 Uri uri = new Uri("https://www.google.com");
@@ -28,6 +37,7 @@ namespace CScore.BCL
                 if ((int)response.StatusCode == 200)
                     return true;
                 else return false;
+                */
             } catch 
             {
                 return false;
