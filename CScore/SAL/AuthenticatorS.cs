@@ -24,22 +24,25 @@ namespace CScore.SAL
             String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
             //HttpWebRequest request = (HttpWebRequest)WebRequest.CreateHttp(fullPath);
             HttpClient request = new HttpClient();
+            request.Timeout = TimeSpan.FromMilliseconds(5000);
+            
             if (await UpdateBox.CheckForInternetConnection() == true)
             {
-                /*  try
+                try
                   {
-                      HttpResponseMessage httpResponse = request.PostAsync(fullPath, null).Result;
+                    HttpResponseMessage httpResponse = await request.GetAsync(fullPath);
                       var code = httpResponse.StatusCode;
+                  
                       if ((int)code == 200)
                       {
-                          return "okay";
+                          return "okay" + code.ToString();
                       }
                       else
                       { return "not okay"; }
                   }
                   catch (Exception ex)
-                  { return "ddd"; }*/
-                return "there is internet";
+                { return "Error"; }
+               
 
 
             }
