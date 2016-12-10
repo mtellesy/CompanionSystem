@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using CScore.BCL;
 using System.Net.Http;
+using CScore.BCL;
+//using Newtonsoft.Json;
+//using Newtonsoft.Json.Linq;
+
+
 
 namespace CScore.SAL
 {
@@ -23,28 +25,40 @@ namespace CScore.SAL
     public static class AuthenticatorS
     { 
         public static String domain; // this must be set from Application layer
-        public static List<String> response;
+        public static String response;
+        public static int statusCode;
         private static String token;
 
 
+        //requestObject is a JsonString
+        // use this code on with yours to convert Object to String 
+        //
+        // var json = new JObject(new JProperty("json-key-name", requestObject)).ToString();
+        // String content = new StringContent(json);
+        //
+        // and use this code to convert jsonString to Object
+        // returnedObject =  JsonConvert.DeserializeObject<Object Type>(jsonString);
 
-        public static async Task<String> sendRequest(String path, Object requestObject, String requestType)
+        public static async Task<String> sendRequest(String path, String jsonString, String requestType)
         {
-            response = new List<String>();
+           
             //String fullPath = domain + path;
             String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
-            
+            // httpClient stuff
             HttpClient request = new HttpClient();
             request.Timeout = TimeSpan.FromMilliseconds(5000);
-            HttpResponseMessage httpResponse;
-            HttpContent content;
-            String jsonString;
-            if (requestObject != null)
+            HttpResponseMessage httpResponse = new HttpResponseMessage();
+            HttpContent content = null;
+
+            //return String 
+            String responseJson;
+            
+            // if there is no jsonString to send then keep it null;
+            if (jsonString != null)
             {
-                var json = new JObject(new JProperty("json-key-name", requestObject)).ToString();
-                content = new StringContent(json);
+                content = new StringContent(jsonString);
             }
-            else content = null;
+           
 
             if (await UpdateBox.CheckForInternetConnection() == true)
             {
@@ -52,59 +66,72 @@ namespace CScore.SAL
                   {
                     switch(requestType)
                     {
+                        //POST
                         case "Post":
                         case "POST":
                         case "post":
                             httpResponse = await request.PostAsync(fullPath,content);
-                            return null;
                             break;
+
+                        //PUT
                         case "Put":
                         case "PUT":
                         case "put":
-                            return null;
+                            httpResponse = await request.PutAsync(fullPath, content);
                             break;
-                            // GET 
+
+                        // GET 
                         case "Get":
                         case "GET":
                         case "get":
-
-                            httpResponse = await request.GetAsync(fullPath);
-                            httpResponse.EnsureSuccessStatusCode();
-                            jsonString = await httpResponse.Content.ReadAsStringAsync();
-                          //  returnedObject =  JsonConvert.DeserializeObject<RootObject>(body);
-                            response.Add(httpResponse.StatusCode.ToString());
-                            response.Add(jsonString);
-                            return jsonString;
+                            httpResponse = await request.GetAsync(fullPath);                       
                             break;
                             
+                        // DELETE
                         case "Delete":
                         case "DELETE":
                         case "delete":
-                            return null;
-                            break;
-                        default:
-                            return null;
+                            httpResponse = await request.DeleteAsync(fullPath);
                             break;
 
-                            
+                        default:
+                            httpResponse = null;
+                            break;
 
                     }
-                 
-                  }
+
+                    if (httpResponse != null)
+                    {
+                        //  httpResponse.EnsureSuccessStatusCode();
+                        responseJson = await httpResponse.Content.ReadAsStringAsync();
+                        //save the code so we could us it later
+                        statusCode = (int)httpResponse.StatusCode;
+                        response = responseJson;
+                        //return the jsonString
+                        return responseJson;
+                    }
+                    else
+                    {
+                        statusCode = 0; // zero 0 means Error
+                        response = "ERROR";
+                        return response;
+                    }
+                  
+                }
                   catch (Exception ex)
-                { return "Error"; }
+                {
+                    statusCode = 0; // zero 0 means Error
+                    response = "ERROR";
+                    return response; }
                
 
 
             }
             else {
-                return "you're offline";
+                statusCode = 1; // one 1 means There is no Internet connection
+                response = "Can't reach the Server, check you Internet connection";
+                return response;
                   }
-
-
-            //httpResponse
-            //  BCL.Announcements aa = new Announcements();
-            //return aa;
         }
 
 
