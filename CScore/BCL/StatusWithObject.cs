@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    public class Status
+    public class StatusWithObject<T>
     {
-        public bool status { set; get; }
-        public String message { set; get; }
+        public Status status;
+        public T statusObject;
+        public int statusCode;
 
+       
     }
 }

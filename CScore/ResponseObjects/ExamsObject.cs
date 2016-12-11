@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class ExamsObject
+    public class ExamsObject
     {       
         public String examTypeAR { set; get; }
         public String examTypeEN { set; get; }

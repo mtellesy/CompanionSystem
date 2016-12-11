@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class MessagesObject
+  public class MessagesObject
     {
         //      message
         public int messageID { set; get; }

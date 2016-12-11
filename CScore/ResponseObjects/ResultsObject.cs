@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class ResultsObject
+  public  class ResultsObject
     {   
         public String course_id { set; get; }
         public List<float> midMark { set; get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class SemesterObject
+ public class SemesterObject
     {
        
         public int termID { set; get; }

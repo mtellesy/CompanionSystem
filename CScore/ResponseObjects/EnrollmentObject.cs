@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class EnrollmentObject
+    public class EnrollmentObject
     {
         public bool status { set; get; }
         public int allowed_credits { set; get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class ScheduleObject
+   public class ScheduleObject
     {
 
         //      lecturer
