@@ -14,5 +14,10 @@ namespace CScore.SAL
         {
             return response;
         }
+
+        public void setResponse(String newResponse)
+        {
+           this.response = newResponse;
+        }
     }
 }

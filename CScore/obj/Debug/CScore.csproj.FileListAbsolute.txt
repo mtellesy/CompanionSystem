@@ -14,3 +14,20 @@ J:\Codes\CS.core\CScore\CScore\bin\Debug\SQLite.Net.dll
 J:\Codes\CS.core\CScore\CScore\obj\Debug\CScore.csprojResolveAssemblyReference.cache
 J:\Codes\CS.core\CScore\CScore\obj\Debug\CScore.dll
 J:\Codes\CS.core\CScore\CScore\obj\Debug\CScore.pdb
+<<<<<<< HEAD
+X:\CompanionSystem\CScore\bin\Debug\CScore.dll
+X:\CompanionSystem\CScore\bin\Debug\CScore.pdb
+X:\CompanionSystem\CScore\bin\Debug\SQLite.Net.Async.dll
+X:\CompanionSystem\CScore\bin\Debug\SQLite.Net.dll
+X:\CompanionSystem\CScore\obj\Debug\CScore.csprojResolveAssemblyReference.cache
+X:\CompanionSystem\CScore\obj\Debug\CScore.dll
+X:\CompanionSystem\CScore\obj\Debug\CScore.pdb
+=======
+E:\CompanionSystem\CScore\obj\Debug\CScore.csprojResolveAssemblyReference.cache
+E:\CompanionSystem\CScore\obj\Debug\CScore.dll
+E:\CompanionSystem\CScore\obj\Debug\CScore.pdb
+E:\CompanionSystem\CScore\bin\Debug\CScore.dll
+E:\CompanionSystem\CScore\bin\Debug\CScore.pdb
+E:\CompanionSystem\CScore\bin\Debug\SQLite.Net.Async.dll
+E:\CompanionSystem\CScore\bin\Debug\SQLite.Net.dll
+>>>>>>> refs/remotes/origin/master

@@ -10,13 +10,13 @@ namespace CScore.DataLayer.Tables
     [Table("Users")]
     public class Users
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Use_id { get; set; }
 
-      //  public String Use_nameAR { get; set; }
+       public String Use_nameAR { get; set; }
 
         public String Use_nameEN { get; set; }
-        /*
+        
         public int Dep_id { get; set; }
         
         public String Dep_nameAR { get; set; }
@@ -40,7 +40,7 @@ namespace CScore.DataLayer.Tables
         public String academicRankAR { get; set; }
 
         public String academicRankEN { get; set; }
-        */
+        
 
     }
 }

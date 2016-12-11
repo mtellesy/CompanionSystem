@@ -19,6 +19,8 @@ namespace CScore.DataLayer.Tables
 
         public int Mes_sender { get; set; }
 
+        public int Mes_receiver { get; set; }
+
         public String Mes_subject { get; set; }
 
         public String Mes_time { get; set; }
