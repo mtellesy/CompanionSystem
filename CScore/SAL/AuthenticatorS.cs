@@ -41,7 +41,7 @@ namespace CScore.SAL
 
         public static async Task<String> sendRequest(String path, String jsonString, String requestType)
         {
-           
+
             //String fullPath = domain + path;
             String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
             // httpClient stuff
@@ -52,25 +52,25 @@ namespace CScore.SAL
 
             //return String 
             String responseJson;
-            
+
             // if there is no jsonString to send then keep it null;
             if (jsonString != null)
             {
                 content = new StringContent(jsonString);
             }
-           
+
 
             if (await UpdateBox.CheckForInternetConnection() == true)
             {
                 try
-                  {
-                    switch(requestType)
+                {
+                    switch (requestType)
                     {
                         //POST
                         case "Post":
                         case "POST":
                         case "post":
-                            httpResponse = await request.PostAsync(fullPath,content);
+                            httpResponse = await request.PostAsync(fullPath, content);
                             break;
 
                         //PUT
@@ -84,9 +84,9 @@ namespace CScore.SAL
                         case "Get":
                         case "GET":
                         case "get":
-                            httpResponse = await request.GetAsync(fullPath);                       
+                            httpResponse = await request.GetAsync(fullPath);
                             break;
-                            
+
                         // DELETE
                         case "Delete":
                         case "DELETE":
@@ -104,7 +104,7 @@ namespace CScore.SAL
                     {
                         //  httpResponse.EnsureSuccessStatusCode();
                         responseJson = await httpResponse.Content.ReadAsStringAsync();
-                        //save the code so we could us it later
+                        //save the code so we could use it later
                         statusCode = (int)httpResponse.StatusCode;
                         response = responseJson;
                         //return the jsonString
@@ -116,24 +116,73 @@ namespace CScore.SAL
                         response = "ERROR";
                         return response;
                     }
-                  
+
                 }
-                  catch (Exception ex)
+                catch (Exception ex)
                 {
                     statusCode = 0; // zero 0 means Error
                     response = "ERROR";
-                    return response; }
-               
-
-
+                    return response;
+                }
             }
-            else {
+
+            else
+            {
                 statusCode = 1; // one 1 means There is no Internet connection
                 response = "Can't reach the Server, check you Internet connection";
                 return response;
-                  }
+            }//end of internet checker
+        }//end of method
+
+        public static async Task<String> login(int UserID, String password)
+        {
+            HttpClient request = new HttpClient();
+            request.Timeout = TimeSpan.FromMilliseconds(5000);
+            HttpResponseMessage httpResponse = new HttpResponseMessage();
+            HttpContent content = null;
+            String path = String.Format("/users/authenticate?user={0}?password={1}", UserID, password);
+            String fullPath = domain + path;
+
+            //return String 
+           // String responseJson;
+
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                try
+                {
+                    httpResponse = await request.PostAsync(fullPath, null);
+                    if (httpResponse != null)
+                    {
+                        statusCode = (int)httpResponse.StatusCode;
+                        response = await httpResponse.Content.ReadAsStringAsync();
+                        return response;
+
+
+                    }
+                    else
+                    {
+                        statusCode = 0; // zero 0 means Error
+                        response = "ERROR";
+                        return response;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    statusCode = 0; // zero 0 means Error
+                    response = "ERROR";
+                    return response;
+                }
+
+
+            }
+            else
+            {
+                statusCode = 1; // one 1 means There is no Internet connection
+                response = "Can't reach the Server, check you Internet connection";
+                return response;
+            }
+
         }
 
-
-    }
-}
+    }//end of class
+}//end of namespace 
