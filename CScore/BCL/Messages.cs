@@ -29,9 +29,9 @@ namespace CScore.BCL
             return Message;
         }
 
-        public static Boolean sendMessage(Messages Message)
+        public static async Task<Boolean> sendMessage(Messages Message)
         {
-            if (UpdateBox.CheckForInternetConnection() == true)
+            if (await UpdateBox.CheckForInternetConnection() == true)
             {
                 
                 //SAL stuff
@@ -48,7 +48,7 @@ namespace CScore.BCL
 
             List<Messages> messages = new List<Messages>(); // type Messages
             //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
-            if (UpdateBox.CheckForInternetConnection() == true)
+            if (await UpdateBox.CheckForInternetConnection() == true)
             {
                 //SAL stuff
                 // save messages in dal
