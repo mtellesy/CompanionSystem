@@ -83,6 +83,7 @@
     <Compile Include="ResponseObjects\ExamsObject.cs" />
     <Compile Include="ResponseObjects\UserObject.cs" />
     <Compile Include="SAL\AnnouncementsS.cs" />
+    <Compile Include="SAL\AuthenticatorS.cs" />
     <Compile Include="SAL\CourseS.cs" />
     <Compile Include="SAL\DepartmentS.cs" />
     <Compile Include="SAL\MajorS.cs" />
