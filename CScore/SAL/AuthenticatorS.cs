@@ -13,15 +13,7 @@ using CScore.BCL;
 
 namespace CScore.SAL
 {
-    public class RootObject
-    {
-        public int dstOffset { get; set; }
-        public int rawOffset { get; set; }
-        public string status { get; set; }
-        public string timeZoneId { get; set; }
-        public string timeZoneName { get; set; }
-    }
-
+    
     public static class AuthenticatorS
     { 
         public static String domain; // this must be set from Application layer
