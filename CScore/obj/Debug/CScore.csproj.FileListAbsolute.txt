@@ -31,3 +31,11 @@ E:\CompanionSystem\CScore\bin\Debug\CScore.pdb
 E:\CompanionSystem\CScore\bin\Debug\SQLite.Net.Async.dll
 E:\CompanionSystem\CScore\bin\Debug\SQLite.Net.dll
 >>>>>>> refs/remotes/origin/master
+X:\CompanionSystem\CScore\bin\Debug\Newtonsoft.Json.dll
+X:\CompanionSystem\CScore\bin\Debug\Newtonsoft.Json.xml
+X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.dll
+X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.dll
+X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.pdb
+X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.xml
+X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.pdb
+X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.xml

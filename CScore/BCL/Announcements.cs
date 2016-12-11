@@ -34,9 +34,9 @@ namespace CScore.BCL
             return announcement;
         }
 
-        public static Boolean sendAnnouncement(Announcements announcement)
+        public static async Task<Boolean> sendAnnouncement(Announcements announcement)
         {
-            if (UpdateBox.CheckForInternetConnection() == true)
+            if (await UpdateBox.CheckForInternetConnection() == true)
             {
 
                 //SAL stuff
@@ -52,7 +52,7 @@ namespace CScore.BCL
             // type is used for to know which type of Announcements it will return (received or sent)
             List<Announcements> announcements = new List<Announcements>();
             //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
-            if (UpdateBox.CheckForInternetConnection() == true)
+            if (await UpdateBox.CheckForInternetConnection() == true)
             {
 
                 //SAL stuff

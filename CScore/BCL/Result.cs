@@ -19,7 +19,7 @@ namespace CScore.BCL
         {
             List<Result> r = new List<Result>();
       
-            if (UpdateBox.CheckForInternetConnection())
+            if (await UpdateBox.CheckForInternetConnection())
             {
              //   r = SAL.ResultS.getSemesterResults(User.use_id, Semester.current_term);
                 foreach(Result x in r)
