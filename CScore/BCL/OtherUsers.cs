@@ -46,8 +46,8 @@ namespace CScore.BCL
 
             if (await UpdateBox.CheckForInternetConnection())
             {
-                
-               await SAL.UserS.getOtherUser(userID);
+                SAL.UserS userCatcher = new SAL.UserS();
+               await userCatcher.getOtherUser(userID);
             }
             
             user = await DAL.UsersD.getOtherUser(userID);

@@ -38,11 +38,20 @@ namespace CScore.SAL
         public static String token;
         
 
+
+        //requestObject is a JsonString
+        // use this code on with yours to convert Object to String 
+        //
+        // var json = new JObject(new JProperty("json-key-name", requestObject)).ToString();
+        // String content = new StringContent(json);
+        //
+        // and use this code to convert jsonString to Object
+        // returnedObject =  JsonConvert.DeserializeObject<Object Type>(jsonString);
+
         public static async Task<StatusWithObject<String>> sendRequest(String path, String jsonString, String requestType)
         {
 
-            String fullPath = "http://192.168.1.3/test/users.php?users=5";
-           // Uri fullPath = new Uri(uri);
+            String fullPath = domain + path;
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new Status();
 
@@ -63,11 +72,11 @@ namespace CScore.SAL
                 content = new StringContent(jsonString);
             }
 
-           
-            try
+
+            if (await UpdateBox.CheckForInternetConnection() == true)
             {
-             
-               
+                try
+                {
                     switch (requestType)
                     {
                         //POST
@@ -109,9 +118,8 @@ namespace CScore.SAL
                         //  httpResponse.EnsureSuccessStatusCode();
                         responseJson = await httpResponse.Content.ReadAsStringAsync();
                         //save the code so we could use it later
-                        responseObject.statusCode = (int) httpResponse.StatusCode;
+                        responseObject.statusCode = (int)httpResponse.StatusCode;
                         status.status = true;
-                        status.message = httpResponse.StatusCode.ToString();
                        
                         responseObject.status = status;
                         responseObject.statusObject = responseJson;
@@ -121,7 +129,7 @@ namespace CScore.SAL
                     else
                     {
                         responseObject.statusCode = 0; // zero 0 means Error
-                    status.message = "errorfff";//
+                        status.message = FixedResponses.getResponse(responseObject.statusCode);
                         status.status = false;
                         responseObject.status = status;
                         responseObject.statusObject = null;
@@ -129,20 +137,34 @@ namespace CScore.SAL
                         return responseObject;
                     }
 
-                
+                }
+                catch (Exception ex)
+                {
+                    responseObject.statusCode = 0; // zero 0 means Error
+                    status.message = FixedResponses.getResponse(responseObject.statusCode);
+                    status.status = false;
+                    responseObject.status = status;
+                    responseObject.statusObject = null;
+
+                    return responseObject;
+                }
             }
-            catch (Exception ex)
+
+            else
             {
-                responseObject.statusCode = 0; // zero 0 means Error
-                status.message = " EX";//
+                responseObject.statusCode = 1; // zero 0 means Error
+               
+                status.message = FixedResponses.getResponse(responseObject.statusCode);
                 status.status = false;
                 responseObject.status = status;
                 responseObject.statusObject = null;
+
                 return responseObject;
+            
             }//end of internet checker
         }//end of method
 
-    /*    public static async Task<StatusWithObject<String>> login(int UserID, String password)
+        public static async Task<StatusWithObject<String>> login(int UserID, String password)
         {
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new BCL.Status();
@@ -382,6 +404,6 @@ namespace CScore.SAL
 
 
         }
-        */
+
     }//end of class
 }//end of namespace 

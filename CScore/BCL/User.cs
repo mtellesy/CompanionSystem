@@ -32,7 +32,7 @@ namespace CScore.BCL
         public static String academicRankAR { get; set; }
         public static String academicRankEN { get; set; }
 
-/*
+
         public static async Task<Status> login(int userID , String password)
         {
             loginStatus = 0;
@@ -126,7 +126,7 @@ namespace CScore.BCL
             return message;
         }
 
-     */
+     
 
         }
     

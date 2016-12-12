@@ -21,7 +21,7 @@ namespace CScore.SAL
                 case 0:
                     return "System ERROR!";
                 case 1:
-                    return "Can't reach the Server.Please check your Internet connection fss";
+                    return "Can't reach the Server.Please check your Internet connection";
                 case 2:
                     return "Please Change your Password";
                 default:

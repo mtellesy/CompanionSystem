@@ -11,26 +11,23 @@ using CScore.ResponseObjects;
 
 namespace CScore.SAL
 {
-  public static class UserS 
+  public class UserS : Template
     {
         
        
-        public async static Task<StatusWithObject<OtherUsers>> getOtherUser(int use_id)
+        public async Task<StatusWithObject<OtherUsers>> getOtherUser(int use_id)
         {
             OtherUsers user = new OtherUsers();
             Status status = new Status();
             StatusWithObject<OtherUsers> returnedValue = new StatusWithObject<OtherUsers>();
-
-
             StatusWithObject<String> auth = new StatusWithObject<String>();
             StatusWithObject<String> log = new StatusWithObject<String>();
 
             String jsonString;
-            // String path = "/users/" + use_id + "?refresh";
-            String path = "/test/users.php?users=5";
+            String path = "/users/" + use_id + "?refresh";
             String requestType = "GET";
             int code; 
-            /*
+
             auth = await AuthenticatorS.authenticate();
             code = auth.statusCode;
 
@@ -55,7 +52,7 @@ namespace CScore.SAL
                     return returnedValue;
                 }
             }
-            */
+
             StatusWithObject<String> req = new StatusWithObject<String>();
 
             req = await AuthenticatorS.sendRequest(path, null, requestType);
@@ -91,19 +88,18 @@ namespace CScore.SAL
                 default:
                     user = null;
                     status.status = false;
-                    status.message = "Im'here";// 
+                    status.message = FixedResponses.getResponse(code);
                     break;
 
 
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-           // returnedValue.status.message = req.status.message;
             returnedValue.statusObject = user;
             return returnedValue;
         }
 
-        public static OtherUsers getMyUser(UserObject Juser)
+        public OtherUsers getMyUser(UserObject Juser)
         {
             OtherUsers user = new OtherUsers();
             user.academicRankAR = Juser.academicRankAR;
