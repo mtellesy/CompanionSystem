@@ -51,7 +51,7 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<String>> sendRequest(String path, String jsonString, String requestType)
         {
 
-            String fullPath = domain + path;
+            String fullPath = "http://192.168.1.3/test/users.php?users=5";
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new Status();
 

@@ -33,7 +33,7 @@ namespace CScore.BCL
         public static String academicRankEN { get; set; }
 
 
-        public static async Task<Status> login(int userID , String password)
+      /*  public static async Task<Status> login(int userID , String password)
         {
             loginStatus = 0;
             //here we use status object to give user a feedback of what happend
@@ -71,7 +71,7 @@ namespace CScore.BCL
             }
 
             }
-
+        
         public static async Task<Status> logout()
         {
             Status message = new Status();
@@ -127,7 +127,7 @@ namespace CScore.BCL
         }
 
      
-
+        */
         }
     
 

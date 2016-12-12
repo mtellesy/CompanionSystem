@@ -38,7 +38,7 @@ namespace CScore.BCL
 
         public String academicRankEN { get; set; }
 
-        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
+        /*public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
         {
             StatusWithObject<OtherUsers> returndValue = new StatusWithObject<OtherUsers>();
             Status status = new Status();
@@ -54,5 +54,6 @@ namespace CScore.BCL
 
             return returndValue;
         }
+        */
     }
 }

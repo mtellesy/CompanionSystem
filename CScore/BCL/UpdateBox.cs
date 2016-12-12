@@ -13,36 +13,35 @@ using System.Net.Http;
 namespace CScore.BCL
 {
 
- 
-  public class UpdateBox
+
+    public class UpdateBox
     {
-      public static async Task<Boolean> test()
+        public static async Task<Boolean> test()
         {
-            return await Plugin.Connectivity.CrossConnectivity.Current.IsRemoteReachable("www.google.com");
-            
+            return true;//await Plugin.Connectivity.CrossConnectivity.Current.IsRemoteReachable("192.168.1.3");
+
         }
         public static async Task<bool> CheckForInternetConnection()
         {
-            try
-            {
-                if (await test() == true)
-                    return true;
-                else return false;
-                /*
-                HttpClient request = new HttpClient();
-                request.Timeout = TimeSpan.FromMilliseconds(11500);
-                Uri uri = new Uri("https://www.google.com");
-                var response = await request.GetAsync(uri);
 
-                if ((int)response.StatusCode == 200)
-                    return true;
-                else return false;
-                */
-            } catch 
-            {
-                return false;
-            }
-           
+            //    if (await test() == true)
+            return true;
+            //  else return false;
+            /*
+            HttpClient request = new HttpClient();
+            request.Timeout = TimeSpan.FromMilliseconds(11500);
+            Uri uri = new Uri("https://www.google.com");
+            var response = await request.GetAsync(uri);
+
+            if ((int)response.StatusCode == 200)
+                return true;
+            else return false;
+            */
+            //  } catch 
+            //  {
+            //      return false;
+            //   }
+
 
 
             /*
@@ -61,35 +60,35 @@ namespace CScore.BCL
                 return false;
             }
             */
+
         }
-    }
 
-    /*
-    private static ManualResetEvent evt = new ManualResetEvent(false);
+        /*
+        private static ManualResetEvent evt = new ManualResetEvent(false);
 
-    public static bool CheckForInternetConnection()
-    {
-        try
+        public static bool CheckForInternetConnection()
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.google.com");
-            request.UseDefaultCredentials = true;
-            request.BeginGetResponse(new AsyncCallback(FinishRequest), request);
-            evt.WaitOne();
-            return request.HaveResponse;
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://www.google.com");
+                request.UseDefaultCredentials = true;
+                request.BeginGetResponse(new AsyncCallback(FinishRequest), request);
+                evt.WaitOne();
+                return request.HaveResponse;
 
+            }
+            catch
+            {
+                return false;
+            }
         }
-        catch
+
+        private static void FinishRequest(IAsyncResult result)
         {
-            return false;
+            HttpWebResponse response = (result.AsyncState as HttpWebRequest).EndGetResponse(result) as HttpWebResponse;
+            evt.Set();
         }
-    }
 
-    private static void FinishRequest(IAsyncResult result)
-    {
-        HttpWebResponse response = (result.AsyncState as HttpWebRequest).EndGetResponse(result) as HttpWebResponse;
-        evt.Set();
+        */
     }
-
-    */
 }
-

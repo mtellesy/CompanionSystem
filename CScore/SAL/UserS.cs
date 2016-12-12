@@ -11,11 +11,11 @@ using CScore.ResponseObjects;
 
 namespace CScore.SAL
 {
-  public class UserS : Template
+  public class UserS 
     {
         
        
-        public async Task<StatusWithObject<OtherUsers>> getOtherUser(int use_id)
+        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int use_id)
         {
             OtherUsers user = new OtherUsers();
             Status status = new Status();
@@ -27,7 +27,7 @@ namespace CScore.SAL
             String path = "/users/" + use_id + "?refresh";
             String requestType = "GET";
             int code; 
-
+            /*
             auth = await AuthenticatorS.authenticate();
             code = auth.statusCode;
 
@@ -52,7 +52,7 @@ namespace CScore.SAL
                     return returnedValue;
                 }
             }
-
+            */
             StatusWithObject<String> req = new StatusWithObject<String>();
 
             req = await AuthenticatorS.sendRequest(path, null, requestType);
@@ -99,7 +99,7 @@ namespace CScore.SAL
             return returnedValue;
         }
 
-        public OtherUsers getMyUser(UserObject Juser)
+        public static OtherUsers getMyUser(UserObject Juser)
         {
             OtherUsers user = new OtherUsers();
             user.academicRankAR = Juser.academicRankAR;
