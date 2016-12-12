@@ -76,8 +76,8 @@
     <Compile Include="ResponseObjects\CourseObject.cs" />
     <Compile Include="ResponseObjects\DepartmentObject.cs" />
     <Compile Include="ResponseObjects\EnrollmentObject.cs" />
-    <Compile Include="ResponseObjects\gradeObject.cs" />
-    <Compile Include="ResponseObjects\majorObject.cs" />
+    <Compile Include="ResponseObjects\GradeObject.cs" />
+    <Compile Include="ResponseObjects\MajorObject.cs" />
     <Compile Include="ResponseObjects\MessagesObject.cs" />
     <Compile Include="ResponseObjects\ResultsObject.cs" />
     <Compile Include="ResponseObjects\ScheduleObject.cs" />

@@ -8,10 +8,10 @@ namespace CScore.BCL
 {
     public class Department
     {
-        private int dep_id { set; get; }
-        private String  dep_nameAR { set; get; }
-        private String dep_nameEN { set; get; }
-        private String dep_description { set; get; }
+        public int dep_id { set; get; }
+        public String  dep_nameAR { set; get; }
+        public String dep_nameEN { set; get; }
+        public String dep_description { set; get; }
 
         public void saveDepartment()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-  public  class majorObject
+  public  class MajorObject
     {
         public bool status { set; get; }
     }
