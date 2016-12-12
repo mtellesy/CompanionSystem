@@ -48,16 +48,17 @@ namespace CScore.SAL
         // and use this code to convert jsonString to Object
         // returnedObject =  JsonConvert.DeserializeObject<Object Type>(jsonString);
 
-        public static async Task<String> sendRequest(String path, String jsonString, String requestType)
+        public static async Task<StatusWithObject<String>> sendRequest(String path, String jsonString, String requestType)
         {
 
             String fullPath = domain + path;
-          
-         
-            //String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
-          
-            // httpClient stuff
-            HttpClient request = new HttpClient();
+            StatusWithObject<String> responseObject = new StatusWithObject<String>();
+            Status status = new Status();
+
+              //String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
+
+              // httpClient stuff
+              HttpClient request = new HttpClient();
             request.Timeout = TimeSpan.FromMilliseconds(5000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
             HttpContent content = null;
@@ -117,37 +118,57 @@ namespace CScore.SAL
                         //  httpResponse.EnsureSuccessStatusCode();
                         responseJson = await httpResponse.Content.ReadAsStringAsync();
                         //save the code so we could use it later
-                        statusCode = (int)httpResponse.StatusCode;
-                        response = responseJson;
+                        responseObject.statusCode = (int)httpResponse.StatusCode;
+                        status.status = true;
+                       
+                        responseObject.status = status;
+                        responseObject.statusObject = responseJson;
                         //return the jsonString
-                        return responseJson;
+                        return responseObject;
                     }
                     else
                     {
-                        statusCode = 0; // zero 0 means Error
-                        response = response = FixedResponses.getResponse(statusCode);
-                        return response;
+                        responseObject.statusCode = 0; // zero 0 means Error
+                        status.message = FixedResponses.getResponse(responseObject.statusCode);
+                        status.status = false;
+                        responseObject.status = status;
+                        responseObject.statusObject = null;
+                      
+                        return responseObject;
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    statusCode = 0; // zero 0 means Error
-                    response = response = FixedResponses.getResponse(statusCode);
-                    return response;
+                    responseObject.statusCode = 0; // zero 0 means Error
+                    status.message = FixedResponses.getResponse(responseObject.statusCode);
+                    status.status = false;
+                    responseObject.status = status;
+                    responseObject.statusObject = null;
+
+                    return responseObject;
                 }
             }
 
             else
             {
-                statusCode = 1; // one 1 means There is no Internet connection
-                response = "Can't reach the Server, check your Internet connection";
-                return response;
+                responseObject.statusCode = 1; // zero 0 means Error
+               
+                status.message = FixedResponses.getResponse(responseObject.statusCode);
+                status.status = false;
+                responseObject.status = status;
+                responseObject.statusObject = null;
+
+                return responseObject;
+            
             }//end of internet checker
         }//end of method
 
-        public static async Task<String> login(int UserID, String password)
+        public static async Task<StatusWithObject<String>> login(int UserID, String password)
         {
+            StatusWithObject<String> responseObject = new StatusWithObject<String>();
+            Status status = new BCL.Status();
+            
             HttpClient request = new HttpClient();
             request.Timeout = TimeSpan.FromMilliseconds(5000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
@@ -179,21 +200,37 @@ namespace CScore.SAL
                                 response = "Authenticatin succeeded";
                                 if (auth.forceResetPassword)
                                 {
-                                    statusCode = 2;
-                                    response = FixedResponses.getResponse(statusCode);
+                                    responseObject.statusCode = 2;
+                                    status.message = FixedResponses.getResponse(responseObject.statusCode);
                                 }
-                                return response;
+                                status.status = false;
+                                responseObject.status = status;
+                                responseObject.statusObject = null;
+                                return responseObject;
                               
                             case 401:
-                                response = "User and/or Password are not correct";
-                                return response;
+                                status.message = "User and/or Password are not correct";
+                                status.status = false;
+                                responseObject.statusCode = statusCode;
+                                responseObject.statusObject = null;
+                                responseObject.status = status;
+                                return responseObject;
 
                             case 403:
-                                response = "User is not authorized to create a session, Login aborted";
-                                return response;
+                                status.message = "User is not authorized to create a session, Login aborted";
+                                status.status = false;
+                                responseObject.statusCode = statusCode;
+                                responseObject.statusObject = null;
+                                responseObject.status = status;
+                                return responseObject;
+                                
                             default:
-                                response = FixedResponses.getResponse(statusCode);
-                                return response;
+                                status.message = FixedResponses.getResponse(statusCode);
+                                status.status = false;
+                                responseObject.statusCode = statusCode;
+                                responseObject.statusObject = null;
+                                responseObject.status = status;
+                                return responseObject;
 
                         }
                             
@@ -201,15 +238,23 @@ namespace CScore.SAL
                     else
                     {
                         statusCode = 0; // zero 0 means Error
-                        response = response = FixedResponses.getResponse(statusCode);
-                        return response;
+                        status.message = FixedResponses.getResponse(statusCode);
+                        status.status = false;
+                        responseObject.statusCode = statusCode;
+                        responseObject.statusObject = null;
+                        responseObject.status = status;
+                        return responseObject;
                     }
                 }
                 catch (Exception ex)
                 {
                     statusCode = 0; // zero 0 means Error
-                    response = response = FixedResponses.getResponse(statusCode);
-                    return response;
+                    status.message = FixedResponses.getResponse(statusCode);
+                    status.status = false;
+                    responseObject.statusCode = statusCode;
+                    responseObject.statusObject = null;
+                    responseObject.status = status;
+                    return responseObject;
                 }
 
 
@@ -217,18 +262,24 @@ namespace CScore.SAL
             else
             {
                 statusCode = 1; // one 1 means There is no Internet connection
-                response = response = FixedResponses.getResponse(statusCode);
-                return response;
+                status.message = FixedResponses.getResponse(statusCode);
+                status.status = false;
+                responseObject.statusCode = statusCode;
+                responseObject.statusObject = null;
+                responseObject.status = status;
+                return responseObject;
             }
 
         }
 
         //this method is used also to return user data
-        public static async Task<String> authenticate()
+        public static async Task<StatusWithObject<String>> authenticate()
         {
             String path = "/users/authenticate" + String.Format("?token={0}", token);
             String fullPath = domain + path;
 
+            Status status = new Status();
+            StatusWithObject<String> responseObject = new StatusWithObject<String>();
 
             HttpClient request = new HttpClient();
             request.Timeout = TimeSpan.FromMilliseconds(5000);
@@ -261,16 +312,29 @@ namespace CScore.SAL
                             User.academicRankID = user.academicRankID;
                             User.academicRankAR = user.academicRankAR;
                             User.academicRankEN = user.academicRankEN;
-                            response = "User data restored successfully";
-                            return response;
+                            status.message = "User data restored successfully";
+                            status.status = true;
+                            responseObject.statusCode = statusCode;
+                            responseObject.status = status;
+                            responseObject.statusObject = response;
+                            return responseObject;
 
                         case 401:
-                            response = "Session failed, you need to login";
-                            return response;
+                            status.message = "Session failed, you need to login";
+                            status.status = false;
+                            responseObject.statusCode = statusCode;
+                            responseObject.status = status;
+                            responseObject.statusObject = null;
+                            return responseObject;
+                          
 
                         default:
-                            response = FixedResponses.getResponse(statusCode);
-                            return response;
+                            status.message = FixedResponses.getResponse(statusCode);
+                            status.status = false;
+                            responseObject.statusCode = statusCode;
+                            responseObject.status = status;
+                            responseObject.statusObject = null;
+                            return responseObject;
 
                     }
                    
@@ -278,16 +342,24 @@ namespace CScore.SAL
                 catch
                 {
                     statusCode = 0; // zero 0 means Error
-                    response = response = FixedResponses.getResponse(statusCode);
-                    return response;
+                    status.message = FixedResponses.getResponse(statusCode);
+                    status.status = false;
+                    responseObject.statusCode = statusCode;
+                    responseObject.status = status;
+                    responseObject.statusObject = null;
+                    return responseObject;
                 }
 
             }
             else
             {
                 statusCode = 1; // one 1 means There is no Internet connection
-                response = response = FixedResponses.getResponse(statusCode);
-                return response;
+                status.message = FixedResponses.getResponse(statusCode);
+                status.status = false;
+                responseObject.statusCode = statusCode;
+                responseObject.status = status;
+                responseObject.statusObject = null;
+                return responseObject;
             }
             
         }
