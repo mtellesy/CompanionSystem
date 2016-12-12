@@ -1,4 +1,7 @@
 ﻿using CScore.BCL;
+using CScore.ResponseObjects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,10 +42,10 @@ namespace CScore.SAL
             switch (code)
             {
                 case 200:
-                    List<GradeObject> results1 = JsonConvert.DeserializeObject<List<GradeObject>>(jsonString);
-                    foreach (GradeObject x in results1)
+                    List<DepartmentObject> results1 = JsonConvert.DeserializeObject<List<DepartmentObject>>(jsonString);
+                    foreach (DepartmentObject x in results1)
                     {
-                        results.Add(getAllMyResult(x));
+                        results.Add(convertToDepartment(x));
                     }
                     status.message = "User Profile returned";
                     status.status = true;
@@ -60,8 +63,15 @@ namespace CScore.SAL
             returnedValue.statusCode = code;
             returnedValue.statusObject = results;
             return returnedValue;
-
-            return departments;
+        }
+        public static Department convertToDepartment(DepartmentObject dep)
+        {
+            Department department = new Department();
+            department.Dep_id = dep.departmentID;
+            department.DepNameAR = dep.nameAR;
+            department.Dep_nameEN = dep.nameEN;
+            department.Dep_discription = null;
+            return department;
         }
     }
 }
