@@ -20,55 +20,55 @@ namespace CScore.SAL
             OtherUsers user = new OtherUsers();
             Status status = new Status();
             StatusWithObject<OtherUsers> returnedValue = new StatusWithObject<OtherUsers>();
+            StatusWithObject<String> auth = new StatusWithObject<String>();
+            StatusWithObject<String> log = new StatusWithObject<String>();
 
             String jsonString;
             String path = "/users/" + use_id + "?refresh";
             String requestType = "GET";
+            int code; 
 
-           await AuthenticatorS.authenticate();
-            int code = AuthenticatorS.statusCode;
+            auth = await AuthenticatorS.authenticate();
+            code = auth.statusCode;
 
-            //if user not logged in 
-            if (code == 401)
+            if(auth.status.status == false)
             {
-                //user login 
-                await AuthenticatorS.login(User.use_id, User.password);
-
-                //if anythin wrong happens
-                    if(AuthenticatorS.statusCode != 200)
+               if(code == 401)
                 {
-                    user = null; // no user to return
-                    status.status = false; 
-                    status.message = AuthenticatorS.response;
-                    returnedValue.status = status;
-                    returnedValue.statusObject = user;
-                    returnedValue.statusCode = AuthenticatorS.statusCode;
+                  log =  await AuthenticatorS.login(User.use_id, User.password);
+                    if(log.status.status == false)
+                    {
+                        returnedValue.status = log.status;
+                        returnedValue.statusCode = log.statusCode;
+                        returnedValue.statusObject = null;
+                        return returnedValue;
+                    }
+                } 
+               else
+                {
+                    returnedValue.status = auth.status;
+                    returnedValue.statusCode = auth.statusCode;
+                    returnedValue.statusObject = null;
                     return returnedValue;
                 }
             }
-            else if(code != 200)
+
+            StatusWithObject<String> req = new StatusWithObject<String>();
+
+            req = await AuthenticatorS.sendRequest(path, null, requestType);
+
+            jsonString = req.statusObject;
+            code = req.statusCode;
+            
+            if(req.status.status == false)
             {
-                user = null; // no user to return
-                status.status = false;
-                status.message = AuthenticatorS.response;
-                returnedValue.status = status;
-                returnedValue.statusObject = user;
-                returnedValue.statusCode = AuthenticatorS.statusCode;
+                returnedValue.status = req.status;
+                returnedValue.statusCode = req.statusCode;
+                returnedValue.statusObject = null;
                 return returnedValue;
             }
-
-            jsonString = await AuthenticatorS.sendRequest(path, null, requestType);
-            code = AuthenticatorS.statusCode;
-
             switch(code)
             {
-                case 0:
-                case 1:
-                case 2:
-                    user = null;
-                    status.status = false;
-                    status.message = AuthenticatorS.response;
-                    break;
                 case 200:
                     UserObject JUser = JsonConvert.DeserializeObject<UserObject>(jsonString);
                     user = getMyUser(JUser);
