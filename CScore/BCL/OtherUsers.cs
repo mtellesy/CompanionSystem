@@ -14,7 +14,7 @@ namespace CScore.BCL
 
         public String use_nameEN { get; set; }
 
-        public int dep_id { get; set; }
+        public String dep_id { get; set; }
 
         public String dep_nameAR { get; set; }
 
@@ -38,9 +38,21 @@ namespace CScore.BCL
 
         public String academicRankEN { get; set; }
 
-        public void saveUser(OtherUsers user)
+        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
         {
+            StatusWithObject<OtherUsers> returndValue = new StatusWithObject<OtherUsers>();
+            Status status = new Status();
+            OtherUsers user = new OtherUsers();
 
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                SAL.UserS userCatcher = new SAL.UserS();
+               await userCatcher.getOtherUser(userID);
+            }
+            
+            user = await DAL.UsersD.getOtherUser(userID);
+
+            return returndValue;
         }
     }
 }

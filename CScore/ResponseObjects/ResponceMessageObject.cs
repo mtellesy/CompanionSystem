@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class ResponceMessageObject
+  public class ResponceMessageObject
     {
         public String messageAR { set; get; }
         public String messageEN { set; get; }
