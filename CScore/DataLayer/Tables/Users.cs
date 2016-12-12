@@ -17,7 +17,7 @@ namespace CScore.DataLayer.Tables
 
         public String Use_nameEN { get; set; }
         
-        public int Dep_id { get; set; }
+        public String Dep_id { get; set; }
         
         public String Dep_nameAR { get; set; }
 

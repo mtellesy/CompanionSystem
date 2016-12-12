@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-    class UserObject
+  public class UserObject
     {
         //      ID
         public int userID { set; get; }
@@ -17,11 +17,13 @@ namespace CScore.ResponseObjects
         public String firstNameAR { set; get; }
         public String secondNameAR { set; get; }
         public String thirdNameAR { set; get; }
+        public String lastNameAR { set; get; }
         public String nameAR { set; get; }
         //      English name
         public String firstNameEN { set; get; }
         public String secondNameEN { set; get; }
         public String thirdNameEN { set; get; }
+        public String lastNameEN { set; get; }
         public String nameEN { set; get; }
         //      contact information
         public String email { set; get; }
