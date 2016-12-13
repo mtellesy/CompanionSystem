@@ -9,16 +9,16 @@ namespace CScore.ResponseObjects
     public class CourseObject
     {
         //      course
-        public String courseID { set; get; }
+       /* public String courseID { set; get; }
         public String nameAR { set; get; }
-        public String nameEN { set; get; }
+        public String nameEN { set; get; }*/
         //      group
         public int groupID { set; get; }
         public String groupNameAR { set; get; }
         public String groupNameEN { set; get; }
         //      other
-        public int credit { set; get; }
-        public int semester { set; get; }
+      /*  public int credit { set; get; }
+        public int semester { set; get; }*/
         //      lecturer
         public int lecturerID { set; get; }
         public String lecturerNameAR { set; get; }
@@ -32,8 +32,14 @@ namespace CScore.ResponseObjects
         public String branchID { set; get; }
         public String branchNameAR { set; get; }
         public String branchNameEN { set; get; }
-
-
+        // as created by json2csharp
+        public string courseID { get; set; }
+        public string nameAR { get; set; }
+        public string nameEN { get; set; }
+        public int credit { get; set; }
+        public int semester { get; set; }
+       // public List<Schedule> schedule { get; set; }
+        public List<ScheduleObject> schedule { set; get; }
 
     }
 }

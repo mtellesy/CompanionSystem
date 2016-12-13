@@ -38,6 +38,7 @@
     <Compile Include="BCL\Announcements.cs" />
     <Compile Include="BCL\Department.cs" />
     <Compile Include="BCL\Course.cs" />
+    <Compile Include="BCL\Exams.cs" />
     <Compile Include="BCL\MidMarkDistribution.cs" />
     <Compile Include="BCL\Result.cs" />
     <Compile Include="BCL\Schedule.cs" />

@@ -47,7 +47,7 @@ namespace CScore.SAL
                     {
                         results.Add(convertToDepartment(x));
                     }
-                    status.message = "User Profile returned";
+                    status.message = "Departments returned";
                     status.status = true;
                     break;
 

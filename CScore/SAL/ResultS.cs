@@ -78,7 +78,7 @@ namespace CScore.SAL
                     {
                         results.Add(getMyResult(x));
                     }
-                    status.message = "User Profile returned";
+                    status.message = "Semester results returned";
                     status.status = true;
                     break;
     
@@ -162,7 +162,7 @@ namespace CScore.SAL
                     {
                         results.Add(getAllMyResult(x));
                     }
-                    status.message = "User Profile returned";
+                    status.message = "Transcript returned";
                     status.status = true;
                     break;
 

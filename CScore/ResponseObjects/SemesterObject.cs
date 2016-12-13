@@ -15,6 +15,7 @@ namespace CScore.ResponseObjects
         public String year { set; get; }
         public String termStart { set; get; }
         public String termEnd { set; get; }
+        public List<ExamsObject> exam { set; get; }
 
     }
 }
