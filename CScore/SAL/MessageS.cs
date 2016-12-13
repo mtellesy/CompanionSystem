@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CScore.SAL
 {
-    class MessageS:Template
+    public static class MessageS
     {
         public static List<Messages> getLatesteMessages()
         {

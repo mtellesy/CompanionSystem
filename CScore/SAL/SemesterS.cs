@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CScore.SAL
 {
-    class SemesterS:Template
+    public static class SemesterS
     {
         /*getCurrentSemester(): List<String>
 getUserSchedule(User id): List<Schedule>

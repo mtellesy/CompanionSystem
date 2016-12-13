@@ -94,7 +94,6 @@
     <Compile Include="SAL\MessageS.cs" />
     <Compile Include="SAL\ResultS.cs" />
     <Compile Include="SAL\SemesterS.cs" />
-    <Compile Include="SAL\Template.cs" />
     <Compile Include="SAL\UserS.cs" />
   </ItemGroup>
   <ItemGroup>

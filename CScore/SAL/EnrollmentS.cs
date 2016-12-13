@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CScore.SAL
 {
-    class EnrollmentS:Template
+    public static class EnrollmentS
     {
         public static bool enrollmentStatus()
         {

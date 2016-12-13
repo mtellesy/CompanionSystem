@@ -10,7 +10,7 @@ using CScore.ResponseObjects;
 
 namespace CScore.SAL
 {
-  public class ResultS:Template
+  public static class ResultS
     {
         public static async  Task<StatusWithObject<List<Result>>> getSemesterResult()
         {

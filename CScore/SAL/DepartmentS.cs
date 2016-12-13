@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CScore.SAL
 {
-    class DepartmentS:Template
+    public static class DepartmentS
     {
         public static async Task<StatusWithObject<List<Department>>> getDepartments()
         {

@@ -7,7 +7,7 @@ using CScore.BCL;
 
 namespace CScore.SAL
 {
-    class AnnouncementsS:Template
+    public static class AnnouncementsS
     {
         /*getLatestAnnouncements(User id): List<Announcement>
 getAnnouncements(User id): List<Announcement>

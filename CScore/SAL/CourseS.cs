@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CScore.SAL
 {
-  public  class CourseS : Template
+  public static class CourseS 
     {
         /*        set path to(endpoint path)
         Initialize Object to(Received Object) \\ only if it’s a(send) method

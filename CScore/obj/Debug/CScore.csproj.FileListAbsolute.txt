@@ -39,3 +39,11 @@ X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.pdb
 X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.xml
 X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.pdb
 X:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.xml
+E:\CompanionSystem\CScore\bin\Debug\Newtonsoft.Json.dll
+E:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.dll
+E:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.dll
+E:\CompanionSystem\CScore\bin\Debug\Newtonsoft.Json.xml
+E:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.pdb
+E:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.xml
+E:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.pdb
+E:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.xml
