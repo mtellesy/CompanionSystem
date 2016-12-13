@@ -46,7 +46,7 @@ namespace CScore.SAL
                 case 200:
                     SemesterObject semesterResult = JsonConvert.DeserializeObject<SemesterObject>(jsonString);
          
-                    result= convertToSemester(semesterResult);
+                    result= SemesterObject.convertToSemester(semesterResult);
                     status.message = "Course current semester retrieved successfully";
                     status.status = true;
                     break;
@@ -66,12 +66,23 @@ namespace CScore.SAL
 
         }
         // not yet done
-        public static List<Schedule> getUserSchedule()
+        public static  async Task<StatusWithObject<List<Course>>> getUserSchedule()
         {
-            List<Schedule> schedule = new List<Schedule>();
+            StatusWithObject<List<Course>> courses = new StatusWithObject<List<Course>>();
+            List<Course> enrolleCourses = new List<Course>();
             String path = "/schedule";
-            return schedule;
-            // calls for the same path as get courses schedule but omly courses the user enrolled in 
+            courses =await getCoursesTimetable();
+            if (courses.status.status == true)
+            {
+                return courses;
+
+            }else
+            {
+                return null;
+            }
+
+            
+            // calls for the same path as get courses schedule but only courses the user enrolled in 
         }
 
 
@@ -108,7 +119,7 @@ namespace CScore.SAL
                 case 200:
                     SemesterObject semesterResult = JsonConvert.DeserializeObject<SemesterObject>(jsonString);
          
-                    result= convertToSemester(semesterResult);
+                    result= SemesterObject.convertToSemester(semesterResult);
                     status.message = "Term schedule retrieved successfully";
                     status.status = true;
                     break;
@@ -162,7 +173,7 @@ namespace CScore.SAL
                     List<CourseObject> courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
                     foreach( CourseObject x in courseResult)
                     {
-                        temp = convertToCourse(x);
+                        temp = CourseObject.convertToCourse(x);
                         courses.Add(temp);
                     }
                     status.message = "Courses retrieved successfully ";
@@ -183,65 +194,6 @@ namespace CScore.SAL
             return returnedValue;
         }
 
-        public static Semester convertToSemester(SemesterObject sem)
-        {
-            Semester semester = new Semester();
-            Exams ex = new Exams();
-            semester.Ter_id = sem.termID;
-            semester.Ter_nameAR = sem.nameAR;
-            semester.Ter_nameEN = sem.nameEN;
-            semester.Ter_start = sem.termStart;
-            semester.Ter_end = sem.termEnd;
-            semester.Year = sem.year;
-            if (sem.exam != null) {
-                foreach(ExamsObject x in sem.exam)
-                {
-                    ex.ExamTypeAR = x.examTypeAR;
-                    ex.ExamTypeEN = x.examTypeEN;
-                    ex.Duration = x.duration;
-                    ex.StartDate = x.startDate;
-                    ex.EndDate = x.endDate;
-                    semester.Exam.Add(ex);
-                }
-            }
-            semester.Ter_enrollment = null;
-            semester.Ter_dropCourses = null;
-            semester.Ter_lastStudyDate = null;
-            return semester;
-        }
-
-        public static Course convertToCourse(CourseObject cou)
-        {
-            Course course = new Course();
-            Schedule ex = new Schedule();
-            course.Cou_id = cou.courseID;
-            course.Cou_nameAR = cou.groupNameAR;
-            course.Cou_nameEN = cou.groupNameEN;
-            course.Cou_credits = cou.credit;
-            course.Ter_id = cou.semester;
-            if (cou.schedule != null)
-            {
-                foreach (ScheduleObject x in cou.schedule)
-                {
-                    ex.Tea_id = x.lecturerID;
-                    ex.Gro_id = x.groupID;
-                    ex.Gro_NameAR = x.groupNameAR;
-                    ex.Gro_NameEN = x.groupNameEN;
-                    ex.ClassDuration = x.timeDuration;
-                    ex.ClassRoomAR = x.classRoomAR;
-                    ex.ClassRoomEN = x.classRoomEN;
-                    ex.ClassRoomID = x.classRoomID;
-                    ex.ClassStart = x.timeStart;
-                    ex.ClassTimeID = x.classTimeID;
-                    ex.DayID = x.dayID;
-                    ex.DayAR = x.dayAR;
-                    ex.DayEN = x.dayEN;
-                    course.Schedule.Add(ex);
-
-                }
-            }
-            return course;
-            
-        }
+      
     }
 }

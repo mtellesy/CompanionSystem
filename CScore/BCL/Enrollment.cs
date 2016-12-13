@@ -9,7 +9,7 @@ namespace CScore.BCL
     public static class Enrollment
     {
         private static int creditSum{ get; set; }
-        private static int creditMax { get; set; }
+        public static int creditMax { get; set; }
         private static List<int> reservedLectureTimes{ get; set; }
         private static List<Course> enrollableCourses { get; set; }
         private static List<Course> enrolledCourses { get; set; }
