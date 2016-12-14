@@ -53,7 +53,7 @@ namespace CScore.DAL
         }
 
 
-        public static async Task<OtherUsers> getOtherUser(int user_id)
+        public static async Task<OtherUsers> getOtherUser(String user_id)
         {
            // get data 
             var DBuser = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(user_id)).ToListAsync();

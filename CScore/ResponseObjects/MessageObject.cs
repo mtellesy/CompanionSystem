@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CScore.BCL;
 
 namespace CScore.ResponseObjects
 {
-  public  class MajorObject
+    public class MessageObject
     {
-        public bool status { set; get; }
+        public String messageAR { set; get; }
+        public String messageEn { set; get; }
+
+        
     }
 }

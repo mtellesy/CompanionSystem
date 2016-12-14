@@ -15,7 +15,7 @@ namespace CScore.DataLayer.Tables
         [PrimaryKey]
         public int Mes_id { get; set; }
 
-        public int Mes_status { get; set; }
+        public bool Mes_status { get; set; }
 
         public int Mes_sender { get; set; }
 
@@ -28,6 +28,14 @@ namespace CScore.DataLayer.Tables
         public String Mes_content { get; set; }
 
         public Boolean is_updated { get; set; } // to know wither the seen status is updated
+
+        //          added to be like Ahmed's database
+        public string AttatchementID { set; get; }
+
+        public string AttatchementPath { set; get; }
+
+        public string AttatchementType { set; get; }
+
 
     }
 }

@@ -8,7 +8,7 @@ namespace CScore.ResponseObjects
 {
     public class DepartmentObject
     {
-        public String departmentID { set; get; }
+        public int departmentID { set; get; }
         public String nameAR { set; get; }
         public String nameEN { set; get; }
         public int managerID { set; get; }

@@ -9,7 +9,7 @@ namespace CScore.ResponseObjects
   public class UserObject
     {
         //      ID
-        public int userID { set; get; }
+        public String userID { set; get; }
         public String username { set; get; }
         public int userTypeID { set; get; }
         public String userType { set; get; }

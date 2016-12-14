@@ -8,7 +8,9 @@ namespace CScore.ResponseObjects
 {
     public class EnrollmentObject
     {
+        //  JSON2C#
         public bool status { set; get; }
         public int allowed_credits { set; get; }
+      
     }
 }

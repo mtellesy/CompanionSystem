@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.ResponseObjects
 {
-   public class gradeObject
+   public class GradeObject
     {
         //      course
         public String courseID { set; get; }

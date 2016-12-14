@@ -9,14 +9,85 @@ namespace CScore.BCL
 {
     public  class Course
     {
-        public String cou_id { get; set; }
-        public String cou_nameAR { get; set; }
-        public String cou_nameEN { get; set; }
-        public int Ter_id { get; set; }
-        public int cou_credits { get; set; }
-        public List<Schedule> schedule { get; set; }
-        
+       //  String cou_id { get; set; }
+         String cou_nameAR { get; set; }
+         String cou_nameEN { get; set; }
+         int ter_id { get; set; }
+         int cou_credits { get; set; }
+         List<Schedule> schedule { get; set; }
 
+        //      cou_id
+        public String Cou_id
+        {
+            set
+            {
+                Cou_id = value;
+            }
+            get
+            {
+                return Cou_id;
+            }
+        }
+        //      cou_nameAR
+        public String Cou_nameAR
+        {
+            set
+            {
+                cou_nameAR = value;
+            }
+            get
+            {
+                return cou_nameAR;
+            }
+        }
+        //      cou_nameEN
+        public String Cou_nameEN
+        {
+            set
+            {
+                cou_nameEN = value;
+            }
+            get
+            {
+                return cou_nameEN;
+            }
+        }
+        //      ter_id
+        public int Ter_id
+        {
+            set
+            {
+                ter_id = value;
+            }
+            get
+            {
+                return ter_id;
+            }
+        }
+        //      cou_credits
+        public int Cou_credits
+        {
+            set
+            {
+                cou_credits = value;
+            }
+            get
+            {
+                return cou_credits;
+            }
+        }
+        //      schedule
+        public List<Schedule> Schedule
+        {
+            set
+            {
+                schedule = value;
+            }
+            get
+            {
+                return schedule;
+            }
+        }
         public static async Task<Course> getCourse(String courseID)
         {
             Course course = new Course();

@@ -9,7 +9,7 @@ namespace CScore.BCL
     public static class Enrollment
     {
         private static int creditSum{ get; set; }
-        private static int creditMax { get; set; }
+        public static int creditMax { get; set; }
         private static List<int> reservedLectureTimes{ get; set; }
         private static List<Course> enrollableCourses { get; set; }
         private static List<Course> enrolledCourses { get; set; }
@@ -51,7 +51,7 @@ namespace CScore.BCL
             {
                 s1.message += "Sorry, you have reached the maximum limit of credit for this semester.";
             }
-            res2 = isGroupFull(c.cou_id, c.schedule[0].gro_id);
+            res2 = isGroupFull(c.Cou_id, c.Schedule[0].Gro_id);
             if (res2)
             {
                 s1.message += "Sorry, the group is full.";                
@@ -70,12 +70,12 @@ namespace CScore.BCL
 
         private static void addCreditSum(Course c)
         {
-            creditSum += c.cou_credits;
+            creditSum += c.Cou_credits;
         }
 
         private static void subCreditSum(Course c)
         {
-            creditSum -= c.cou_credits;
+            creditSum -= c.Cou_credits;
         }
 
         private static void addReservedLectureTime(Course c)

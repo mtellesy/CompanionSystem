@@ -8,18 +8,154 @@ namespace CScore.BCL
 {
     public class Messages
     {
-        public int mes_id { get; set; }
+        //                  PROBERTIES
+        int mes_id;
+        bool mes_status;
+        int mes_sender;    
+        int mes_reciever;      
+        String mes_subject;
+        String mes_time;
+        String mes_content;
+        bool is_updated;
+        String attatchementID;
+        String attatchementPath;
+        String attatchementType;
 
-        public int mes_status { get; set; }
+        //                  SETTERS AND GETTERS
+        //      mes_id
+        public int Mes_id
+        {
+            set
+            {
+                mes_id = value;
+            }get
+            {
+                return mes_id;
+            }
+        }
+        //      mes_status
+        public bool Mes_status
+        {
+            set
+            {
+                mes_status = value;
+            }
+            get
+            {
+                return mes_status;
+            }
+        }
+        //      mes_sender
+        public int Mes_sender
+        {
+            set
+            {
+                mes_sender = value;
+            }
+            get
+            {
+                return mes_sender;
+            }
+        }
+        //      mes_reciever
+        public int Mes_reciever
+        {
+            set
+            {
+                mes_reciever = value;
+            }
+            get
+            {
+                return mes_reciever;
+            }
+        }
+        //      mes_subject
+        public String Mes_subject
+        {
+            set
+            {
+                mes_subject = value;
+            }
+            get
+            {
+                return mes_subject;
+            }
+        }
+        //      is_updated
+        public bool Is_updated
+        {
+            set
+            {
+                is_updated = value;
+            }
+            get
+            {
+                return is_updated;
+            }
+        }
+        //      mes_time
+        public String Mes_time
+        {
+            set
+            {
+                mes_time = value;
+            }
+            get
+            {
+                return mes_time;
+            }
+        }
+        //      mes_content
+        public String Mes_content
+        {
+            set
+            {
+                mes_content = value;
+            }
+            get
+            {
+                return mes_content;
+            }
+        }
+        //      attatchementID
+        public String AttatchementID
+        {
+            set
+            {
+                attatchementID = value;
+            }
+            get
+            {
+                return attatchementID;
+            }
+        }
+        //      attatchementPath
+        public String AttatchementPath
+        {
+            set
+            {
+                attatchementPath = value;
+            }
+            get
+            {
+                return attatchementPath;
+            }
+        }
+        //      attatchementType
+        public String AttatchementType
+        {
+            set
+            {
+                attatchementType = value;
+            }
+            get
+            {
+                return attatchementType;
+            }
+        }
 
-        public int mes_sender { get; set; }
 
-       // private String mes_subject { get; set; }
-
-      //  private String mes_time { get; set; }
-
-        public String mes_content { get; set; }
-
+        //                   METHODS
         public static async Task<Messages> getMesssage(int messageId)
         {
             Messages Message = new Messages();
