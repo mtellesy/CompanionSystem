@@ -30,10 +30,10 @@ namespace CScore.DAL
                     if (index <= NumberOfMessages)
                     {
                         Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
+                        newMess.Mes_id = mesg.Mes_id;
+                        newMess.Mes_sender = mesg.Mes_sender;
+                        newMess.Mes_content = mesg.Mes_content;
+                        newMess.Mes_status = mesg.Mes_status;
                         messages.Add(newMess);
                         index++; // okay go and fetch the next one 
 
@@ -51,10 +51,10 @@ namespace CScore.DAL
                         // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
                         Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
+                        newMess.Mes_id = mesg.Mes_id;
+                        newMess.Mes_sender = mesg.Mes_sender;
+                        newMess.Mes_content = mesg.Mes_content;
+                        newMess.Mes_status = mesg.Mes_status;
                         messages.Add(newMess);
                         index++;
                         // }
@@ -87,10 +87,10 @@ namespace CScore.DAL
                     if (index <= NumberOfMessages)
                     {
                         Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
+                        newMess.Mes_id = mesg.Mes_id;
+                        newMess.Mes_sender = mesg.Mes_sender;
+                        newMess.Mes_content = mesg.Mes_content;
+                        newMess.Mes_status = mesg.Mes_status;
                         messages.Add(newMess);
                         index++;
                        
@@ -108,10 +108,10 @@ namespace CScore.DAL
                         // if (index <= NumberOfMessages)
                         //{
                         Messages newMess = new Messages();
-                        newMess.mes_id = mesg.Mes_id;
-                        newMess.mes_sender = mesg.Mes_sender;
-                        newMess.mes_content = mesg.Mes_content;
-                        newMess.mes_status = mesg.Mes_status;
+                        newMess.Mes_id = mesg.Mes_id;
+                        newMess.Mes_sender = mesg.Mes_sender;
+                        newMess.Mes_content = mesg.Mes_content;
+                        newMess.Mes_status = mesg.Mes_status;
                         messages.Add(newMess);
                         index++;
                         // }
@@ -136,10 +136,10 @@ namespace CScore.DAL
                 var results = await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(messageId)).ToListAsync();
 
                 Messages message = new Messages();
-                message.mes_id = results.Select(i => i.Mes_id).First();
-                message.mes_sender = results.Select(i => i.Mes_sender).First();
-                message.mes_content = results.Select(i => i.Mes_content).First();
-                message.mes_status = results.Select(i => i.Mes_status).First();
+                message.Mes_id = results.Select(i => i.Mes_id).First();
+                message.Mes_sender = results.Select(i => i.Mes_sender).First();
+                message.Mes_content = results.Select(i => i.Mes_content).First();
+                message.Mes_status = results.Select(i => i.Mes_status).First();
 
                 return message;
             }
@@ -150,13 +150,13 @@ namespace CScore.DAL
         public static async Task saveMessage(Messages message)
         {
             CScore.DataLayer.Tables.InboxL DbMessage = new InboxL();
-            DbMessage.Mes_id = message.mes_id;
-            DbMessage.Mes_sender = message.mes_sender;
-            DbMessage.Mes_status = message.mes_status;
+            DbMessage.Mes_id = message.Mes_id;
+            DbMessage.Mes_sender = message.Mes_sender;
+            DbMessage.Mes_status = message.Mes_status;
             //DbMessage.Mes_time = current time 
-            DbMessage.Mes_content = message.mes_content;
+            DbMessage.Mes_content = message.Mes_content;
 
-         var results =  await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(message.mes_id)).CountAsync();
+         var results =  await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(message.Mes_id)).CountAsync();
 
             if (results <= 0)
             {

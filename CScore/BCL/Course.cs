@@ -9,7 +9,7 @@ namespace CScore.BCL
 {
     public  class Course
     {
-         String cou_id { get; set; }
+       //  String cou_id { get; set; }
          String cou_nameAR { get; set; }
          String cou_nameEN { get; set; }
          int ter_id { get; set; }
@@ -21,11 +21,11 @@ namespace CScore.BCL
         {
             set
             {
-                cou_id = value;
+                Cou_id = value;
             }
             get
             {
-                return cou_id;
+                return Cou_id;
             }
         }
         //      cou_nameAR

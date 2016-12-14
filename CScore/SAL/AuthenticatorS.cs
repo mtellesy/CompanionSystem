@@ -405,5 +405,41 @@ namespace CScore.SAL
 
         }
 
+        public static async Task<StatusWithObject<T>> autoAuthentication<T>()
+        {
+            StatusWithObject<T> returnedValue = new StatusWithObject<T>();
+            Status status = new Status();
+           
+            int code;
+            StatusWithObject<String> auth = new StatusWithObject<String>();
+            StatusWithObject<String> log = new StatusWithObject<String>();
+
+            auth = await AuthenticatorS.authenticate();
+            code = auth.statusCode;
+          //  returnedValue.status = auth.
+
+            if (auth.status.status == false)
+            {
+                if (code == 401)
+                {
+                    log = await AuthenticatorS.login(User.use_id, User.password);
+                    
+                        returnedValue.status = log.status;
+                        returnedValue.statusCode = log.statusCode;
+                       // returnedValue.statusObject;
+                        return returnedValue;
+                    
+                }
+             
+
+            }
+            
+                returnedValue.status = auth.status;
+                returnedValue.statusCode = auth.statusCode;
+                return returnedValue;
+
+            
+        } 
+
     }//end of class
 }//end of namespace 

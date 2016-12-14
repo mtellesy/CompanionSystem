@@ -178,7 +178,7 @@ namespace CScore.SAL
                     }
                     status.message = "Courses retrieved successfully ";
                     status.status = true;
-                    break;
+                    break; 
 
                 default:
                     courses = null;

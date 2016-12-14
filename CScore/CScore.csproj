@@ -72,7 +72,9 @@
     <Compile Include="DataLayer\Tables\StudentCoursesL.cs" />
     <Compile Include="DataLayer\Tables\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseObjects\AnnouncementsObject.cs" />
     <Compile Include="ResponseObjects\AuthenticationObject.cs" />
+    <Compile Include="ResponseObjects\MessageObject.cs" />
     <Compile Include="ResponseObjects\ResponceMessageObject.cs" />
     <Compile Include="ResponseObjects\CourseObject.cs" />
     <Compile Include="ResponseObjects\DepartmentObject.cs" />
