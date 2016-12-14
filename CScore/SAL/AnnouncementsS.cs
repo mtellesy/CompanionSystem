@@ -4,20 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CScore.BCL;
+using CScore.ResponseObjects;
+using Newtonsoft.Json;
 
 namespace CScore.SAL
 {
     public static class AnnouncementsS
     {
-        /*getLatestAnnouncements(User id): List<Announcement>
-getAnnouncements(User id): List<Announcement>
-getMoreAnnouncements(User id, number of the oldest saved Announcements): List<Announcement>
-getAnnouncement(User id, Announcement number): Announcement
-*/
+       
 
         public static async Task<StatusWithObject<List<Announcements>>> getLatestAnnouncements(String state)
         {
-            List<Announcements> messages = new List<Announcements>();
+            List<Announcements> announcements = new List<Announcements>();
             String path = "/posts/announcements";
             String requestType = "GET";
             path = path + String.Format("?state={0}", state);
@@ -35,8 +33,8 @@ getAnnouncement(User id, Announcement number): Announcement
             Status status = new Status();
 
             int code;
-            StatusWithObject<List<String>> auth = new StatusWithObject<List<String>>();
-            auth = await AuthenticatorS.autoAuthentication<List<Messages>>();
+            StatusWithObject<List<Announcements>> auth = new StatusWithObject<List<Announcements>>();
+            auth = await AuthenticatorS.autoAuthentication<List<Announcements>>();
             if (auth.status.status == false)
             {
                 return auth;
@@ -58,35 +56,34 @@ getAnnouncement(User id, Announcement number): Announcement
             switch (code)
             {
                 case 200:
-                    List<MessagesObject> messagesResult = JsonConvert.DeserializeObject<List<MessagesObject>>(jsonString);
-                    Messages temp = new Messages();
-                    foreach (MessagesObject x in messagesResult)
+                    List<AnnouncementsObject> messagesResult = JsonConvert.DeserializeObject<List<AnnouncementsObject>>(jsonString);
+                    Announcements temp = new Announcements();
+                    foreach (AnnouncementsObject x in messagesResult)
                     {
-                        temp = MessagesObject.convertToMessage(x);
-                        messages.Add(temp);
+                        temp = AnnouncementsObject.convertToAnnouncement(x);
+                        announcements.Add(temp);
                     }
-                    status.message = "Messages retrieved successfully.";
+                    status.message = "Announcements retrieved successfully.";
                     status.status = true;
                     break;
 
                 default:
-                    messages = null;
+                    announcements = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     break;
 
-
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-            returnedValue.statusObject = messages;
+            returnedValue.statusObject = announcements;
             return returnedValue;
         }
 
-        public static async Task<StatusWithObject<List<Messages>>> getMessages(int display, int start)
+        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int display, int start)
         {
-            List<Messages> messages = new List<Messages>();
-            String path = "/messages";
+            List<Announcements> announcements = new List<Announcements>();
+            String path = "/posts/announcements";
             String requestType = "GET";
             path = path + String.Format("?display={0}", display);
             path = path + String.Format("?start={0}", start);
@@ -100,12 +97,12 @@ getAnnouncement(User id, Announcement number): Announcement
             String jsonString;
 
             //      decleration of the returned value and its contents
-            StatusWithObject<List<Messages>> returnedValue = new StatusWithObject<List<Messages>>();
+            StatusWithObject<List<Announcements>> returnedValue = new StatusWithObject<List<Announcements>>();
             Status status = new Status();
 
             int code;
-            StatusWithObject<List<Messages>> auth = new StatusWithObject<List<Messages>>();
-            auth = await AuthenticatorS.autoAuthentication<List<Messages>>();
+            StatusWithObject<List<Announcements>> auth = new StatusWithObject<List<Announcements>>();
+            auth = await AuthenticatorS.autoAuthentication<List<Announcements>>();
             if (auth.status.status == false)
             {
                 return auth;
@@ -127,19 +124,19 @@ getAnnouncement(User id, Announcement number): Announcement
             switch (code)
             {
                 case 200:
-                    List<MessagesObject> messagesResult = JsonConvert.DeserializeObject<List<MessagesObject>>(jsonString);
-                    Messages temp = new Messages();
-                    foreach (MessagesObject x in messagesResult)
+                    List<AnnouncementsObject> announcementsResult = JsonConvert.DeserializeObject<List<AnnouncementsObject>>(jsonString);
+                    Announcements temp = new Announcements();
+                    foreach (AnnouncementsObject x in announcementsResult)
                     {
-                        temp = MessagesObject.convertToMessage(x);
-                        messages.Add(temp);
+                        temp = AnnouncementsObject.convertToAnnouncement(x);
+                        announcements.Add(temp);
                     }
-                    status.message = "Messages retrieved successfully.";
+                    status.message = "Announcements retrieved successfully.";
                     status.status = true;
                     break;
 
                 default:
-                    messages = null;
+                    announcements = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     break;
@@ -148,13 +145,13 @@ getAnnouncement(User id, Announcement number): Announcement
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-            returnedValue.statusObject = messages;
+            returnedValue.statusObject = announcements;
             return returnedValue;
         }
 
-        public static async Task<StatusWithObject<Messages>> getMessage(int mes_id)
+        public static async Task<StatusWithObject<Announcements>> getAnnouncement(int ano_id)
         {
-            String path = "/message/" + mes_id;
+            String path = "/posts/announcements/" + ano_id;
             String requestType = "GET";
             path = path + String.Format("?token={0}", AuthenticatorS.token);
 
@@ -163,13 +160,13 @@ getAnnouncement(User id, Announcement number): Announcement
             String jsonString;
 
             //      decleration of the returned value and its contents
-            StatusWithObject<Messages> returnedValue = new StatusWithObject<Messages>();
+            StatusWithObject<Announcements> returnedValue = new StatusWithObject<Announcements>();
             Status status = new Status();
-            Messages message = new Messages();
+            Announcements announcement = new Announcements();
 
             int code;
-            StatusWithObject<Messages> auth = new StatusWithObject<Messages>();
-            auth = await AuthenticatorS.autoAuthentication<Messages>();
+            StatusWithObject<Announcements> auth = new StatusWithObject<Announcements>();
+            auth = await AuthenticatorS.autoAuthentication<Announcements>();
             if (auth.status.status == false)
             {
                 return auth;
@@ -190,14 +187,14 @@ getAnnouncement(User id, Announcement number): Announcement
             switch (code)
             {
                 case 200:
-                    MessagesObject messagesResult = JsonConvert.DeserializeObject<MessagesObject>(jsonString);
-                    message = MessagesObject.convertToMessage(messagesResult);
-                    status.message = "Message retrieved successfully.";
+                    AnnouncementsObject announcementResult = JsonConvert.DeserializeObject<AnnouncementsObject>(jsonString);
+                    announcement = AnnouncementsObject.convertToAnnouncement(announcementResult);
+                    status.message = "Announcement retrieved successfully.";
                     status.status = true;
                     break;
 
                 default:
-                    message = null;
+                    announcement = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     break;
@@ -206,33 +203,34 @@ getAnnouncement(User id, Announcement number): Announcement
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-            returnedValue.statusObject = message;
+            returnedValue.statusObject = announcement;
             return returnedValue;
         }
-        public static async Task<StatusWithObject<Messages>> sendMessage(Messages message)
+
+        public static async Task<StatusWithObject<Announcements>> sendMessage(Announcements announcement)
         {
-            String path = "/messages";
+            Announcements announcementResult = new Announcements();
+            String path = "/posts";
             path = path + String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "SET";
             //      arguments for the APIs      and send request method
 
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
-            MessagesObject x = new MessagesObject();
-            x = MessagesObject.convertToMessagesObject(message);
+            AnnouncementsObject x = new AnnouncementsObject();
+            x = AnnouncementsObject.convertToAnnouncementObject(announcement);
             String jsonString;
             jsonString = JsonConvert.SerializeObject(x);
 
             //      decleration of the returned value and its contents
-            StatusWithObject<Messages> returnedValue = new StatusWithObject<Messages>();
-            Status resultStatus = new Status();
+            StatusWithObject<Announcements> returnedValue = new StatusWithObject<Announcements>();
             Status status = new Status();
             int code;
 
             //      use this only if the endpoint tag = security  
             //      decleration of the values tha         
-            StatusWithObject<Messages> auth = new StatusWithObject<Messages>();
-            auth = await AuthenticatorS.autoAuthentication<Messages>();
+            StatusWithObject<Announcements> auth = new StatusWithObject<Announcements>();
+            auth = await AuthenticatorS.autoAuthentication<Announcements>();
             if (auth.status.status == false)
             {
                 return auth;
@@ -253,16 +251,14 @@ getAnnouncement(User id, Announcement number): Announcement
             switch (code)
             {
                 case 201:
-                    status.message = "Message sent successfully. .";
+                    status.message = "Announcement sent successfully. ";
                     status.status = true;
-                    MessagesObject res = JsonConvert.DeserializeObject<MessagesObject>(jsonString);
-                    Messages messageResult = new Messages();
-                    messageResult = MessagesObject.convertToMessage(res);
-                    returnedValue.statusObject = messageResult;
+                    AnnouncementsObject res = JsonConvert.DeserializeObject<AnnouncementsObject>(jsonString);
+                    announcementResult = AnnouncementsObject.convertToAnnouncement(res);
                     break;
 
                 default:
-                    resultStatus = null;
+                    announcementResult = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     returnedValue.statusObject = null;
@@ -271,6 +267,7 @@ getAnnouncement(User id, Announcement number): Announcement
 
 
             }
+            returnedValue.statusObject = announcementResult;
             returnedValue.status = status;
             returnedValue.statusCode = code;
             return returnedValue;

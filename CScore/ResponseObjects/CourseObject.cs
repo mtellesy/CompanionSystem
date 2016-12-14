@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CScore.BCL;
 
 namespace CScore.ResponseObjects
 {
@@ -76,6 +77,15 @@ namespace CScore.ResponseObjects
             return course;
 
         }
+        // works only for enrollment
+         public static CourseObject convertToCourseObjectToEnroll(BCL.Course courses)
+        {
+            CourseObject course = new CourseObject();            
 
+            course.courseID = courses.Cou_id;
+            course.groupID = courses.TemGro_id;            
+
+            return course;
+        }
     }
 }

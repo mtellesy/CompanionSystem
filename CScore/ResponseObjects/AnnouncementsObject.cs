@@ -20,5 +20,38 @@ namespace CScore.ResponseObjects
         public string postTime { get; set; }
         public int postBy { get; set; }
         public string postByName { get; set; }
+
+
+        public static BCL.Announcements convertToAnnouncement(AnnouncementsObject ano)
+        {
+            BCL.Announcements announcement = new BCL.Announcements();
+            announcement.ano_id = ano.postID;
+            announcement.ano_sender = ano.postBy;
+            announcement.ano_time = ano.postTime;
+            announcement.ano_content = ano.content;
+            announcement.cou_id = ano.postByName;
+
+            return announcement;
+        }
+        /*
+         post{
+postID: string
+postPrivacyID: string
+postTypeID: string
+content: string
+}
+
+             */
+        public static AnnouncementsObject convertToAnnouncementObject(BCL.Announcements ano)
+        {
+            AnnouncementsObject announcement = new AnnouncementsObject();
+            announcement.postID = ano.ano_id;
+            //announcement.postPrivacyID = null; // NEEDS TO ASK AHMAD ABOUT IT
+            //announcement.postTypeID =;
+            announcement.content = ano.ano_content;
+
+            return announcement;
+        }
+
     }
 }

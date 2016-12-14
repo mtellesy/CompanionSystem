@@ -12,10 +12,16 @@ namespace CScore.SAL
 {
     public static class DepartmentS
     {
-        public static async Task<StatusWithObject<List<Department>>> getDepartments()
+
+        //              *** returns all information about all courses courses ***
+        public static async Task<StatusWithObject<List<Department>>> getDepartments(String id)
         {
-            List<Department> departments = new List<Department>();
+            // decleration of path and request type
             String path = "/departments";
+            if (id != null)
+            {
+                path += "?id={0}" + id;
+            }
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -24,10 +30,10 @@ namespace CScore.SAL
 
             //      decleration of the returned value and its contents
             StatusWithObject<List<Department>> returnedValue = new StatusWithObject<List<Department>>();
-            List<Department> results = new List<Department>();
+            List<Department> departments = new List<Department>();
             Status status = new Status();
             int code;
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -45,33 +51,23 @@ namespace CScore.SAL
                     List<DepartmentObject> results1 = JsonConvert.DeserializeObject<List<DepartmentObject>>(jsonString);
                     foreach (DepartmentObject x in results1)
                     {
-                        results.Add(convertToDepartment(x));
+                        departments.Add(DepartmentObject.convertToDepartment(x));
                     }
                     status.message = "Departments returned";
                     status.status = true;
                     break;
 
                 default:
-                    results = null;
+                    departments = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     break;
-
-
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-            returnedValue.statusObject = results;
+            returnedValue.statusObject = departments;
             return returnedValue;
         }
-        public static Department convertToDepartment(DepartmentObject dep)
-        {
-            Department department = new Department();
-            department.Dep_id = dep.departmentID;
-            department.DepNameAR = dep.nameAR;
-            department.Dep_nameEN = dep.nameEN;
-            department.Dep_discription = null;
-            return department;
-        }
+
     }
 }

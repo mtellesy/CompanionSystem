@@ -8,31 +8,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
+ 
 namespace CScore.SAL
 {
   public static class CourseS 
     {        
-
-        public static async Task<StatusWithObject<List<Course>>> getCourses()
+        //              done :)
+        //              *** returns all information about all courses courses ***
+        public static async Task<StatusWithObject<List<Course>>> getCourses(String cou_id, String dep_id, String branch)
         {
-
+            // declaration of path and request type
             String path = "/courses";            
-            List<Course> courses = new List<Course>();
-            Schedule schedules = new Schedule();
+            if (cou_id != null)
+            {
+                path += "?id={0}" + cou_id;
+            }
+            if (dep_id != null)
+            {
+                path += "?department={0}" + dep_id;
+            }
+            if (branch != null)
+            {
+                path += "?branch={0}" + branch;
+            }
             String requestType = "GET";
 
-            //      decleration of the status with its object that will be returned from send request method
+            //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
 
-            //      decleration of the returned value and its contents
+            //      declaration of the returned value and its contents
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            List<Course> courses = new List<Course>();
             Status status = new Status();
-            Course temp = new Course();
             int code;
 
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -48,6 +59,7 @@ namespace CScore.SAL
             {
                 case 200:
                     List<CourseObject> courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
+                    Course temp = new Course();
                     foreach (CourseObject x in courseResult)
                     {
                         temp = CourseObject.convertToCourse(x);
@@ -71,10 +83,10 @@ namespace CScore.SAL
             return returnedValue;
         }
 
-        // get ENROLLED COURSES
+        //              *** returns student or lecturer courses ***
         public static async Task<StatusWithObject<List<Course>>> getEnrolledCourses()
         {
-
+            //      declaration of path and request type
             String path = "";
             if (User.use_typeID == 0)
             {
@@ -85,48 +97,29 @@ namespace CScore.SAL
                  path = "/students/" + User.use_id + "/ courses";
 
             }
-            List<Course> courses = new List<Course>();
-            Schedule schedules = new Schedule();
-            String requestType = "GET";
             path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "GET";
 
-            //      decleration of the status with its object that will be returned from send request method
+            //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
 
-            //      decleration of the returned value and its contents
+            //      declaration of the returned value and its contents
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            List<Course> courses = new List<Course>();
             Status status = new Status();
             Course temp = new Course();
             int code;
-            StatusWithObject<String> auth = new StatusWithObject<String>();
-            StatusWithObject<String> log = new StatusWithObject<String>();
 
-            auth = await AuthenticatorS.authenticate();
-            code = auth.statusCode;
-
+            //      authentication part
+            StatusWithObject<List<Course>> auth = new StatusWithObject<List<Course>>();
+            auth = await AuthenticatorS.autoAuthentication<List<Course>>();
             if (auth.status.status == false)
             {
-                if (code == 401)
-                {
-                    log = await AuthenticatorS.login(User.use_id, User.password);
-                    if (log.status.status == false)
-                    {
-                        returnedValue.status = log.status;
-                        returnedValue.statusCode = log.statusCode;
-                        returnedValue.statusObject = null;
-                        return returnedValue;
-                    }
-                }
-                else
-                {
-                    returnedValue.status = auth.status;
-                    returnedValue.statusCode = auth.statusCode;
-                    returnedValue.statusObject = null;
-                    return returnedValue;
-                }
+                return auth;
             }
-            //              THE GETTING DATA PART 
+
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -164,8 +157,6 @@ namespace CScore.SAL
             returnedValue.statusObject = courses;
             return returnedValue;
         }
-
-
 
     }
 }

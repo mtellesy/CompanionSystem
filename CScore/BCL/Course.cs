@@ -9,23 +9,23 @@ namespace CScore.BCL
 {
     public  class Course
     {
-       //  String cou_id { get; set; }
+         String cou_id { get; set; }
          String cou_nameAR { get; set; }
          String cou_nameEN { get; set; }
          int ter_id { get; set; }
          int cou_credits { get; set; }
          List<Schedule> schedule { get; set; }
-
+         int temGro_id { set; get; }// temporary group id that is used only for enrollment
         //      cou_id
         public String Cou_id
         {
             set
             {
-                Cou_id = value;
+                cou_id = value;
             }
             get
             {
-                return Cou_id;
+                return cou_id;
             }
         }
         //      cou_nameAR
@@ -85,9 +85,22 @@ namespace CScore.BCL
             }
             get
             {
-                return schedule;
+                return schedule; 
             }
         }
+        //      tempGro_id
+        public int TemGro_id
+        {
+            set
+            {
+                tempGro_id = value;
+            }
+            get
+            {
+                return tempGro_id;
+            }
+        }
+
         public static async Task<Course> getCourse(String courseID)
         {
             Course course = new Course();
