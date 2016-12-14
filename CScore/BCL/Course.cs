@@ -16,6 +16,8 @@ namespace CScore.BCL
          int cou_credits { get; set; }
          List<Schedule> schedule { get; set; }
          int temGro_id { set; get; }// temporary group id that is used only for enrollment
+         bool flag;//to know if it has been enrolled or not
+
         //      cou_id
         public String Cou_id
         {
@@ -93,14 +95,25 @@ namespace CScore.BCL
         {
             set
             {
-                tempGro_id = value;
+                temGro_id = value;
             }
             get
             {
-                return tempGro_id;
+                return temGro_id;
             }
         }
-
+        //      flag
+        public bool Flag
+        {
+            set
+            {
+                flag = value;
+            }
+            get
+            {
+                return flag;
+            }
+        }
         public static async Task<Course> getCourse(String courseID)
         {
             Course course = new Course();

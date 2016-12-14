@@ -41,7 +41,7 @@ namespace CScore.ResponseObjects
         public int semester { get; set; }
        // public List<Schedule> schedule { get; set; }
         public List<ScheduleObject> schedule { set; get; }
-
+        public bool flag;//to know if it has been enrolled or not
 
 
         public static BCL.Course convertToCourse(CourseObject cou)
