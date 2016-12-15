@@ -24,6 +24,15 @@ namespace CScore.ResponseObjects
             department.Dep_discription = null;
             return department;
         }
+        // propably wont be used
+        public static DepartmentObject convertToDepartmentObject(BCL.Department dep)
+        {
+            DepartmentObject department = new DepartmentObject();
+            department.departmentID = dep.Dep_id;
+            department.nameAR = dep.Dep_nameEN;
+            department.nameEN = dep.Dep_nameEN;
+            return department;
+        }
     }
     
 }

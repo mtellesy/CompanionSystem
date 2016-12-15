@@ -44,15 +44,15 @@ namespace CScore.DAL
             foreach (var x in results)
             {
                 AllResult returnResult = new AllResult();
-                returnResult.cou_id= x.Cou_id;
-                returnResult.cou_credits = x.Cou_credits;
-                returnResult.cou_nameAR = x.Cou_nameAR;
-                returnResult.cou_nameEN = x.Cou_nameEN;
-                returnResult.res_total = x.Res_total;
-                returnResult.ter_id = x.Ter_id;
-                returnResult.ter_nameAR = x.Ter_nameAR;
-                returnResult.ter_nameEN = x.Ter_nameEN;
-                returnResult.year = x.year; 
+                returnResult.Cou_id= x.Cou_id;
+                returnResult.Cou_credits = x.Cou_credits;
+                returnResult.Cou_nameAR = x.Cou_nameAR;
+                returnResult.Cou_nameEN = x.Cou_nameEN;
+                returnResult.Res_total = x.Res_total;
+                returnResult.Ter_id = x.Ter_id;
+                returnResult.Ter_nameAR = x.Ter_nameAR;
+                returnResult.Ter_nameEN = x.Ter_nameEN;
+                returnResult.Year = x.year; 
                 r.Add(returnResult);
             }
             return r;
@@ -78,16 +78,16 @@ namespace CScore.DAL
         public static async Task saveAllResult(AllResult r)
         {
             CScore.DataLayer.Tables.ResultsL result = new ResultsL();
-            result.Cou_id = r.cou_id;
-            result.Cou_nameEN = r.cou_nameEN;
-            result.Cou_nameAR = r.cou_nameAR;
-            result.Cou_credits = r.cou_credits;
-            result.Ter_id = r.ter_id;
-            result.Ter_nameAR = r.ter_nameAR;
-            result.Ter_nameEN = r.ter_nameEN;
-            result.year = r.year;
-            result.Res_total = r.res_total;
-            var results = await DBuilder._connection.Table<ResultsL>().Where(i => i.Cou_id.Equals(r.cou_id)).CountAsync();
+            result.Cou_id = r.Cou_id;
+            result.Cou_nameEN = r.Cou_nameEN;
+            result.Cou_nameAR = r.Cou_nameAR;
+            result.Cou_credits = r.Cou_credits;
+            result.Ter_id = r.Ter_id;
+            result.Ter_nameAR = r.Ter_nameAR;
+            result.Ter_nameEN = r.Ter_nameEN;
+            result.year = r.Year;
+            result.Res_total = r.Res_total;
+            var results = await DBuilder._connection.Table<ResultsL>().Where(i => i.Cou_id.Equals(r.Cou_id)).CountAsync();
 
             if (results <= 0)
             {

@@ -19,7 +19,7 @@ namespace CScore.BCL
         public String ano_content { get; set; }
 
         public String cou_id { get; set; }
-
+        public String referenceID { get; set; } // not available in database
        // public int gro_id { get; set; }
 
         public int ter_id { get; set; }

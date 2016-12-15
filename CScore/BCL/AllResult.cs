@@ -8,47 +8,154 @@ namespace CScore.BCL
 {
    public class AllResult
     {
-        public String cou_id { get; set; }
-        public String cou_nameAR { get; set; }
-        public String cou_nameEN { get; set; }
-        public int ter_id { get; set; }
-        public String ter_nameAR { get; set; }
-        public String ter_nameEN { get; set; }
-        public String year { get; set; }
-        public int cou_credits { get; set; }
-        public float res_total { get; set; }
-        /*
-        public static List<AllResult> getAllResults()
+        //              *** Properties ***
+         String cou_id { get; set; }
+         String cou_nameAR { get; set; }
+         String cou_nameEN { get; set; }
+         int ter_id { get; set; }
+         String ter_nameAR { get; set; }
+         String ter_nameEN { get; set; }
+         String year { get; set; }
+         int cou_credits { get; set; }
+         float res_total { get; set; }
+
+        //              *** setters and getters ***
+
+        //        cou_id
+        public String Cou_id
         {
-            List < AllResult> r = new List<AllResult>();
-            Status s = new Status();
-            s = internetChecker();
-            if (s.status)
+            set
             {
-                r = SAL.ResultS.getAllResults(User.use_id);
-
-                DAL.ResultD.saveAllResult(r);
+                cou_id = value;
             }
-
-            r = DAL.ResultD.getAllResult();
-            return r;
-        }*/
-
-            /*
-        public static void saveAllResults()
+            get
+            {
+                return cou_id;
+            }
+        }
+        //        cou_nameAR
+        public String Cou_nameAR
         {
-            List<AllResult> r = new List<AllResult>();
-            Status s = new Status();
-            s = internetChecker();
-            if (s.status)
+            set
             {
-                r = SAL.ResultS.getAllResults(User.use_id);
-
-                DAL.ResultD.saveAllResult(r);
-
+                cou_nameAR = value;
             }
+            get
+            {
+                return cou_nameAR;
+            }
+        }
+        //        cou_nameEN
+        public String Cou_nameEN
+        {
+            set
+            {
+                cou_nameEN = value;
+            }
+            get
+            {
+                return cou_nameEN;
+            }
+        }
+        //        ter_id
+        public int Ter_id
+        {
+            set
+            {
+                ter_id = value;
+            }
+            get
+            {
+                return ter_id;
+            }
+        }
+        //        ter_nameAR
+        public String Ter_nameAR
+        {
+            set
+            {
+                ter_nameAR = value;
+            }
+            get
+            {
+                return ter_nameAR;
+            }
+        }        
+        //        cou_id
+        public String Ter_nameEN
+        {
+            set
+            {
+                ter_nameEN = value;
+            }
+            get
+            {
+                return ter_nameEN;
+            }
+        }
+        //        year
+        public String Year
+        {
+            set
+            {
+                year = value;
+            }
+            get
+            {
+                return year;
+            }
+        }
+        //        cou_credits
+        public int Cou_credits
+        {
+            set
+            {
+                cou_credits = value;
+            }
+            get
+            {
+                return cou_credits;
+            }
+        }
+        //        res_total
+        public float Res_total
+        {
+            set
+            {
+                res_total = value;
+            }
+            get
+            {
+                return res_total;
+            }
+        }
 
-        }*/
+        //              *** Methods ***
+
+        public static async Task<StatusWithObject<List<AllResult>>> getAllResults()
+        {
+            List<AllResult>  result= new List<AllResult>();
+            StatusWithObject<List<AllResult>> returnedValue = new StatusWithObject<List<AllResult>>();
+            bool s = await UpdateBox.CheckForInternetConnection();
+            if (s)
+            {
+                returnedValue = await SAL.ResultS.getAllResult(Convert.ToString(Semester.current_term));
+                if (returnedValue.status.status == true)
+                {
+                    foreach (AllResult x in returnedValue.statusObject)
+                    {
+                        await DAL.ResultD.saveAllResult(x);
+                    }
+
+                }
+            }
+            result =await DAL.ResultD.getAllResult();
+            returnedValue.statusObject = result;
+            return returnedValue;
+        }
+
+        
+   
 
     }
 }

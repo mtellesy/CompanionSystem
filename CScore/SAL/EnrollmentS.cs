@@ -11,6 +11,7 @@ namespace CScore.SAL
 {
     public static class EnrollmentS
     {
+        //              done ^.^
         //              *** returns enrollment status***
         public static async Task<StatusWithObject<bool>> enrollmentStatus()
         {
@@ -154,7 +155,7 @@ namespace CScore.SAL
                 path += "?forse={0}" + forse;
             }
             path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "SET";
+            String requestType = "POST";
 
 
             //      declaration of the status with its object that will be returned from send request method
@@ -162,7 +163,7 @@ namespace CScore.SAL
             List<CourseObject> coursesToEnroll = new List<CourseObject>();
             foreach (Course x in courses)
             {
-                coursesToEnroll.Add(CourseObject.convertToCourseObjectToEnroll(x));
+                coursesToEnroll.Add(CourseObject.convertToCourseObjectForEnrollment(x));
             }
             String jsonString;
             jsonString = JsonConvert.SerializeObject(coursesToEnroll);
@@ -262,7 +263,14 @@ namespace CScore.SAL
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
+            List<CourseObject> coursesToEnroll = new List<CourseObject>();
+            foreach (Course x in courses)
+            {
+                coursesToEnroll.Add(CourseObject.convertToCourseObjectForEnrollment(x));
+            }
             String jsonString;
+            jsonString = JsonConvert.SerializeObject(coursesToEnroll);
+
 
             //      declaration of the returned value and its contents
             StatusWithObject<Status> returnedValue = new StatusWithObject<Status>();
@@ -270,17 +278,16 @@ namespace CScore.SAL
             Status status = new Status();
             int code;
 
-            //      use this only if the endpoint tag = security  
-            //      declaration of the values tha         
+            //      authentication part
             StatusWithObject<Status> auth = new StatusWithObject<Status>();
             auth = await AuthenticatorS.autoAuthentication<Status>();
             if (auth.status.status == false)
             {
                 return auth;
             }
-            jsonString = JsonConvert.SerializeObject(courses);
-            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
 
+            //      data retrieval  part( request and response)
+            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
 

@@ -11,28 +11,28 @@ namespace CScore.SAL
 {
     public static class AnnouncementsS
     {
-       
-
+        //              done
+        //              *** returns a list of not seen announcemnts ***
         public static async Task<StatusWithObject<List<Announcements>>> getLatestAnnouncements(String state)
         {
-            List<Announcements> announcements = new List<Announcements>();
-            String path = "/posts/announcements";
+            //      declaration of path and request type
+            String path = "/posts";
             String requestType = "GET";
-            path = path + String.Format("?state={0}", state);
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
-
-
-
-
+            path += "?type={0} announcement/";
+            path += String.Format("?state={0}", state);
+            path += String.Format("?token={0}", AuthenticatorS.token);
+                        
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
 
             //      decleration of the returned value and its contents
             StatusWithObject<List<Announcements>> returnedValue = new StatusWithObject<List<Announcements>>();
+            List<Announcements> announcements = new List<Announcements>();
             Status status = new Status();
-
             int code;
+
+            //      authentication part
             StatusWithObject<List<Announcements>> auth = new StatusWithObject<List<Announcements>>();
             auth = await AuthenticatorS.autoAuthentication<List<Announcements>>();
             if (auth.status.status == false)
@@ -40,8 +40,7 @@ namespace CScore.SAL
                 return auth;
             }
 
-
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -57,11 +56,9 @@ namespace CScore.SAL
             {
                 case 200:
                     List<AnnouncementsObject> messagesResult = JsonConvert.DeserializeObject<List<AnnouncementsObject>>(jsonString);
-                    Announcements temp = new Announcements();
                     foreach (AnnouncementsObject x in messagesResult)
-                    {
-                        temp = AnnouncementsObject.convertToAnnouncement(x);
-                        announcements.Add(temp);
+                    {                        
+                        announcements.Add(AnnouncementsObject.convertToAnnouncement(x));
                     }
                     status.message = "Announcements retrieved successfully.";
                     status.status = true;
@@ -80,17 +77,16 @@ namespace CScore.SAL
             return returnedValue;
         }
 
+        //              *** returns a list of defined number of announcements***
         public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int display, int start)
         {
-            List<Announcements> announcements = new List<Announcements>();
-            String path = "/posts/announcements";
+            //      declaration of path and request type
+            String path = "/posts";            
+            path += "?type={0} announcement/";
+            path += String.Format("?display={0}", display);
+            path += String.Format("?start={0}", start);
+            path += String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "GET";
-            path = path + String.Format("?display={0}", display);
-            path = path + String.Format("?start={0}", start);
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
-
-
-
 
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -98,18 +94,19 @@ namespace CScore.SAL
 
             //      decleration of the returned value and its contents
             StatusWithObject<List<Announcements>> returnedValue = new StatusWithObject<List<Announcements>>();
+            List<Announcements> announcements = new List<Announcements>();
             Status status = new Status();
-
             int code;
+
+            //      authentication part
             StatusWithObject<List<Announcements>> auth = new StatusWithObject<List<Announcements>>();
             auth = await AuthenticatorS.autoAuthentication<List<Announcements>>();
             if (auth.status.status == false)
             {
                 return auth;
             }
-
-
-            //              THE GETTING DATA PART 
+            
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -125,11 +122,9 @@ namespace CScore.SAL
             {
                 case 200:
                     List<AnnouncementsObject> announcementsResult = JsonConvert.DeserializeObject<List<AnnouncementsObject>>(jsonString);
-                    Announcements temp = new Announcements();
                     foreach (AnnouncementsObject x in announcementsResult)
                     {
-                        temp = AnnouncementsObject.convertToAnnouncement(x);
-                        announcements.Add(temp);
+                        announcements.Add(AnnouncementsObject.convertToAnnouncement(x));
                     }
                     status.message = "Announcements retrieved successfully.";
                     status.status = true;
@@ -149,11 +144,15 @@ namespace CScore.SAL
             return returnedValue;
         }
 
+        //              *** returns certain announcement details***
         public static async Task<StatusWithObject<Announcements>> getAnnouncement(int ano_id)
         {
-            String path = "/posts/announcements/" + ano_id;
-            String requestType = "GET";
+            //      declaration of path and request type
+            String path = "/posts";
+            path += "?type={0} announcement/";
+            path+=  Convert.ToString(ano_id);
             path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -161,10 +160,11 @@ namespace CScore.SAL
 
             //      decleration of the returned value and its contents
             StatusWithObject<Announcements> returnedValue = new StatusWithObject<Announcements>();
-            Status status = new Status();
             Announcements announcement = new Announcements();
-
+            Status status = new Status();
             int code;
+
+            //      authentication  part
             StatusWithObject<Announcements> auth = new StatusWithObject<Announcements>();
             auth = await AuthenticatorS.autoAuthentication<Announcements>();
             if (auth.status.status == false)
@@ -172,7 +172,7 @@ namespace CScore.SAL
                 return auth;
             }
 
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -207,28 +207,28 @@ namespace CScore.SAL
             return returnedValue;
         }
 
+        //              *** sends an announcement, returns its status**
         public static async Task<StatusWithObject<Announcements>> sendMessage(Announcements announcement)
         {
-            Announcements announcementResult = new Announcements();
+            //      declaration of path and request type
             String path = "/posts";
+            //path += "?type={0} announcement/";
             path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "SET";
-            //      arguments for the APIs      and send request method
+            String requestType = "POST";
 
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
-            AnnouncementsObject x = new AnnouncementsObject();
-            x = AnnouncementsObject.convertToAnnouncementObject(announcement);
+            AnnouncementsObject x = AnnouncementsObject.convertToAnnouncementObject(announcement);
             String jsonString;
             jsonString = JsonConvert.SerializeObject(x);
 
             //      decleration of the returned value and its contents
             StatusWithObject<Announcements> returnedValue = new StatusWithObject<Announcements>();
+            Announcements announcementResult = new Announcements();
             Status status = new Status();
             int code;
 
-            //      use this only if the endpoint tag = security  
-            //      decleration of the values tha         
+            //      authentication part
             StatusWithObject<Announcements> auth = new StatusWithObject<Announcements>();
             auth = await AuthenticatorS.autoAuthentication<Announcements>();
             if (auth.status.status == false)
@@ -236,8 +236,9 @@ namespace CScore.SAL
                 return auth;
             }
 
-            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
 
+            //      data retrieval  part
+            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
 
@@ -264,8 +265,7 @@ namespace CScore.SAL
                     returnedValue.statusObject = null;
 
                     break;
-
-
+                    
             }
             returnedValue.statusObject = announcementResult;
             returnedValue.status = status;

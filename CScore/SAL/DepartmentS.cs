@@ -12,7 +12,7 @@ namespace CScore.SAL
 {
     public static class DepartmentS
     {
-
+        //              done
         //              *** returns all information about all courses courses ***
         public static async Task<StatusWithObject<List<Department>>> getDepartments(String id)
         {

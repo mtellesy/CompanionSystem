@@ -46,10 +46,8 @@ content: string
         {
             AnnouncementsObject announcement = new AnnouncementsObject();
             announcement.postID = ano.ano_id;
-            //announcement.postPrivacyID = null; // NEEDS TO ASK AHMAD ABOUT IT
-            //announcement.postTypeID =;
-            announcement.content = ano.ano_content;
-
+            //announcement.referenceID = ano.referenceID
+            //
             return announcement;
         }
 

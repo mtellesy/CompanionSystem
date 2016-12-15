@@ -18,6 +18,7 @@ namespace CScore.ResponseObjects
         public String termEnd { set; get; }
         public List<ExamsObject> exam { set; get; }
 
+        //      converters
         public static Semester convertToSemester(SemesterObject sem)
         {
             Semester semester = new Semester();

@@ -12,10 +12,13 @@ namespace CScore.SAL
 {
   public static class ResultS
     {
+        //              done
+        //              *** returns a list of semester results ***
         public static async  Task<StatusWithObject<List<Result>>> getSemesterResult()
         {
-            //      arguments for the APIs      and send request method
-            String Path = "/results" + String.Format("?token={0}",AuthenticatorS.token);
+            //      declaration of path and request type
+            String path = "/results";
+            path+= String.Format("?token={0}",AuthenticatorS.token);
             String requestType = "GET";
             
             //      decleration of the status with its object that will be returned from send request method
@@ -28,38 +31,16 @@ namespace CScore.SAL
             Status status = new Status();
             int code;
 
-            //      use this only if the endpoint tag = security  
-            //      decleration of the values tha         
-            StatusWithObject<String> auth = new StatusWithObject<String>();
-            StatusWithObject<String> log = new StatusWithObject<String>();
-
-            auth = await AuthenticatorS.authenticate();
-            code = auth.statusCode;
-
+            //      authentication part
+            StatusWithObject<List<Result>> auth = new StatusWithObject<List<Result>>();
+            auth = await AuthenticatorS.autoAuthentication<List<Result>>();
             if (auth.status.status == false)
             {
-                if (code == 401)
-                {
-                    log = await AuthenticatorS.login(User.use_id, User.password);
-                    if (log.status.status == false)
-                    {
-                        returnedValue.status = log.status;
-                        returnedValue.statusCode = log.statusCode;
-                        returnedValue.statusObject = null;
-                        return returnedValue;
-                    }
-                }
-                else
-                {
-                    returnedValue.status = auth.status;
-                    returnedValue.statusCode = auth.statusCode;
-                    returnedValue.statusObject = null;
-                    return returnedValue;
-                }
+                return auth;
             }
 
-            req = await AuthenticatorS.sendRequest(Path, null, requestType);
-
+            //      data retrieval  part
+            req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
 
@@ -76,7 +57,7 @@ namespace CScore.SAL
                     List<ResultsObject> results1 = JsonConvert.DeserializeObject<List<ResultsObject>>(jsonString);
                     foreach(ResultsObject x in results1)
                     {
-                        results.Add(getMyResult(x));
+                        results.Add(ResultsObject.convertToResult(x));
                     }
                     status.message = "Semester results returned";
                     status.status = true;
@@ -96,9 +77,16 @@ namespace CScore.SAL
             return returnedValue;
         }
 
-        public static async Task<StatusWithObject<List<AllResult>>> getAllResult()
+        //              *** returns a list of all results ***
+        public static async Task<StatusWithObject<List<AllResult>>> getAllResult(String ter_id)
         {
-            String Path = "/result/" + User.use_id + "/transcript";
+            String path = "/result/" + User.use_id + "/transcript";
+            if (ter_id != null)
+            {
+                path += "?term_id={0}"+ Convert.ToString(ter_id);
+
+            }
+            path += String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -110,40 +98,16 @@ namespace CScore.SAL
             List<AllResult> results = new List<AllResult>();
             Status status = new Status();
             int code;
-
-                //      use this only if the endpoint tag = security  
-            //      decleration of the values tha      
-               
-            //          THE SECURITY TAG  PART .. AUTHENTICATION
-            StatusWithObject<String> auth = new StatusWithObject<String>();
-            StatusWithObject<String> log = new StatusWithObject<String>();
-
-            auth = await AuthenticatorS.authenticate();
-            code = auth.statusCode;
-
+                        
+            //      authentication part
+            StatusWithObject<List<AllResult>> auth = new StatusWithObject<List<AllResult>>();
+            auth = await AuthenticatorS.autoAuthentication<List<AllResult>>();
             if (auth.status.status == false)
             {
-                if (code == 401)
-                {
-                    log = await AuthenticatorS.login(User.use_id, User.password);
-                    if (log.status.status == false)
-                    {
-                        returnedValue.status = log.status;
-                        returnedValue.statusCode = log.statusCode;
-                        returnedValue.statusObject = null;
-                        return returnedValue;
-                    }
-                }
-                else if(code !=200)
-                {
-                    returnedValue.status = auth.status;
-                    returnedValue.statusCode = auth.statusCode;
-                    returnedValue.statusObject = null;
-                    return returnedValue;
-                }
+                return auth;
             }
-            //              THE GETTING DATA PART 
-            req = await AuthenticatorS.sendRequest(Path, null, requestType);
+            //      data retrieval  part
+            req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
 
@@ -160,7 +124,7 @@ namespace CScore.SAL
                     List<GradeObject> results1 = JsonConvert.DeserializeObject<List<GradeObject>>(jsonString);
                     foreach (GradeObject x in results1)
                     {
-                        results.Add(getAllMyResult(x));
+                        results.Add(ResultsObject.convertToAllResult(x));
                     }
                     status.message = "Transcript returned";
                     status.status = true;
@@ -179,42 +143,7 @@ namespace CScore.SAL
             returnedValue.statusObject = results;
             return returnedValue;
         }
-
-        //          CONVERT TO Result
-        public static Result getMyResult(ResultsObject Jresult)
-        {
-            Result result = new Result();
-            MidMarkDistribution y = new MidMarkDistribution();
-            result.cou_id = Jresult.course_id;
-            result.final = Jresult.finalMark;
-            int id = 0;
-            result.midExams = new List<MidMarkDistribution>();
-            foreach (float grade in Jresult.midMark)
-            {
-                y.cou_id = Jresult.course_id;
-                y.mid_nameAR = null;
-                y.mid_nameEN = null;
-                y.midMarkDistributionID = ++id;
-                y.grade = grade;
-                result.midExams.Add(y);
-            }
-            return result;
-        }
-        //          CONVERTS TO AllResult
-        public static AllResult getAllMyResult(GradeObject Jresult)
-        {
-            AllResult result = new AllResult();
-            result.cou_id = Jresult.courseID;
-            result.cou_nameAR = Jresult.courseNameAR;
-            result.cou_nameEN = Jresult.courseNameEN;
-            result.cou_credits = Jresult.credit;
-            result.res_total = Jresult.finalMark;
-            result.ter_id = Jresult.termID;
-            result.ter_nameAR = Jresult.termNameAR;
-            result.ter_nameEN = Jresult.termNameEN;
-            result.year = Jresult.year;
-            
-            return result;
-        }
+        
+        
     }
 }
