@@ -14,7 +14,7 @@ namespace CScore.BCL
 {
 
  
-  public class UpdateBox
+  public static class UpdateBox
     {
       public static async Task<Boolean> test()
         {

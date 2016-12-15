@@ -12,10 +12,11 @@ namespace CScore.SAL
 {
     public static class SemesterS
     {
-        
+        //              done
+        //              *** returns the current semester ***
         public static async Task<StatusWithObject<Semester>> getCurrentSemester()
         {
-            Semester semester = new Semester();
+            //      declaration of path and request type
             String path = "/term";
             String requestType = "GET";
 
@@ -24,12 +25,12 @@ namespace CScore.SAL
             String jsonString;
 
             //      decleration of the returned value and its contents
-            StatusWithObject<Semester> returnedValue = new StatusWithObject<Semester>();
+            StatusWithObject<Semester> returnedValue = new StatusWithObject<Semester>();            
             Status status = new Status();
-            Semester result = new Semester();
+            Semester semester = new Semester();
             int code;
 
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -45,14 +46,13 @@ namespace CScore.SAL
             {
                 case 200:
                     SemesterObject semesterResult = JsonConvert.DeserializeObject<SemesterObject>(jsonString);
-         
-                    result= SemesterObject.convertToSemester(semesterResult);
+                    semester = SemesterObject.convertToSemester(semesterResult);
                     status.message = "Course current semester retrieved successfully";
                     status.status = true;
                     break;
                    
                 default:
-                    result = null;
+                    semester = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     break;
@@ -61,35 +61,17 @@ namespace CScore.SAL
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-            returnedValue.statusObject = result;
+            returnedValue.statusObject = semester;
             return returnedValue;
 
         }
-        // not yet done
-        public static  async Task<StatusWithObject<List<Course>>> getUserSchedule()
-        {
-            StatusWithObject<List<Course>> courses = new StatusWithObject<List<Course>>();
-            List<Course> enrolleCourses = new List<Course>();
-            String path = "/schedule";
-            courses =await getCoursesTimetable();
-            if (courses.status.status == true)
-            {
-                return courses;
 
-            }else
-            {
-                return null;
-            }
-
-            
-            // calls for the same path as get courses schedule but only courses the user enrolled in 
-        }
-
+        //              *** returns  semester schedule ***
 
         public static async Task<StatusWithObject<Semester>> getSemesterSchedule()
         {
+            //      declaration of path and request type
             String path = "/term/schedule";            
-            Semester semester = new Semester();
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -99,10 +81,10 @@ namespace CScore.SAL
             //      decleration of the returned value and its contents
             StatusWithObject<Semester> returnedValue = new StatusWithObject<Semester>();
             Status status = new Status();
-            Semester result = new Semester();
+            Semester semester = new Semester();
             int code;
-                       
-            //              THE GETTING DATA PART 
+
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -118,14 +100,13 @@ namespace CScore.SAL
             {
                 case 200:
                     SemesterObject semesterResult = JsonConvert.DeserializeObject<SemesterObject>(jsonString);
-         
-                    result= SemesterObject.convertToSemester(semesterResult);
+                    semester = SemesterObject.convertToSemester(semesterResult);
                     status.message = "Term schedule retrieved successfully";
                     status.status = true;
                     break;
                    
                 default:
-                    result = null;
+                    semester = null;
                     status.status = false;
                     status.message = FixedResponses.getResponse(code);
                     break;
@@ -134,15 +115,15 @@ namespace CScore.SAL
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
-            returnedValue.statusObject = result;
+            returnedValue.statusObject = semester;
             return returnedValue;
         }
 
+        //              *** returns a list of all courses and their schedule ***
         public static async Task<StatusWithObject<List<Course>>> getCoursesTimetable()
         {
-            List<Course> courses = new List<Course>();
+            //      declaration of path and request type
             String path = "/schedule";
-            Schedule schedules = new Schedule();
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -155,8 +136,9 @@ namespace CScore.SAL
             Course temp = new Course();
             int code;
 
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
+            List<Course> courses = new List<Course>();
             jsonString = req.statusObject;
             code = req.statusCode;
 

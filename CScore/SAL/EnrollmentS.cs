@@ -11,34 +11,38 @@ namespace CScore.SAL
 {
     public static class EnrollmentS
     {
+        //              done ^.^
+        //              *** returns enrollment status***
         public static async Task<StatusWithObject<bool>> enrollmentStatus()
         {
-            bool enrollment = false;
+            // declaration of path and request type
+
             String path = "enrollment/status/";
-            //      arguments for the APIs      and send request method
             String Path =path + String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
-            //      decleration of the status with its object that will be returned from send request method
+            //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
 
-            //      decleration of the returned value and its contents
+            //      declaration of the returned value and its contents
             StatusWithObject<bool> returnedValue = new StatusWithObject<bool>();
-          //  Status results = new Status();
+            bool enrollment = false;
             Status status = new Status();
             int code;
 
             //      use this only if the endpoint tag = security  
-            //      decleration of the values tha         
+
+            //      authentication part
             StatusWithObject<bool> auth = new StatusWithObject<bool>();
             auth = await AuthenticatorS.autoAuthentication<bool>();
             if (auth.status.status == false)
             {
                 return auth;
             }
-            req = await AuthenticatorS.sendRequest(Path, null, requestType);
 
+            //      data retrieval  part
+            req = await AuthenticatorS.sendRequest(Path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
 
@@ -74,23 +78,25 @@ namespace CScore.SAL
 
         }
 
+        //              *** returns the courses that are available for the student to enroll***
         public static async Task<StatusWithObject<List<Course>>> getAvailableCourses()
         {
-            List<Course> courses = new List<Course>();
+            //      declaration of path and request type
             String path = "/enrollment/" + User.use_id;
-            Schedule schedules = new Schedule();
             String requestType = "GET";
             path = path + String.Format("?token={0}", AuthenticatorS.token);
 
-            //      decleration of the status with its object that will be returned from send request method
+            //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
 
-            //      decleration of the returned value and its contents
+            //      declaration of the returned value and its contents
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            List<Course> courses = new List<Course>();
             Status status = new Status();
-            Course temp = new Course();
             int code;
+
+            //      authentication part
             StatusWithObject<List<Course>> auth = new StatusWithObject<List<Course>>();
             auth = await AuthenticatorS.autoAuthentication<List<Course>>();
             if (auth.status.status == false)
@@ -98,8 +104,7 @@ namespace CScore.SAL
                 return auth;
             }
 
-
-            //              THE GETTING DATA PART 
+            //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
@@ -115,6 +120,7 @@ namespace CScore.SAL
             {
                 case 200:
                     List<CourseObject> courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
+                    Course temp = new Course();
                     foreach (CourseObject x in courseResult)
                     {
                         temp = CourseObject.convertToCourse(x);
@@ -138,25 +144,39 @@ namespace CScore.SAL
             return returnedValue;
 
         }
-        // retun type conflicts with each other
-        public static async Task<StatusWithObject<Object>> sendEnrolledCourses(List<Course> courses)
-        {
-            String path = "/enrollment/" + User.use_id;
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "SET";
-            //      arguments for the APIs      and send request method
 
-            //      decleration of the status with its object that will be returned from send request method
+        //              *** sends courses that student wants to enroll in, returns an object ***
+        public static async Task<StatusWithObject<Object>> sendEnrolledCourses(List<Course> courses, String forse)
+        {
+            //      declaration of path and request type
+            String path = "/enrollment/" + User.use_id;            
+            if (forse != null)
+            {
+                path += "?forse={0}" + forse;
+            }
+            path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "POST";
+
+
+            //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
+            List<CourseObject> coursesToEnroll = new List<CourseObject>();
+            foreach (Course x in courses)
+            {
+                coursesToEnroll.Add(CourseObject.convertToCourseObjectForEnrollment(x));
+            }
             String jsonString;
-            //      decleration of the returned value and its contents
+            jsonString = JsonConvert.SerializeObject(coursesToEnroll);
+
+
+            //      declaration of the returned value and its contents
             StatusWithObject<Object> returnedValue = new StatusWithObject<Object>();
             Status resultStatus = new Status();
             Status status = new Status();
             int code;
 
-            //      use this only if the endpoint tag = security  
-            //      decleration of the values tha         
+
+            //      authentication part
             StatusWithObject<object> auth = new StatusWithObject<object>();
             auth = await AuthenticatorS.autoAuthentication<Object>();
             if (auth.status.status == false)
@@ -164,7 +184,7 @@ namespace CScore.SAL
                 return auth;
             }
 
-            jsonString = JsonConvert.SerializeObject(courses);
+            //      data retrieval  part (request and response)
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
 
             jsonString = req.statusObject;
@@ -182,15 +202,23 @@ namespace CScore.SAL
                 case 201:
                     status.message = "Courses Enrollment Succeeded.";
                     status.status = true;
-                    List<CourseObject> res = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
-                    List<Course> result = new List<Course>();
-                    Course temp = new Course();
-                    foreach (CourseObject x in res)
-                    {
-                        temp = CourseObject.convertToCourse(x);
-                        result.Add(temp);
+                    if (Convert.ToBoolean(forse))// only if forse flag true return list of courses 
+                    { 
+
+                       List<CourseObject> res = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
+                        List<Course> result = new List<Course>();
+                        Course temp = new Course();
+                        foreach (CourseObject x in res)
+                        {
+                            temp = CourseObject.convertToCourse(x);
+                            result.Add(temp);
+                         }
+                        returnedValue.statusObject = result;
                     }
-                    returnedValue.statusObject = result;
+                    else
+                    {
+                        returnedValue.statusObject = null ;
+                    }
                     break;
                 case 401:
                     status.message = "Failed attempt.";
@@ -201,10 +229,11 @@ namespace CScore.SAL
                 case 409:
                     status.message = "Conflict.";
                     status.status = false;
+                    returnedValue.statusObject = null;
                     break;
                 case 422:
                     status.message = "Rejected entity.";
-                    status.status = true;
+                    status.status = false;
                     returnedValue.statusObject = null;
 
                     break;
@@ -217,7 +246,6 @@ namespace CScore.SAL
 
                     break;
 
-
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
@@ -225,33 +253,41 @@ namespace CScore.SAL
 
         }
 
+        //              *** sends courses that student wants to drop in, returns a status ***
         public static async Task<StatusWithObject<Status>> sendDroppedCourses(List<Course> courses)
         {
+            //      declaration of path and request type
             String path = "/enrollment/" + User.use_id;
             path = path + String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "DELETE";
-            //      arguments for the APIs      and send request method
 
-            //      decleration of the status with its object that will be returned from send request method
+            //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
+            List<CourseObject> coursesToEnroll = new List<CourseObject>();
+            foreach (Course x in courses)
+            {
+                coursesToEnroll.Add(CourseObject.convertToCourseObjectForEnrollment(x));
+            }
             String jsonString;
-            //      decleration of the returned value and its contents
+            jsonString = JsonConvert.SerializeObject(coursesToEnroll);
+
+
+            //      declaration of the returned value and its contents
             StatusWithObject<Status> returnedValue = new StatusWithObject<Status>();
             Status resultStatus = new Status();
             Status status = new Status();
             int code;
 
-            //      use this only if the endpoint tag = security  
-            //      decleration of the values tha         
+            //      authentication part
             StatusWithObject<Status> auth = new StatusWithObject<Status>();
             auth = await AuthenticatorS.autoAuthentication<Status>();
             if (auth.status.status == false)
             {
                 return auth;
             }
-            jsonString = JsonConvert.SerializeObject(courses);
-            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
 
+            //      data retrieval  part( request and response)
+            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
             jsonString = req.statusObject;
             code = req.statusCode;
 
