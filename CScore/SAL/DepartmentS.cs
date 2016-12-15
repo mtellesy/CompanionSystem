@@ -14,11 +14,11 @@ namespace CScore.SAL
     {
         //              done
         //              *** returns all information about all courses courses ***
-        public static async Task<StatusWithObject<List<Department>>> getDepartments(String id)
+        public static async Task<StatusWithObject<List<Department>>> getDepartments(int id)
         {
             // decleration of path and request type
             String path = "/departments";
-            if (id != null)
+            if (Convert.ToString( id) != "0")
             {
                 path += "?id={0}" + id;
             }

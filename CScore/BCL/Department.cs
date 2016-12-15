@@ -8,14 +8,16 @@ namespace CScore.BCL
 {
     public class Department
     {
+        //              done
+        //              *** Properties ***
         private int dep_id ;
         private String dep_nameAR { set; get; }
         private  String dep_nameEN { set; get; }
         private  String dep_description { set; get; }
 
-        //  getters and setters
+        //              *** setters and getters ***
 
-        //  dep_id
+        //      dep_id
         public int Dep_id
         {
             set
@@ -27,7 +29,7 @@ namespace CScore.BCL
                 return dep_id;
             }
         }
-        //  depNameAR
+        //    depNameAR
         public String DepNameAR
         {
             set
@@ -39,7 +41,6 @@ namespace CScore.BCL
                 return dep_nameAR;
             }
         }
-
         //      dep_nameEN
         public String Dep_nameEN
         {
@@ -52,7 +53,7 @@ namespace CScore.BCL
                 return dep_nameEN;
             }
         }
-
+        //      dep_description
         public String Dep_discription
         {
             set
@@ -64,10 +65,21 @@ namespace CScore.BCL
                 return dep_description;
             }
         }
-        public void saveDepartment()
+
+        //              *** Methods ***
+
+        public static async Task<StatusWithObject<List<Department>>> getDepartments(int dep_id)
         {
-          //  DAL.UsersD.editUserDepartment(this.dep_id, this.dep_nameAR,this.dep_nameEN);
-      
+            List<Department> department = new List<Department>();
+            StatusWithObject<List<Department>> returnedValue = new StatusWithObject<List<Department>>();
+
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.DepartmentS.getDepartments( dep_id);
+               
+            }
+         
+            return returnedValue;
         }
 
 

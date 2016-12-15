@@ -8,12 +8,21 @@ namespace CScore.BCL
 {
     public static class Major
     {
-       
-        /*
-        public static bool isMajorEnabled()
+
+        //              *** Methods ***
+
+        public static async Task<bool> isMajorEnabled()
         {
-            return SAL.MajorS.getMajorStatus();
-        }*/
+            bool returnedValue = false;
+            StatusWithObject<bool> temp = new StatusWithObject<bool>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                temp = await SAL.MajorS.getMajorStatus();
+                returnedValue = temp.statusObject;
+            }
+
+            return returnedValue;
+        }
         /*
         public static bool isAllowedToMajor()
         {
@@ -24,7 +33,11 @@ namespace CScore.BCL
         {
             Status s1 = new Status();
             // s1 = SAL.MajorS.sendDepartment(User.use_id, d.dep_id);
-            d.saveDepartment();
+//            User.dep_id=Department
+  //              user.depName=KeyNotFoundException[';
+    //               user,depnameEN
+    // saveUser()
+
             return s1;
         }
         /*

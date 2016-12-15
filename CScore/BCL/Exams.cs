@@ -8,11 +8,14 @@ namespace CScore.BCL
 {
     public class Exams
     {
+        //              *** Properties ***
          String examTypeAR { set; get; }
          String examTypeEN { set; get; }
          String startDate { set; get; }
          int duration { set; get; }
          String endDate { set; get; }
+
+        //              *** setters and getters ***
 
         //      examTypeAR
         public String ExamTypeAR
