@@ -8,11 +8,15 @@ namespace CScore.BCL
 {
     public static class Enrollment
     {
+        //              done
+        //              *** Properties ***
         private static int creditSum{ get; set; }
         public static int creditMax { get; set; }
         private static List<int> reservedLectureTimes{ get; set; }
         private static List<Course> enrollableCourses { get; set; }
         private static List<Course> enrolledCourses { get; set; }
+
+        //              *** Methods ***
 
         private static bool isCreditAtMax()
         {
@@ -30,7 +34,7 @@ namespace CScore.BCL
             else
                 return false;
         }
-
+        // not done yet
         private static bool isGroupFull(String course_id, int group_id)
         {
             bool result = false;
@@ -39,7 +43,7 @@ namespace CScore.BCL
         }
 
         //      CHECK IF A CERTAIN COURSE IS ENROLLABLE
-        private static Status isEnrollable(Course c)
+        public static Status isEnrollable(Course c)
         {
             Status s1 = new Status();
             s1.status = true;
@@ -78,60 +82,125 @@ namespace CScore.BCL
             creditSum -= c.Cou_credits;
         }
 
-        private static void addReservedLectureTime(Course c)
+        private static void addReservedLectureTime(Course course, int gro_id)
         {
-           // reservedLectureTimes.Add(c.classTimeID);
-           // reservedLectureTimes.Add(c.classTimeID2);
+            foreach(Schedule x in course.Schedule)
+            {
+                if (x.Gro_id == gro_id)
+                {
+                    reservedLectureTimes.Add(x.ClassTimeID);
+                }
+            }
         }
 
-        private static void deleteReservedLectureTime(Course c)
+        private static void deleteReservedLectureTime(Course course,int gro_id)
         {
-           // reservedLectureTimes.Remove(c.classTimeID);
-         //   reservedLectureTimes.Remove(c.classTimeID2);
+            foreach (Schedule x in course.Schedule)
+            {
+                if (x.Gro_id == gro_id)
+                {
+                    reservedLectureTimes.Remove(x.ClassTimeID);
+                }
+            }
         }
 
         
-        public static List<Course> getEnrollableCourses()
+        public static async Task<StatusWithObject<List<Course>>> getEnrollableCourses()
         {
-
-           //  enrollableCourses= SAL.getAvailableCourses(User.use_id);
-            return enrollableCourses;
-        }
-
-        /*
-        public static List<Courses> getEnrolledCourses()
-        {
-
-            // enrolledCourses= SAL.EnrollmentS.getEnrolledCourses(User.use_id);
-            return enrolledCourses;
-        }*/
-        /*
-        public static Status enrollCourse(String cou_id, int cou_group)
-        {
-            return SAL.EmrollmentS.sendEnrolledCourse(User.use_id,cou_id,cou_group);
-        }*/
-        /*
-        public static bool isEnrollmentEnabled()
-        {
-            return SAL.EnrollmentS.enrollmentStatus()
-        }*/
-
-      /*  public static Status dropCourse(String cou_id)
-        {
-            Course c1 = new Course();
-       //     c1.getCourse(cou_id);
-            subCreditSum(c1);
-            deleteReservedLectureTime(c1);
-            deleteReservedLectureTime(c1);
-            //    c1.deleteCourse();
-            return SAL.EnrollmentS.sendDroppedCourses(User.use_id, c1.cou_id);
-        }*/
-        public static void saveEnrolledCourses()
-        {
-            foreach ( Course x in enrolledCourses)
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
             {
-            //    x.deleteCourse();
+                returnedValue = await SAL.EnrollmentS.getAvailableCourses();
             }
+            else
+            {
+                returnedValue = null;
+            }
+            return returnedValue;
         }
+
+        //          enroll couses
+        public static async Task<StatusWithObject<object>> enrollCourse(Course course, String force)
+        {
+            // List<AllResult> result = new List<AllResult>();
+            StatusWithObject<object> returnedValue = new StatusWithObject<object>();
+            List<Course> temp = new List<Course>();
+            temp.Add(course);
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.EnrollmentS.sendEnrolledCourses(temp, force);
+            }
+
+            return returnedValue;
+        }
+        //      overload
+        public static async Task<StatusWithObject<object>> enrollCourse(List<Course> course, String force)
+        {
+            // List<AllResult> result = new List<AllResult>();
+            StatusWithObject<object> returnedValue = new StatusWithObject<object>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.EnrollmentS.sendEnrolledCourses(course, force);
+            }
+
+            return returnedValue;
+        }
+        //      overload
+        public static async Task<StatusWithObject<object>> enrollCourse(Course course)
+        {
+            // List<AllResult> result = new List<AllResult>();
+            StatusWithObject<object> returnedValue = new StatusWithObject<object>();
+            List<Course> temp = new List<Course>();
+            temp.Add(course);
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.EnrollmentS.sendEnrolledCourses(temp, null);
+            }
+
+            return returnedValue;
+        }
+        //      overload
+        public static async Task<StatusWithObject<object>> enrollCourse(List<Course> course)
+        {
+            // List<AllResult> result = new List<AllResult>();
+            StatusWithObject<object> returnedValue = new StatusWithObject<object>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.EnrollmentS.sendEnrolledCourses(course, null);
+            }
+
+            return returnedValue;
+        }
+
+        public static async Task<bool> isEnrollmentEnabled()
+        {
+            bool returnedValue = false;
+            StatusWithObject<bool> temp = new StatusWithObject<bool>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                temp = await SAL.EnrollmentS.enrollmentStatus();
+                returnedValue = temp.statusObject;
+            }
+            
+            return returnedValue;
+        }
+
+        public static async  Task<StatusWithObject<Status>> dropCourse(Course course,int gro_id)
+        {
+            StatusWithObject<Status> returnedValue = new StatusWithObject<Status>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue= await SAL.EnrollmentS.sendDroppedCourses(course);
+                if (returnedValue.statusObject.status == true)
+                {
+                    subCreditSum(course);
+                    deleteReservedLectureTime(course, gro_id);
+                    deleteReservedLectureTime(course, gro_id);
+                }
+            }
+            return returnedValue;
+        }
+
+        
     }
 }

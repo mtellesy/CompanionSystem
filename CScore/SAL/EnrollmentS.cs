@@ -254,7 +254,7 @@ namespace CScore.SAL
         }
 
         //              *** sends courses that student wants to drop in, returns a status ***
-        public static async Task<StatusWithObject<Status>> sendDroppedCourses(List<Course> courses)
+        public static async Task<StatusWithObject<Status>> sendDroppedCourses(Course course)
         {
             //      declaration of path and request type
             String path = "/enrollment/" + User.use_id;
@@ -263,11 +263,9 @@ namespace CScore.SAL
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
-            List<CourseObject> coursesToEnroll = new List<CourseObject>();
-            foreach (Course x in courses)
-            {
-                coursesToEnroll.Add(CourseObject.convertToCourseObjectForEnrollment(x));
-            }
+            CourseObject coursesToEnroll = new CourseObject();            
+            coursesToEnroll=CourseObject.convertToCourseObjectForEnrollment(course);
+           
             String jsonString;
             jsonString = JsonConvert.SerializeObject(coursesToEnroll);
 

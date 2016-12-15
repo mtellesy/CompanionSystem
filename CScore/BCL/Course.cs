@@ -9,7 +9,9 @@ namespace CScore.BCL
 {
     public  class Course
     {
-         String cou_id { get; set; }
+        //          done
+        //              *** Properties ***
+        String cou_id { get; set; }
          String cou_nameAR { get; set; }
          String cou_nameEN { get; set; }
          int ter_id { get; set; }
@@ -18,6 +20,7 @@ namespace CScore.BCL
          int temGro_id { set; get; }// temporary group id that is used only for enrollment
          bool flag;//to know if it has been enrolled or not
 
+        //              *** setters and getters ***
         //      cou_id
         public String Cou_id
         {
@@ -114,27 +117,73 @@ namespace CScore.BCL
                 return flag;
             }
         }
-        public static async Task<Course> getCourse(String courseID)
-        {
-            Course course = new Course();
-            course = await DAL.CourseD.getCourse(courseID,User.use_type);
-            return course;
-        }
 
-        public static async Task<List<Course>> getUserCoursesSchedule()
-        {
-            List<Course> courses = new List<Course>();
 
-            if(await UpdateBox.CheckForInternetConnection() == true)
+        //              *** Methods ***
+
+        public static async Task<StatusWithObject<List<Course>>> getCourses(String courseID)
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
             {
-                //SAL stuff
-                //save what you got from sal anyway
+                returnedValue = await SAL.CourseS.getCourses(courseID, null, null);
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                }
+            }
+            foreach (Course x in returnedValue.statusObject)
+            {
+                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
+                returnedValue.statusObject.Add(result);
             }
 
-            courses = await DAL.CourseD.getUserCoursesSchedule(Semester.current_term);
+            return returnedValue;
+        }
+        //  overload
+        public static async Task<StatusWithObject<List<Course>>> getCourses()
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.CourseS.getCourses(null, null, null);
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                }
+            }
+            foreach (Course x in returnedValue.statusObject)
+            {
+                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
+                returnedValue.statusObject.Add(result);
+            }
 
-            return courses;
-            
+            return returnedValue;
+        }
+
+
+        public static async Task<StatusWithObject<List<Course>>> getUserCoursesSchedule()
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.CourseS.getEnrolledCourses();
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                }
+            }
+            foreach (Course x in returnedValue.statusObject)
+            {
+                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
+                returnedValue.statusObject.Add(result);
+            }
+
+            return returnedValue;
+
         }
 
 

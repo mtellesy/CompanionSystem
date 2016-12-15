@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 namespace CScore.SAL
 {
   public static class CourseS 
-    {        
+    {
         //              done :)
         //              *** returns all information about all courses courses ***
         public static async Task<StatusWithObject<List<Course>>> getCourses(String cou_id, String dep_id, String branch)
         {
             // declaration of path and request type
-            String path = "/courses";            
+            String path = "/courses";
             if (cou_id != null)
             {
                 path += "?id={0}" + cou_id;
@@ -82,7 +82,7 @@ namespace CScore.SAL
             returnedValue.statusObject = courses;
             return returnedValue;
         }
-
+   
         //              *** returns student or lecturer courses ***
         public static async Task<StatusWithObject<List<Course>>> getEnrolledCourses()
         {

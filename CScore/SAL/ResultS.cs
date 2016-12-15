@@ -78,10 +78,10 @@ namespace CScore.SAL
         }
 
         //              *** returns a list of all results ***
-        public static async Task<StatusWithObject<List<AllResult>>> getAllResult(String ter_id)
+        public static async Task<StatusWithObject<List<AllResult>>> getAllResult(int ter_id)
         {
             String path = "/result/" + User.use_id + "/transcript";
-            if (ter_id != null)
+            if (Convert.ToString(ter_id) != "0")
             {
                 path += "?term_id={0}"+ Convert.ToString(ter_id);
 

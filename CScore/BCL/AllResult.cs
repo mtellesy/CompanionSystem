@@ -132,14 +132,14 @@ namespace CScore.BCL
 
         //              *** Methods ***
 
-        public static async Task<StatusWithObject<List<AllResult>>> getAllResults()
+        public static async Task<StatusWithObject<List<AllResult>>> getAllResults(int ter_id)
         {
             List<AllResult>  result= new List<AllResult>();
             StatusWithObject<List<AllResult>> returnedValue = new StatusWithObject<List<AllResult>>();
-            bool s = await UpdateBox.CheckForInternetConnection();
-            if (s)
+        
+            if (await UpdateBox.CheckForInternetConnection())
             {
-                returnedValue = await SAL.ResultS.getAllResult(Convert.ToString(Semester.current_term));
+                returnedValue = await SAL.ResultS.getAllResult(ter_id);
                 if (returnedValue.status.status == true)
                 {
                     foreach (AllResult x in returnedValue.statusObject)
