@@ -29,6 +29,8 @@ namespace CScore.DAL
                 termSchedule.Ter_enrollment = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_enrollment).First()));
                 termSchedule.Ter_dropCourses = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_dropCourses).First()));
                 termSchedule.Ter_lastStudyDate = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_lastStudyDate).First()));
+                termSchedule.Year = Convert.ToString(DateTime.Parse(terms.Select(i => i.year).First()));
+                
                 return termSchedule;
 
             }
@@ -52,7 +54,7 @@ namespace CScore.DAL
             term.Ter_enrollment = termSchedule.Ter_enrollment.ToString();
             term.Ter_dropCourses = termSchedule.Ter_dropCourses.ToString();
             term.Ter_lastStudyDate = termSchedule.Ter_lastStudyDate.ToString();
-
+            term.year = termSchedule.Year.ToString();
             if (count <= 0)
             {
                 await DBuilder._connection.InsertAsync(term);
