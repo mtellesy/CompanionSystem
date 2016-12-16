@@ -78,7 +78,7 @@ namespace CScore.SAL
         }
 
         //              *** returns a list of defined number of announcements***
-        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int display, int start,String type)
+        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int display, int start)
         {
             //      declaration of path and request type
             String path = "/posts";            
