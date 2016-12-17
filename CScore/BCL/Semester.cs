@@ -8,8 +8,9 @@ namespace CScore.BCL
 {
     public class Semester
     {
+        //              *** Properties 
         // Current term id must be set from Application layer from the start of the APP
-         public static int current_term {get; set;}    
+        public static int current_term {get; set;}    
          int ter_id { get; set; }
          String ter_nameAR { get; set; }
          String ter_nameEN { get; set; }
@@ -20,7 +21,8 @@ namespace CScore.BCL
          String ter_enrollment { get; set; }
          String ter_dropCourses { get; set; }
          List<Exams> exam { set; get; }
-        //      current_term
+
+        //              *** setters and getters ***
 
         //     ter_id 
         public int Ter_id

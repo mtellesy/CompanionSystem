@@ -155,7 +155,7 @@ namespace CScore.DAL
             DbMessage.Mes_status = message.Mes_status;
             //DbMessage.Mes_time = current time 
             DbMessage.Mes_content = message.Mes_content;
-
+            
          var results =  await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(message.Mes_id)).CountAsync();
 
             if (results <= 0)

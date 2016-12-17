@@ -8,52 +8,71 @@ namespace CScore.BCL
 {
   public  class Result
     {
-        public String cou_id;
-        public float final;
-        public List<MidMarkDistribution> midExams;
+        //              *** Properties ***
+         String cou_id;
+         float final;
+         List<MidMarkDistribution> midExams;
 
-     
-    
-        
-        public static async  Task<List<Result>> getSemesterResults()
+        //              *** setters and getters ***
+
+        //        cou_id
+        public String Cou_id
         {
-            List<Result> r = new List<Result>();
-      
+            set
+            {
+                cou_id = value;
+            }
+            get
+            {
+                return cou_id;
+            }
+        }
+        //        final
+        public float Final
+        {
+            set
+            {
+                final = value;
+            }
+            get
+            {
+                return final;
+            }
+        }
+        //        midExams
+        public List<MidMarkDistribution> MidExams
+        {
+            set
+            {
+                midExams = value;
+            }
+            get
+            {
+                return midExams;
+            }
+        }
+
+
+        //              *** Methods ***
+
+        public static async  Task<StatusWithObject<List<Result>>> getSemesterResults()
+        {
+            StatusWithObject<List<Result>> returnedValue = new StatusWithObject<List<Result>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
-             //   r = SAL.ResultS.getSemesterResults(User.use_id, Semester.current_term);
-                foreach(Result x in r)
+                returnedValue = await SAL.ResultS.getSemesterResult();
+                if (returnedValue.status.status == true)
                 {
-                    await DAL.ResultD.saveSemesterResult(x);
-                    foreach (MidMarkDistribution y in x.midExams)
+                    foreach (Result x in returnedValue.statusObject)
                     {
-                       await DAL.MidMarkDistributionD.saveSemesterMidMarkDistribution(y);
+                        await DAL.ResultD.saveSemesterResult(x);                        
                     }
-                }
-         
-                foreach(Result x in r)
-                {
-                    await DAL.ResultD.saveSemesterResult(x);
-                    foreach (MidMarkDistribution y in x.midExams)
-                    {
-                        await DAL.MidMarkDistributionD.saveSemesterMidMarkDistribution(y);
-                    }
-                }
-                return r;
-            }
-            List<Result> r2 = new List<Result>();
-            r2 =  
-              await  DAL.ResultD.getSemesterResult();
 
-            foreach (Result x in r2)
-            {
-                //foreach (MidMarkDistribution y in x.midExams)
-                {
-                    x.midExams=await DAL.MidMarkDistributionD.getSemeterMidMarkDistribution(x.cou_id);
-                }
+                }                                
             }
-          //  r = DAL.ResultD.getSemeterResult(Semester.ter_id);
-            return r2;
+            returnedValue.statusObject= await  DAL.ResultD.getSemesterResult();
+
+            return returnedValue;
         }
 
         public float getTotalResult()
@@ -61,7 +80,7 @@ namespace CScore.BCL
             float total = 0;
             foreach (MidMarkDistribution x in midExams)
             {
-                total += x.grade;
+                total += x.Grade;
             }
             total += final;
             return total;

@@ -16,18 +16,18 @@ namespace CScore.ResponseObjects
         {
             BCL.Result result = new BCL.Result();
             BCL.MidMarkDistribution y = new BCL.MidMarkDistribution();
-            result.cou_id = Jresult.course_id;
-            result.final = Jresult.finalMark;
+            result.Cou_id = Jresult.course_id;
+            result.Final = Jresult.finalMark;
             int id = 0;
-            result.midExams = new List<BCL.MidMarkDistribution>();
+            result.MidExams = new List<BCL.MidMarkDistribution>();
             foreach (float grade in Jresult.midMark)
             {
-                y.cou_id = Jresult.course_id;
-                y.mid_nameAR = null;
-                y.mid_nameEN = null;
-                y.midMarkDistributionID = ++id;
-                y.grade = grade;
-                result.midExams.Add(y);
+                y.Cou_id = Jresult.course_id;
+                y.Mid_nameAR = null;
+                y.Mid_nameEN = null;
+                y.MidMarkDistributionID = ++id;
+                y.Grade = grade;
+                result.MidExams.Add(y);
             }
             return result;
         }

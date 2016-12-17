@@ -8,7 +8,8 @@ namespace CScore.BCL
 {
     public class Schedule
     {
-         int tea_id { get; set; }
+        //              *** Properties ***
+        int tea_id { get; set; }
          String dayAR { get; set; }
          String dayEN { get; set; }
          int dayID { get; set; }
@@ -21,6 +22,8 @@ namespace CScore.BCL
          int classTimeID { get; set; }
          String classStart { get; set; } // maybe it will be changed
          double classDuration { get; set; }
+
+        //              *** setters and getters ***
         //      tea_id
         public int Tea_id
         {

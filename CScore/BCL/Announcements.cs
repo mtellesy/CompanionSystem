@@ -128,7 +128,6 @@ namespace CScore.BCL
 
         public static async Task<StatusWithObject<Announcements>> sendAnnouncement(Announcements announcement)
         {
-           // List<AllResult> result = new List<AllResult>();
             StatusWithObject<Announcements> returnedValue = new StatusWithObject<Announcements>();
 
             if (await UpdateBox.CheckForInternetConnection())
@@ -152,7 +151,7 @@ namespace CScore.BCL
             StatusWithObject<List<Announcements>> returnedValue = new StatusWithObject<List<Announcements>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
-                returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom,type);
+                returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom);
                 if (returnedValue.status.status == true)
                 {
                     foreach (Announcements x in returnedValue.statusObject)
