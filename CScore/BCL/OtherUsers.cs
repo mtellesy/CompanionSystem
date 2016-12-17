@@ -8,7 +8,7 @@ namespace CScore.BCL
 {
     public class OtherUsers
     {
-        public int use_id { get; set; }
+        public String use_id { get; set; }
 
         public String use_nameAR { get; set; }
 
@@ -38,7 +38,7 @@ namespace CScore.BCL
 
         public String academicRankEN { get; set; }
 
-        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
+        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(String userID)
         {
             StatusWithObject<OtherUsers> returndValue = new StatusWithObject<OtherUsers>();
             Status status = new Status();

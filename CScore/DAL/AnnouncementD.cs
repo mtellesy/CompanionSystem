@@ -30,11 +30,11 @@ namespace CScore.DAL
                     if (index <= NumberOfAnnouncements)
                     {
                         Announcements newAnno = new Announcements();
-                        newAnno.ano_id = anno.Ano_id;
-                        newAnno.ano_sender = anno.Ano_sender;
-                        newAnno.ano_content = anno.Ano_content;
-                        newAnno.ano_time = anno.Ano_time;
-                        newAnno.cou_id = anno.Cou_id;
+                        newAnno.Ano_id = anno.Ano_id;
+                        newAnno.Ano_sender = anno.Ano_sender;
+                        newAnno.Ano_content = anno.Ano_content;
+                        newAnno.Ano_time = anno.Ano_time;
+                        newAnno.Cou_id = anno.Cou_id;
                        // newAnno.ano_status = anno.Ano_status;
                         announcements.Add(newAnno);
                         index++; // okay go and fetch the next one 
@@ -53,10 +53,10 @@ namespace CScore.DAL
                         // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
                         Announcements newAnno = new Announcements();
-                        newAnno.ano_id = anno.Ano_id;
-                        newAnno.ano_sender = anno.Ano_sender;
-                        newAnno.ano_content = anno.Ano_content;
-                        newAnno.cou_id = anno.Cou_id;
+                        newAnno.Ano_id = anno.Ano_id;
+                        newAnno.Ano_sender = anno.Ano_sender;
+                        newAnno.Ano_content = anno.Ano_content;
+                        newAnno.Cou_id = anno.Cou_id;
                         // newAnno.ano_status = anno.Ano_status;
                         announcements.Add(newAnno);
                         index++;
@@ -73,7 +73,7 @@ namespace CScore.DAL
         }
 
 
-        public static async Task<List<Announcements>> getSentAnnouncements(int NumberOfAnnouncements, int StartFrom, int user_id)
+        public static async Task<List<Announcements>> getSentAnnouncements(int NumberOfAnnouncements, int StartFrom, String user_id)
         {
             var results = await DBuilder._connection.Table<AnboxL>().Where(t => t.Ano_sender.Equals(user_id)).OrderByDescending(i => i.Ano_id).ToListAsync();
 
@@ -91,11 +91,11 @@ namespace CScore.DAL
                     if (index <= NumberOfAnnouncements)
                     {
                         Announcements newAnno = new Announcements();
-                        newAnno.ano_id = anno.Ano_id;
-                        newAnno.ano_sender = anno.Ano_sender;
-                        newAnno.ano_content = anno.Ano_content;
-                        newAnno.ano_time = anno.Ano_time;
-                        newAnno.cou_id = anno.Cou_id;
+                        newAnno.Ano_id = anno.Ano_id;
+                        newAnno.Ano_sender = anno.Ano_sender;
+                        newAnno.Ano_content = anno.Ano_content;
+                        newAnno.Ano_time = anno.Ano_time;
+                        newAnno.Cou_id = anno.Cou_id;
                         // newAnno.ano_status = anno.Ano_status;
                         announcements.Add(newAnno);
                         index++; // okay go and fetch the next one 
@@ -114,10 +114,10 @@ namespace CScore.DAL
                         // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
                         Announcements newAnno = new Announcements();
-                        newAnno.ano_id = anno.Ano_id;
-                        newAnno.ano_sender = anno.Ano_sender;
-                        newAnno.ano_content = anno.Ano_content;
-                        newAnno.cou_id = anno.Cou_id;
+                        newAnno.Ano_id = anno.Ano_id;
+                        newAnno.Ano_sender = anno.Ano_sender;
+                        newAnno.Ano_content = anno.Ano_content;
+                        newAnno.Cou_id = anno.Cou_id;
                         // newAnno.ano_status = anno.Ano_status;
                         announcements.Add(newAnno);
                         index++;
@@ -144,13 +144,13 @@ namespace CScore.DAL
                 var results = await DBuilder._connection.Table<AnboxL>().Where(i => i.Ano_id.Equals(announcementID)).ToListAsync();
 
                 Announcements announcements = new Announcements();
-                announcements.ano_id = results.Select(i => i.Ano_id).First();
-                announcements.ano_sender = results.Select(i => i.Ano_sender).First();
-                announcements.ano_content = results.Select(i => i.Ano_content).First();
-                announcements.ano_time = results.Select(i => i.Ano_time).First();
+                announcements.Ano_id = results.Select(i => i.Ano_id).First();
+                announcements.Ano_sender = results.Select(i => i.Ano_sender).First();
+                announcements.Ano_content = results.Select(i => i.Ano_content).First();
+                announcements.Ano_time = results.Select(i => i.Ano_time).First();
                 //   announcements.mes_status = results.Select(i => i.Ano_status).First();
-                announcements.cou_id = results.Select(i => i.Cou_id).First();
-                announcements.ter_id = results.Select(i => i.Ter_id).First();
+                announcements.Cou_id = results.Select(i => i.Cou_id).First();
+                announcements.Ter_id = results.Select(i => i.Ter_id).First();
 
                 return announcements;
             }
@@ -165,16 +165,16 @@ namespace CScore.DAL
         public static async Task saveAnnouncement(Announcements announcement)
         {
             CScore.DataLayer.Tables.AnboxL DbAnnouncement = new AnboxL();
-            DbAnnouncement.Ano_id = announcement.ano_id;
-            DbAnnouncement.Ano_sender = announcement.ano_sender;
+            DbAnnouncement.Ano_id = announcement.Ano_id;
+            DbAnnouncement.Ano_sender = announcement.Ano_sender;
             //DbAnnouncement.Ano_status = announcement.Ano_status;
-            DbAnnouncement.Ano_time = announcement.ano_time;  
-            DbAnnouncement.Ano_content = announcement.ano_content;
-            DbAnnouncement.Cou_id = announcement.cou_id;
-            DbAnnouncement.Ter_id = announcement.ter_id;
+            DbAnnouncement.Ano_time = announcement.Ano_time;  
+            DbAnnouncement.Ano_content = announcement.Ano_content;
+            DbAnnouncement.Cou_id = announcement.Cou_id;
+            DbAnnouncement.Ter_id = announcement.Ter_id;
 
 
-            var results = await DBuilder._connection.Table<AnboxL>().Where(i => i.Ano_id.Equals(announcement.ano_id)).CountAsync();
+            var results = await DBuilder._connection.Table<AnboxL>().Where(i => i.Ano_id.Equals(announcement.Ano_id)).CountAsync();
 
             if (results <= 0)
             {

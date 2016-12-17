@@ -11,11 +11,11 @@ using CScore.ResponseObjects;
 
 namespace CScore.SAL
 {
-  public class UserS : Template
+  public  class UserS 
     {
         
        
-        public async Task<StatusWithObject<OtherUsers>> getOtherUser(int use_id)
+        public async Task<StatusWithObject<OtherUsers>> getOtherUser(String use_id)
         {
             OtherUsers user = new OtherUsers();
             Status status = new Status();
@@ -54,7 +54,7 @@ namespace CScore.SAL
             }
 
             StatusWithObject<String> req = new StatusWithObject<String>();
-
+            //start from here baby
             req = await AuthenticatorS.sendRequest(path, null, requestType);
 
             jsonString = req.statusObject;

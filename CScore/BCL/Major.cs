@@ -8,31 +8,52 @@ namespace CScore.BCL
 {
     public static class Major
     {
-       
-        /*
-        public static bool isMajorEnabled()
-        {
-            return SAL.MajorS.getMajorStatus();
-        }*/
-        /*
-        public static bool isAllowedToMajor()
-        {
-            return SAL.MajorS.isAllowedToMajor(User.use_id);
-        }*/
+        //              done
+        //              *** Methods ***
 
-       public static Status major(Department d)
+        public static async Task<bool> isMajorEnabled()
         {
-            Status s1 = new Status();
-            // s1 = SAL.MajorS.sendDepartment(User.use_id, d.dep_id);
-            d.saveDepartment();
-            return s1;
+            bool returnedValue = false;
+            StatusWithObject<bool> temp = new StatusWithObject<bool>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                temp = await SAL.MajorS.getMajorStatus();
+                returnedValue = temp.statusObject;
+            }
+
+            return returnedValue;
         }
-        /*
-        public static List<Department> getAvailableDepartments()
+    
+
+       public static async Task<StatusWithObject<String>> major(Department department)
         {
-            List<Department> availableDepartments = new List<Department>;
-            availableDepartments = SAL.MajorS.getDepartments(User.use_id,dep_id);
-            return availableDepartments;
-        }*/
+            StatusWithObject<String> returnedValue = new StatusWithObject<String>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.MajorS.sendDepartment(department.Dep_id );
+                if (returnedValue.status.status == true)
+                {
+                    User.dep_id =Convert.ToString(department.Dep_id);
+                    User.dep_nameAR = department.DepNameAR;
+                    User.dep_nameEN = department.Dep_nameEN;
+                    await DAL.UsersD.saveUser();
+                }
+            }
+            return returnedValue;
+        }
+        
+        public static async Task<StatusWithObject<List<Department>>> getAvailableDepartments()
+        {
+            StatusWithObject<List<Department>> returnedValue = new StatusWithObject<List<Department>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.MajorS.getAvailableDepartments();
+            }
+            else
+            {
+                returnedValue = null;
+            }
+            return returnedValue;
+        }
     }
 }

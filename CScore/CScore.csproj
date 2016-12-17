@@ -38,6 +38,7 @@
     <Compile Include="BCL\Announcements.cs" />
     <Compile Include="BCL\Department.cs" />
     <Compile Include="BCL\Course.cs" />
+    <Compile Include="BCL\Exams.cs" />
     <Compile Include="BCL\MidMarkDistribution.cs" />
     <Compile Include="BCL\Result.cs" />
     <Compile Include="BCL\Schedule.cs" />
@@ -71,13 +72,15 @@
     <Compile Include="DataLayer\Tables\StudentCoursesL.cs" />
     <Compile Include="DataLayer\Tables\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseObjects\AnnouncementsObject.cs" />
     <Compile Include="ResponseObjects\AuthenticationObject.cs" />
+    <Compile Include="ResponseObjects\MessageObject.cs" />
     <Compile Include="ResponseObjects\ResponceMessageObject.cs" />
     <Compile Include="ResponseObjects\CourseObject.cs" />
     <Compile Include="ResponseObjects\DepartmentObject.cs" />
     <Compile Include="ResponseObjects\EnrollmentObject.cs" />
-    <Compile Include="ResponseObjects\gradeObject.cs" />
-    <Compile Include="ResponseObjects\majorObject.cs" />
+    <Compile Include="ResponseObjects\GradeObject.cs" />
+    <Compile Include="ResponseObjects\MajorObject.cs" />
     <Compile Include="ResponseObjects\MessagesObject.cs" />
     <Compile Include="ResponseObjects\ResultsObject.cs" />
     <Compile Include="ResponseObjects\ScheduleObject.cs" />
@@ -94,7 +97,6 @@
     <Compile Include="SAL\MessageS.cs" />
     <Compile Include="SAL\ResultS.cs" />
     <Compile Include="SAL\SemesterS.cs" />
-    <Compile Include="SAL\Template.cs" />
     <Compile Include="SAL\UserS.cs" />
   </ItemGroup>
   <ItemGroup>
