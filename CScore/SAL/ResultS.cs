@@ -80,13 +80,13 @@ namespace CScore.SAL
         //              *** returns a list of all results ***
         public static async Task<StatusWithObject<List<AllResult>>> getAllResult(int ter_id)
         {
-            String path = "/result/" + User.use_id + "/transcript";
+            String path = "/result/" + User.use_id + "/transcript?";
             if (Convert.ToString(ter_id) != "0")
             {
-                path += "?term_id={0}"+ Convert.ToString(ter_id);
+                path += "term_id={0}&"+ Convert.ToString(ter_id);
 
             }
-            path += String.Format("?token={0}", AuthenticatorS.token);
+            path += String.Format("token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method

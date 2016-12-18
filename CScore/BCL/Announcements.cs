@@ -142,7 +142,7 @@ namespace CScore.BCL
             return returnedValue;
         }
 
-        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int NumberOfAnnouncements, int startFrom, String type , String courseID)
+        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int NumberOfAnnouncements, int startFrom, String type, String courseID)
         {
             // type is used for to know which type of Announcements it will return (received or sent)
             List<Announcements> announcements = new List<Announcements>();
@@ -151,7 +151,7 @@ namespace CScore.BCL
             StatusWithObject<List<Announcements>> returnedValue = new StatusWithObject<List<Announcements>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
-                returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom);
+                returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom, false,null);
                 if (returnedValue.status.status == true)
                 {
                     foreach (Announcements x in returnedValue.statusObject)
@@ -160,7 +160,7 @@ namespace CScore.BCL
                     }
                 }
             }
-            
+
             //Sent
             if (type == "sent" || type == "S" || type == "Sent" || type == "SENT")
                 announcements = await DAL.AnnouncementD.getSentAnnouncements(NumberOfAnnouncements, startFrom, User.use_id);
@@ -172,8 +172,42 @@ namespace CScore.BCL
 
             returnedValue.statusObject = announcements;
             return returnedValue;
-            
+
         }
+
+        public static async Task<StatusWithObject<List<Announcements>>> getSentAnnouncements(int NumberOfAnnouncements, int startFrom, String type, String courseID)
+        {
+            // type is used for to know which type of Announcements it will return (received or sent)
+            List<Announcements> announcements = new List<Announcements>();
+            //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
+            Announcements result = new Announcements();
+            StatusWithObject<List<Announcements>> returnedValue = new StatusWithObject<List<Announcements>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom, true, null);
+                if (returnedValue.status.status == true)
+                {
+                    foreach (Announcements x in returnedValue.statusObject)
+                    {
+                        await DAL.AnnouncementD.saveAnnouncement(x);
+                    }
+                }
+            }
+
+            //Sent
+            if (type == "sent" || type == "S" || type == "Sent" || type == "SENT")
+                announcements = await DAL.AnnouncementD.getSentAnnouncements(NumberOfAnnouncements, startFrom, User.use_id);
+            //Receive
+            else if (type == "received" || type == "R" || type == "Received" || type == "RECEIVED")
+                announcements = await DAL.AnnouncementD.getReceivedAnnouncements(NumberOfAnnouncements, startFrom, courseID);
+            else
+                return null;
+
+            returnedValue.statusObject = announcements;
+            return returnedValue;
+
+        }
+
 
     }
 }

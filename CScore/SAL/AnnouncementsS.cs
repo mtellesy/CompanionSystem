@@ -18,9 +18,12 @@ namespace CScore.SAL
             //      declaration of path and request type
             String path = "/posts";
             String requestType = "GET";
-            path += "?type={0} announcement/";
-            path += String.Format("?state={0}", state);
-            path += String.Format("?token={0}", AuthenticatorS.token);
+            path += "/announcement?";
+            if (state != null)
+            {
+                path += String.Format("state={0}&", state);
+            }
+            path += String.Format("token={0}", AuthenticatorS.token);
                         
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -78,14 +81,31 @@ namespace CScore.SAL
         }
 
         //              *** returns a list of defined number of announcements***
-        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int display, int start)
+        public static async Task<StatusWithObject<List<Announcements>>> getAnnouncements(int display, int start, bool sent, String privacy)
         {
             //      declaration of path and request type
             String path = "/posts";            
-            path += "?type={0} announcement/";
-            path += String.Format("?display={0}", display);
-            path += String.Format("?start={0}", start);
-            path += String.Format("?token={0}", AuthenticatorS.token);
+            path += "/announcement";
+            if (sent != false)
+            {
+                path += String.Format("/sent");
+
+            }
+            path += "?";
+            if (display != 0)
+            {
+                path += String.Format("display={0}&", display);
+            }
+            if (start != 0)
+            {
+                path += String.Format("start={0}&", start);
+            }
+            
+            if (privacy != null)
+            {
+                path += String.Format("privacy={0}&", privacy);
+            }
+            path += String.Format("token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -149,9 +169,9 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             String path = "/posts";
-            path += "?type={0} announcement/";
-            path+=  Convert.ToString(ano_id);
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+            path += "/announcement?";
+            path+=  Convert.ToString(ano_id)+"?";
+            path = path + String.Format("token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -212,7 +232,7 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             String path = "/posts";
-            //path += "?type={0} announcement/";
+            //path += "/announcement/sent";
             path = path + String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "POST";
 

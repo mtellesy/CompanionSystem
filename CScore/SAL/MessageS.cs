@@ -16,9 +16,9 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<List<Messages>>> getLatestMessages(String state)
         {
             //      declaration of path and request type
-            String path = "/messages";
-            path = path + String.Format("?state={0}", state);
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String path = "/messages?";
+            path = path + String.Format("state={0}&", state);
+            path = path + String.Format("token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -81,10 +81,10 @@ namespace CScore.SAL
         {
 
             //      declaration of path and request type
-            String path = "/messages";
-            path = path + String.Format("?display={0}", display);
-            path = path + String.Format("?start={0}", start);
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String path = "/messages?";
+            path = path + String.Format("display={0}&", display);
+            path = path + String.Format("start={0}&", start);
+            path = path + String.Format("token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method

@@ -11,7 +11,8 @@ namespace CScore.BCL
         //      done
         //              *** Properties ***
         int midMarkDistributionID { set; get; }
-         String cou_id { set; get; }
+        int ter_id { set; get; }
+        String cou_id { set; get; }
          String mid_nameAR { set; get; }
          String mid_nameEN { set; get; }
          float grade { set; get; }
@@ -28,6 +29,18 @@ namespace CScore.BCL
             get
             {
                 return midMarkDistributionID;
+            }
+        }
+        //        ter_id
+        public int Ter_id
+        {
+            set
+            {
+                ter_id = value;
+            }
+            get
+            {
+                return ter_id;
             }
         }
         //        cou_id

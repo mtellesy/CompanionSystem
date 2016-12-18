@@ -12,8 +12,9 @@ namespace CScore.DataLayer.Tables
 {
     public class MidMarkDistributionL
     {
-        [PrimaryKey]
         public int MidMarkDistributionID { get; set; }
+
+        public int ter_id { set; get; }
 
         public String Cou_id { get; set; }
 
