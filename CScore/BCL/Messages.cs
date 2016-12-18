@@ -8,6 +8,7 @@ namespace CScore.BCL
 {
     public class Messages
     {
+        //      done
         //                  PROBERTIES
         int mes_id;
         bool mes_status;
@@ -156,13 +157,21 @@ namespace CScore.BCL
 
 
         //                   METHODS
-        public static async Task<Messages> getMesssage(int messageId)
+        public static async Task<StatusWithObject<Messages>> getMesssage(int messageId)
         {
-            Messages Message = new Messages();
- 
-            Message = await DAL.MessageD.getMessage(messageId);
-
-            return Message;
+            Messages result = new Messages();
+            StatusWithObject<Messages> returnedValue = new StatusWithObject<Messages>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.MessageS.getMessage(messageId);
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.MessageD.saveMessage(returnedValue.statusObject);
+                }
+            }
+            result = await DAL.MessageD.getMessage(messageId);
+            returnedValue.statusObject = result;
+            return returnedValue;
         }
 
         public static async Task<Boolean> sendMessage(Messages Message)
@@ -178,19 +187,24 @@ namespace CScore.BCL
                 return false;
         }
 
-        public static async Task<List<Messages>> getMessages(int NumberOfMessages, int startFrom,String type)
+        public static async Task<List<Messages>> getMessages(int NumberOfMessages, int startFrom, String type)
         {
             // type is used for to know which type of Messages it will return (received or sent)
-
-            List<Messages> messages = new List<Messages>(); // type Messages
+            List<Messages> messages = new List<Messages>();
             //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
-            if (await UpdateBox.CheckForInternetConnection() == true)
+            Messages result = new Messages();
+            StatusWithObject<List<Messages>> returnedValue = new StatusWithObject<List<Messages>>();
+            if (await UpdateBox.CheckForInternetConnection())
             {
-                //SAL stuff
-                // save messages in dal
-               
+                returnedValue = await SAL.MessageS.getMessages(NumberOfMessages, startFrom);
+                if (returnedValue.status.status == true)
+                {
+                    foreach (Messages x in returnedValue.statusObject)
+                    {
+                        await DAL.MessageD.saveMessage(x);
+                    }
+                }
             }
-            //get messages from dal
             //Sent
             if (type == "sent" || type == "S" || type == "Sent" || type == "SENT")
                 messages = await DAL.MessageD.getSentMessages(NumberOfMessages, startFrom, User.use_id);

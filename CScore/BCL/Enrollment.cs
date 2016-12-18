@@ -172,6 +172,7 @@ namespace CScore.BCL
             return returnedValue;
         }
 
+
         public static async Task<bool> isEnrollmentEnabled()
         {
             bool returnedValue = false;

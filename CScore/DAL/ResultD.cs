@@ -24,8 +24,9 @@ namespace CScore.DAL
                 foreach (var x in results)
                 {
                     Result returnResult = new Result();
-                    returnResult.cou_id = x.Cou_id;
-                    returnResult.final = x.finalMark;
+                    returnResult.Cou_id = x.Cou_id;
+                    returnResult.Final = x.finalMark;                    
+                    returnResult.MidExams = await DAL.MidMarkDistributionD.getSemeterMidMarkDistribution(returnResult.Cou_id);
                     r.Add(returnResult);
                 }
                 return r;
@@ -61,18 +62,23 @@ namespace CScore.DAL
         public static async Task saveSemesterResult(Result r)
         {
             CScore.DataLayer.Tables.StudentCoursesL studentCourses = new StudentCoursesL();
-            studentCourses.Cou_id = r.cou_id;
-            studentCourses.finalMark = r.final;
+            studentCourses.Cou_id = r.Cou_id;
+            studentCourses.finalMark = r.Final;
             studentCourses.Ter_id = Semester.current_term;
-            var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Cou_id.Equals(r.cou_id)).CountAsync();
+            var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Cou_id.Equals(r.Cou_id)).CountAsync();
 
             if (results <= 0)
             {
                 await DBuilder._connection.InsertAsync(studentCourses);
             }
             else
+            {
                 await DBuilder._connection.UpdateAsync(studentCourses);
-
+            }
+            foreach (MidMarkDistribution x in r.MidExams)
+            {
+                await MidMarkDistributionD.saveSemesterMidMarkDistribution(x);
+            }
         }
 
         public static async Task saveAllResult(AllResult r)

@@ -21,11 +21,11 @@ namespace CScore.DAL
             foreach (var x in results)
             {
                 BCL.MidMarkDistribution midMark = new BCL.MidMarkDistribution();
-                midMark.midMarkDistributionID = x.MidMarkDistributionID;
-                midMark.cou_id = x.Cou_id;
-                midMark.mid_nameAR = x.Mid_nameAR;
-                midMark.mid_nameEN = x.Mid_nameEN;
-                midMark.grade = x.grade;
+                midMark.MidMarkDistributionID = x.MidMarkDistributionID;
+                midMark.Cou_id = x.Cou_id;
+                midMark.Mid_nameAR = x.Mid_nameAR;
+                midMark.Mid_nameEN = x.Mid_nameEN;
+                midMark.Grade = x.grade;
                 r.Add(midMark);
             }
             return r;
@@ -34,12 +34,12 @@ namespace CScore.DAL
         public static async Task saveSemesterMidMarkDistribution(MidMarkDistribution r)
         {
             CScore.DataLayer.Tables.MidMarkDistributionL midMarks = new MidMarkDistributionL();
-            midMarks.MidMarkDistributionID = r.midMarkDistributionID;
-            midMarks.Cou_id = r.cou_id;
-            midMarks.Mid_nameAR = r.mid_nameAR;
-            midMarks.Mid_nameEN = r.mid_nameEN;
-            midMarks.grade = r.grade;
-            var results = await DBuilder._connection.Table<MidMarkDistributionL>().Where(i => i.Cou_id.Equals(r.cou_id)).CountAsync();
+            midMarks.MidMarkDistributionID = r.MidMarkDistributionID;
+            midMarks.Cou_id = r.Cou_id;
+            midMarks.Mid_nameAR = r.Mid_nameAR;
+            midMarks.Mid_nameEN = r.Mid_nameEN;
+            midMarks.grade = r.Grade;
+            var results = await DBuilder._connection.Table<MidMarkDistributionL>().Where(i => i.Cou_id.Equals(r.Cou_id)).CountAsync();
 
             if (results <= 0)
             {

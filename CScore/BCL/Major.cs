@@ -8,7 +8,7 @@ namespace CScore.BCL
 {
     public static class Major
     {
-
+        //              done
         //              *** Methods ***
 
         public static async Task<bool> isMajorEnabled()
@@ -23,29 +23,37 @@ namespace CScore.BCL
 
             return returnedValue;
         }
-        /*
-        public static bool isAllowedToMajor()
-        {
-            return SAL.MajorS.isAllowedToMajor(User.use_id);
-        }*/
+    
 
-       public static Status major(Department d)
+       public static async Task<StatusWithObject<String>> major(Department department)
         {
-            Status s1 = new Status();
-            // s1 = SAL.MajorS.sendDepartment(User.use_id, d.dep_id);
-//            User.dep_id=Department
-  //              user.depName=KeyNotFoundException[';
-    //               user,depnameEN
-    // saveUser()
-
-            return s1;
+            StatusWithObject<String> returnedValue = new StatusWithObject<String>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.MajorS.sendDepartment(department.Dep_id );
+                if (returnedValue.status.status == true)
+                {
+                    User.dep_id =Convert.ToString(department.Dep_id);
+                    User.dep_nameAR = department.DepNameAR;
+                    User.dep_nameEN = department.Dep_nameEN;
+                    await DAL.UsersD.saveUser();
+                }
+            }
+            return returnedValue;
         }
-        /*
-        public static List<Department> getAvailableDepartments()
+        
+        public static async Task<StatusWithObject<List<Department>>> getAvailableDepartments()
         {
-            List<Department> availableDepartments = new List<Department>;
-            availableDepartments = SAL.MajorS.getDepartments(User.use_id,dep_id);
-            return availableDepartments;
-        }*/
+            StatusWithObject<List<Department>> returnedValue = new StatusWithObject<List<Department>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.MajorS.getAvailableDepartments();
+            }
+            else
+            {
+                returnedValue = null;
+            }
+            return returnedValue;
+        }
     }
 }
