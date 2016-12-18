@@ -100,10 +100,7 @@ namespace CScore.SAL
             {
                 path += String.Format("start={0}&", start);
             }
-            if (sent != false)
-            {
-                path += String.Format("sent={0}&", sent);
-            }
+            
             if (privacy != null)
             {
                 path += String.Format("privacy={0}&", privacy);
