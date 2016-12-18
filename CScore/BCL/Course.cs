@@ -142,6 +142,69 @@ namespace CScore.BCL
             return returnedValue;
         }
         //  overload
+        public static async Task<StatusWithObject<List<Course>>> getCourses( int dep_id)
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.CourseS.getCourses(null,Convert.ToString( dep_id), null);
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                }
+            }
+            foreach (Course x in returnedValue.statusObject)
+            {
+                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
+                returnedValue.statusObject.Add(result);
+            }
+
+            return returnedValue;
+        }
+        //  overload
+        public static async Task<StatusWithObject<List<Course>>> getCourses(int dep_id, String branch)
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.CourseS.getCourses(null, Convert.ToString(dep_id), branch);
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                }
+            }
+            foreach (Course x in returnedValue.statusObject)
+            {
+                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
+                returnedValue.statusObject.Add(result);
+            }
+
+            return returnedValue;
+        }
+        //  overload
+        public static async Task<StatusWithObject<List<Course>>> getCourses(String courseID,int dep_id, String branch)
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                returnedValue = await SAL.CourseS.getCourses(courseID, Convert.ToString(dep_id), branch);
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                }
+            }
+            foreach (Course x in returnedValue.statusObject)
+            {
+                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
+                returnedValue.statusObject.Add(result);
+            }
+
+            return returnedValue;
+        }
+        //  overload
         public static async Task<StatusWithObject<List<Course>>> getCourses()
         {
             Course result = new Course();

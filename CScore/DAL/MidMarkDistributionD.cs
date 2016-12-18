@@ -25,6 +25,7 @@ namespace CScore.DAL
                 midMark.Cou_id = x.Cou_id;
                 midMark.Mid_nameAR = x.Mid_nameAR;
                 midMark.Mid_nameEN = x.Mid_nameEN;
+                midMark.Ter_id = x.ter_id;
                 midMark.Grade = x.grade;
                 r.Add(midMark);
             }
@@ -39,6 +40,7 @@ namespace CScore.DAL
             midMarks.Mid_nameAR = r.Mid_nameAR;
             midMarks.Mid_nameEN = r.Mid_nameEN;
             midMarks.grade = r.Grade;
+            midMarks.ter_id = r.Ter_id;
             var results = await DBuilder._connection.Table<MidMarkDistributionL>().Where(i => i.Cou_id.Equals(r.Cou_id)).CountAsync();
 
             if (results <= 0)

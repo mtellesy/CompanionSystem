@@ -9,7 +9,8 @@ namespace CScore.ResponseObjects
   public  class ResultsObject
     {   
         public String course_id { set; get; }
-        public List<float> midMark { set; get; }
+        public int termID { set; get; }
+        public List<MidMarkDistributionObject> midMark { set; get; }
         public float finalMark { set; get; }
 
         public static BCL.Result convertToResult(ResultsObject Jresult)
@@ -20,13 +21,14 @@ namespace CScore.ResponseObjects
             result.Final = Jresult.finalMark;
             int id = 0;
             result.MidExams = new List<BCL.MidMarkDistribution>();
-            foreach (float grade in Jresult.midMark)
+            foreach (MidMarkDistributionObject grade in Jresult.midMark)
             {
                 y.Cou_id = Jresult.course_id;
-                y.Mid_nameAR = null;
-                y.Mid_nameEN = null;
-                y.MidMarkDistributionID = ++id;
-                y.Grade = grade;
+                y.Ter_id = Jresult.termID;
+                y.Mid_nameAR = grade.MidMarkAR;
+                y.Mid_nameEN = grade.MidMarkEN;
+                y.MidMarkDistributionID = grade.MidMarkDistributionID;
+                y.Grade = grade.grade;
                 result.MidExams.Add(y);
             }
             return result;
