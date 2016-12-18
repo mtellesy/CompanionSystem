@@ -18,14 +18,14 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<List<Course>>> getCourses(String cou_id, String dep_id, String branch)
         {
             // declaration of path and request type
-            String path = "/courses";
+            String path = "/courses?";
             if (cou_id != null)
             {
-                path += "?id={0}" + cou_id;
+                path += "id={0}&" + cou_id;
             }
-            if (dep_id != null)
+            if (dep_id != "0"&& dep_id!= null)
             {
-                path += "?department={0}" + dep_id;
+                path += "?department={0}&" + dep_id;
             }
             if (branch != null)
             {

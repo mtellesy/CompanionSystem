@@ -17,7 +17,7 @@ namespace CScore.SAL
         {
             // declaration of path and request type
 
-            String path = "enrollment/status/";
+            String path = "enrollment/status";
             String Path =path + String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "GET";
 
@@ -149,12 +149,12 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<Object>> sendEnrolledCourses(List<Course> courses, String forse)
         {
             //      declaration of path and request type
-            String path = "/enrollment/" + User.use_id;            
+            String path = "/enrollment/" + User.use_id+"?";            
             if (forse != null)
             {
-                path += "?forse={0}" + forse;
+                path += "forse={0}&" + forse;
             }
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+            path = path + String.Format("token={0}", AuthenticatorS.token);
             String requestType = "POST";
 
 
