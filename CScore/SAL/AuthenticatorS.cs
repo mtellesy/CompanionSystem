@@ -166,6 +166,7 @@ namespace CScore.SAL
 
         public static async Task<StatusWithObject<String>> login(int UserID, String password)
         {
+           // Task<StatusWithObject<String>>
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new BCL.Status();
             
@@ -173,37 +174,43 @@ namespace CScore.SAL
             request.Timeout = TimeSpan.FromMilliseconds(5000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
           //  HttpContent content = null;
-            String path = String.Format("/users/authenticate?user={0}?password={1}", UserID, password);
+            String path = String.Format("/users/authenticate?user={0}&password={1}", UserID, password);
 
             String fullPath = domain + path;
+           
+           
 
             //return String 
-           // String responseJson;
+            // String responseJson;
 
             if (await UpdateBox.CheckForInternetConnection())
             {
                 try
                 {
                     httpResponse = await request.PostAsync(fullPath, null);
-                    if (httpResponse != null)
+
+                    
+                    if(httpResponse != null)
                     {
                         statusCode = (int)httpResponse.StatusCode;
                         response = await httpResponse.Content.ReadAsStringAsync();
 
+                        
+
                         // if Login successed read token and see if user need to change his password or not
-                        switch(statusCode)
+                        switch (statusCode)
                         {
                             case 200:
                                 AuthenticationObject auth = new AuthenticationObject();
-                                auth = JsonConvert.DeserializeObject<AuthenticationObject>(response);
+                                auth = await JsonConvert.DeserializeObjectAsync<AuthenticationObject>(response);
                                 token = auth.accessToken;
-                                response = "Authenticatin succeeded";
+                                status.message = "Authenticatin succeeded";
                                 if (auth.forceResetPassword)
                                 {
                                     responseObject.statusCode = 2;
                                     status.message = FixedResponses.getResponse(responseObject.statusCode);
                                 }
-                                status.status = false;
+                                status.status = true;
                                 responseObject.status = status;
                                 responseObject.statusObject = null;
                                 return responseObject;

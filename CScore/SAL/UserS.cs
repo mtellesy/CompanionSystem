@@ -24,7 +24,7 @@ namespace CScore.SAL
             StatusWithObject<String> log = new StatusWithObject<String>();
 
             String jsonString;
-            String path = "/users/?" + use_id.ToString() + "&refresh";
+            String path = "/users/" + use_id.ToString() + "&refresh";
             String requestType = "GET";
             int code; 
 
