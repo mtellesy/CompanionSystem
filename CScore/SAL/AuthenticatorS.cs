@@ -297,12 +297,12 @@ namespace CScore.SAL
                 {
                     httpResponse = await request.GetAsync(fullPath);
                     statusCode = (int) httpResponse.StatusCode;
-                    response = await httpResponse.Content.ReadAsStringAsync();
+                  String Json = await httpResponse.Content.ReadAsStringAsync();
                     switch(statusCode)
                     {
                         case 200:
                             UserObject user = new UserObject();
-                            user = JsonConvert.DeserializeObject<UserObject>(response);
+                            user = await JsonConvert.DeserializeObjectAsync<UserObject>(Json);
                             BCL.User.use_id = user.userID;
                             User.username = user.username;
                             User.use_nameAR = user.nameAR;
@@ -323,7 +323,7 @@ namespace CScore.SAL
                             status.status = true;
                             responseObject.statusCode = statusCode;
                             responseObject.status = status;
-                            responseObject.statusObject = response;
+                            responseObject.statusObject = Json;
                             return responseObject;
 
                         case 401:
