@@ -11,11 +11,11 @@ using CScore.ResponseObjects;
 
 namespace CScore.SAL
 {
-  public  class UserS 
+  public static class UserS 
     {
         
        
-        public async Task<StatusWithObject<OtherUsers>> getOtherUser(String use_id)
+        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int use_id)
         {
             OtherUsers user = new OtherUsers();
             Status status = new Status();
@@ -24,7 +24,7 @@ namespace CScore.SAL
             StatusWithObject<String> log = new StatusWithObject<String>();
 
             String jsonString;
-            String path = "/users/" + use_id + "?refresh";
+            String path = "/users/?" + use_id.ToString() + "&refresh";
             String requestType = "GET";
             int code; 
 
@@ -99,7 +99,7 @@ namespace CScore.SAL
             return returnedValue;
         }
 
-        public OtherUsers getMyUser(UserObject Juser)
+        public static OtherUsers getMyUser(UserObject Juser)
         {
             OtherUsers user = new OtherUsers();
             user.academicRankAR = Juser.academicRankAR;

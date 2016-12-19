@@ -88,7 +88,7 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             String path = "";
-            if (User.use_typeID == 0)
+            if (User.use_typeID == "L")
             {
                  path = "/users/" + User.use_id + "/courses";
             }

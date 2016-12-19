@@ -19,7 +19,8 @@ namespace CScore.BCL
          List<Schedule> schedule { get; set; }
          int temGro_id { set; get; }// temporary group id that is used only for enrollment
          bool flag;//to know if it has been enrolled or not
-
+        bool groupFull;// only when the group is full flag __ read only when false
+        int tea_id;
         //              *** setters and getters ***
         //      cou_id
         public String Cou_id
@@ -117,7 +118,30 @@ namespace CScore.BCL
                 return flag;
             }
         }
-
+        //      groupFull
+        public bool GroupFull
+        {
+            set
+            {
+                groupFull = value;
+            }
+            get
+            {
+                return groupFull;
+            }
+        }
+        //      tea_id
+        public int Tea_id
+        {
+            set
+            {
+                tea_id = value;
+            }
+            get
+            {
+                return tea_id;
+            }
+        }
 
         //              *** Methods ***
 
