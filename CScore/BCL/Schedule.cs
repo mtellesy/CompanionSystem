@@ -8,18 +8,177 @@ namespace CScore.BCL
 {
     public class Schedule
     {
-        public int tea_id { get; set; }
-        public String dayAR { get; set; }
-        public String dayEN { get; set; }
-        public int dayID { get; set; }
-        public String gro_NameAR { get; set; }
-        public String gro_NameEN { get; set; }
-        public int gro_id { get; set; }
-        public String classRoomAR { get; set; }
-        public String classRoomEN { get; set; }
-        public int classRoomID { get; set; }
-        public int classTimeID { get; set; }
-        public float classStart { get; set; } // maybe it will be changed
-        public float classDuration { get; set; }
+        //              *** Properties ***
+        int tea_id { get; set; }
+         String dayAR { get; set; }
+         String dayEN { get; set; }
+         int dayID { get; set; }
+         String gro_NameAR { get; set; }
+         String gro_NameEN { get; set; }
+         int gro_id { get; set; }
+         String classRoomAR { get; set; }
+         String classRoomEN { get; set; }
+         int classRoomID { get; set; }
+         int classTimeID { get; set; }
+         String classStart { get; set; } // maybe it will be changed
+         double classDuration { get; set; }
+
+        //              *** setters and getters ***
+        //      tea_id
+        public int Tea_id
+        {
+            set
+            {
+                tea_id = value;
+            }
+            get
+            {
+                return tea_id;
+            }
+        }
+        //      dayAR
+        public String DayAR
+        {
+            set
+            {
+                dayAR = value;
+            }
+            get
+            {
+                return dayAR;
+            }
+        }
+        //      dayEN
+        public String DayEN
+        {
+            set
+            {
+                dayEN = value;
+            }
+            get
+            {
+                return dayEN;
+            }
+        }
+        //      dayID
+        public int DayID
+        {
+            set
+            {
+                dayID = value;
+            }
+            get
+            {
+                return dayID;
+            }
+        }
+        //      gro_NameAR
+        public String Gro_NameAR
+        {
+            set
+            {
+                gro_NameAR = value;
+            }
+            get
+            {
+                return gro_NameAR;
+            }
+        }
+        //      gro_NameEN
+        public String Gro_NameEN
+        {
+            set
+            {
+                gro_NameEN = value;
+            }
+            get
+            {
+                return gro_NameEN;
+            }
+        }
+        //      gro_id
+        public int Gro_id
+        {
+            set
+            {
+                gro_id = value;
+            }
+            get
+            {
+                return gro_id;
+            }
+        }
+        //      classRoomAR
+        public String ClassRoomAR
+        {
+            set
+            {
+                classRoomAR = value;
+            }
+            get
+            {
+                return classRoomAR;
+            }
+        }
+        //      classRoomEN
+        public String ClassRoomEN
+        {
+            set
+            {
+                classRoomEN = value;
+            }
+            get
+            {
+                return classRoomEN;
+            }
+        }
+        //      classRoomID
+        public int ClassRoomID
+        {
+            set
+            {
+                classRoomID = value;
+            }
+            get
+            {
+                return classRoomID;
+            }
+        }
+        //      classTimeID
+        public int ClassTimeID
+        {
+            set
+            {
+                classTimeID = value;
+            }
+            get
+            {
+                return classTimeID;
+            }
+        }
+        //      classStart
+        public String ClassStart
+        {
+            set
+            {
+                classStart = value;
+            }
+            get
+            {
+                return classStart;
+            }
+        }
+        //      classDuration
+        public double ClassDuration
+        {
+            set
+            {
+                classDuration = value;
+            }
+            get
+            {
+                return classDuration;
+            }
+        }
     }
 }

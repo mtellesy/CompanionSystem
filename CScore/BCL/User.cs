@@ -16,7 +16,7 @@ namespace CScore.BCL
 
         public static String username { get; set; }
         public static String password { get; set; } // save it here when you start the application layer
-        public static int use_id { get; set; }
+        public static String use_id { get; set; }
         public static String use_nameAR { get; set; }
         public static String use_nameEN { get; set; }
         public static String dep_id { get; set; }
@@ -33,7 +33,7 @@ namespace CScore.BCL
         public static String academicRankEN { get; set; }
 
 
-        public static async Task<Status> login(int userID , String password)
+        public static async Task<Status> login(String userID , String password)
         {
             loginStatus = 0;
             //here we use status object to give user a feedback of what happend
@@ -43,14 +43,14 @@ namespace CScore.BCL
             if(await UpdateBox.CheckForInternetConnection())
             {
                 
-             String response = await AuthenticatorS.login(userID, password);
+             StatusWithObject<String> response = await AuthenticatorS.login(userID, password);
              switch(AuthenticatorS.statusCode)
                 {
                     case 0:
                     case 1:
                     case 2:
                         message.status = false;
-                        message.message = response;
+                        message.message = response.statusObject;
                         break;
                     case 200:
                         message.status = true;
@@ -93,7 +93,7 @@ namespace CScore.BCL
             if(await UpdateBox.CheckForInternetConnection())
             {
                 //bring data from server if you're online
-              String response =  await AuthenticatorS.authenticate();
+              StatusWithObject<String> response =  await AuthenticatorS.authenticate();
                 // if it find out that you're not logged in it will give you 401
                 if(AuthenticatorS.statusCode == 401)
                 {

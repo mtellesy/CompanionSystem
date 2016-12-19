@@ -21,14 +21,16 @@ namespace CScore.DAL
             if( countOfTerms > 0)
             {
                 var terms = await DBuilder._connection.Table<SemesterL>().OrderByDescending(i => i.Ter_id).ToListAsync();
-                termSchedule.ter_id = terms.Select(i => i.Ter_id).First();
-                termSchedule.ter_nameAR = terms.Select(i => i.Ter_nameAR).First();
-                termSchedule.ter_nameEN = terms.Select(i => i.Ter_nameEN).First();
-                termSchedule.ter_start = DateTime.Parse(terms.Select(i => i.Ter_start).First());
-                termSchedule.ter_end = DateTime.Parse(terms.Select(i => i.Ter_end).First());
-                termSchedule.ter_enrollment = DateTime.Parse(terms.Select(i => i.Ter_enrollment).First());
-                termSchedule.ter_dropCourses = DateTime.Parse(terms.Select(i => i.Ter_dropCourses).First());
-                termSchedule.ter_lastStudyDate = DateTime.Parse(terms.Select(i => i.Ter_lastStudyDate).First());
+                termSchedule.Ter_id = terms.Select(i => i.Ter_id).First();
+                termSchedule.Ter_nameAR = terms.Select(i => i.Ter_nameAR).First();
+                termSchedule.Ter_nameEN = terms.Select(i => i.Ter_nameEN).First();
+                termSchedule.Ter_start = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_start).First()));
+                termSchedule.Ter_end = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_end).First()));
+                termSchedule.Ter_enrollment = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_enrollment).First()));
+                termSchedule.Ter_dropCourses = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_dropCourses).First()));
+                termSchedule.Ter_lastStudyDate = Convert.ToString(DateTime.Parse(terms.Select(i => i.Ter_lastStudyDate).First()));
+                termSchedule.Year = Convert.ToString(DateTime.Parse(terms.Select(i => i.year).First()));
+                
                 return termSchedule;
 
             }
@@ -41,18 +43,18 @@ namespace CScore.DAL
         //save user Schedule
         public static async Task saveSemesterSchedule(Semester termSchedule)
         {
-            var count = await DBuilder._connection.Table<SemesterL>().Where(i => i.Ter_id.Equals(termSchedule.ter_id)).CountAsync();
+            var count = await DBuilder._connection.Table<SemesterL>().Where(i => i.Ter_id.Equals(termSchedule.Ter_id)).CountAsync();
 
             SemesterL term = new SemesterL();
-            term.Ter_id = termSchedule.ter_id;
-            term.Ter_nameAR = termSchedule.ter_nameAR;
-            term.Ter_nameEN = termSchedule.ter_nameEN; 
-            term.Ter_start = termSchedule.ter_start.ToString();
-            term.Ter_end = termSchedule.ter_end.ToString();
-            term.Ter_enrollment = termSchedule.ter_enrollment.ToString();
-            term.Ter_dropCourses = termSchedule.ter_dropCourses.ToString();
-            term.Ter_lastStudyDate = termSchedule.ter_lastStudyDate.ToString();
-
+            term.Ter_id = termSchedule.Ter_id;
+            term.Ter_nameAR = termSchedule.Ter_nameAR;
+            term.Ter_nameEN = termSchedule.Ter_nameEN; 
+            term.Ter_start = termSchedule.Ter_start.ToString();
+            term.Ter_end = termSchedule.Ter_end.ToString();
+            term.Ter_enrollment = termSchedule.Ter_enrollment.ToString();
+            term.Ter_dropCourses = termSchedule.Ter_dropCourses.ToString();
+            term.Ter_lastStudyDate = termSchedule.Ter_lastStudyDate.ToString();
+            term.year = termSchedule.Year.ToString();
             if (count <= 0)
             {
                 await DBuilder._connection.InsertAsync(term);

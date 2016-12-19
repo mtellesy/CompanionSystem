@@ -33,9 +33,9 @@ namespace CScore.DataLayer.Tables
 
         public int classTimeID { get; set; }
         
-        public float classStart { get; set; } // maybe it will be changed
+        public String classStart { get; set; } // maybe it will be changed
 
-        public float classDuration { get; set; }
+        public double classDuration { get; set; }
         
         public int classRoomID { get; set; }
         
