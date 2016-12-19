@@ -164,7 +164,7 @@ namespace CScore.SAL
             }//end of internet checker
         }//end of method
 
-        public static async Task<StatusWithObject<String>> login(String UserID, String password)
+        public static async Task<StatusWithObject<String>> login(int UserID, String password)
         {
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new BCL.Status();

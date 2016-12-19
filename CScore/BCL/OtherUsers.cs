@@ -8,7 +8,7 @@ namespace CScore.BCL
 {
     public class OtherUsers
     {
-        public String use_id { get; set; }
+        public int use_id { get; set; }
 
         public String use_nameAR { get; set; }
 
@@ -30,7 +30,7 @@ namespace CScore.BCL
 
         public String use_avatar { get; set; }
 
-        public int use_typeID { get; set; }
+        public String use_typeID { get; set; }
 
         public int academicRankID { get; set; }
 
@@ -38,7 +38,7 @@ namespace CScore.BCL
 
         public String academicRankEN { get; set; }
 
-        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(String userID)
+        public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
         {
             StatusWithObject<OtherUsers> returndValue = new StatusWithObject<OtherUsers>();
             Status status = new Status();
@@ -46,12 +46,13 @@ namespace CScore.BCL
 
             if (await UpdateBox.CheckForInternetConnection())
             {
-                SAL.UserS userCatcher = new SAL.UserS();
-               await userCatcher.getOtherUser(userID);
+               // SAL.UserS userCatcher = new SAL.UserS();
+             returndValue=  await SAL.UserS.getOtherUser(userID);
+                await DAL.UsersD.saveOtherUser(user);
             }
             
             user = await DAL.UsersD.getOtherUser(userID);
-
+            returndValue.statusObject = user;
             return returndValue;
         }
     }

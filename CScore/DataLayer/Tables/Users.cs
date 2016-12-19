@@ -11,7 +11,7 @@ namespace CScore.DataLayer.Tables
     public class Users
     {
         [PrimaryKey]
-        public String Use_id { get; set; }
+        public int Use_id { get; set; }
 
        public String Use_nameAR { get; set; }
 
@@ -33,7 +33,7 @@ namespace CScore.DataLayer.Tables
 
         public String Use_avatar { get; set; }
 
-        public int Use_typeID { get; set; }
+        public String Use_typeID { get; set; }
 
         public int academicRankID { get; set; }
 

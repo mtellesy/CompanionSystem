@@ -16,7 +16,7 @@ namespace CScore.BCL
 
         public static String username { get; set; }
         public static String password { get; set; } // save it here when you start the application layer
-        public static String use_id { get; set; }
+        public static int use_id { get; set; }
         public static String use_nameAR { get; set; }
         public static String use_nameEN { get; set; }
         public static String dep_id { get; set; }
@@ -27,13 +27,13 @@ namespace CScore.BCL
         public static String use_gender { get; set; }
         public static String use_picture { get; set; }
         public static String use_avatar { get; set; }
-        public static int use_typeID { get; set; }
+        public static String use_typeID { get; set; }
         public static int academicRankID { get; set; }
         public static String academicRankAR { get; set; }
         public static String academicRankEN { get; set; }
 
 
-        public static async Task<Status> login(String userID , String password)
+        public static async Task<Status> login(int userID , String password)
         {
             loginStatus = 0;
             //here we use status object to give user a feedback of what happend

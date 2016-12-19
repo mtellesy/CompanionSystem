@@ -138,9 +138,21 @@ namespace CScore.BCL
         {
             // List<AllResult> result = new List<AllResult>();
             StatusWithObject<object> returnedValue = new StatusWithObject<object>();
+
+            OtherUsers user = new OtherUsers();
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.EnrollmentS.sendEnrolledCourses(course, force);
+                if (returnedValue.status.status == true)
+                {
+                    List<Course> courses = new List<Course>();
+                    course = (List<Course>)returnedValue.statusObject;
+                    foreach(Course x in course)
+                    {
+                        user.use_id = x.Tea_id;
+                        
+                    }
+                }
             }
 
             return returnedValue;
