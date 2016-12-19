@@ -13,7 +13,7 @@ namespace CScore.DAL
     public static class MessageD 
     {
 
-        public static async Task<List<Messages>> getReceivedMessages(int NumberOfMessages, int StartFrom, String user_id)
+        public static async Task<List<Messages>> getReceivedMessages(int NumberOfMessages, int StartFrom, int user_id)
         {
             var results = await DBuilder._connection.Table<InboxL>().Where(t => t.Mes_receiver.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
 
@@ -70,7 +70,7 @@ namespace CScore.DAL
         }
 
 
-        public static async Task<List<Messages>> getSentMessages(int NumberOfMessages, int StartFrom,String user_id)
+        public static async Task<List<Messages>> getSentMessages(int NumberOfMessages, int StartFrom,int user_id)
         {
             var results = await DBuilder._connection.Table<InboxL>().Where(t=>t.Mes_sender.Equals(user_id)).OrderByDescending(i => i.Mes_id).ToListAsync();
           

@@ -42,19 +42,23 @@ namespace CScore.ResponseObjects
         //      enrolled flag
         public bool flag;//to know if it has been enrolled or not
 
+        //      group full flag
+        public bool groupFull { set; get; }
 
         //      converters
         public static BCL.Course convertToCourse(CourseObject cou)
         {
             BCL.Course course = new BCL.Course();
             BCL.Schedule ex = new BCL.Schedule();
-            course.Cou_id = cou.courseID;
+             course.Cou_id = cou.courseID;
+
             course.Cou_nameAR = cou.groupNameAR;
             course.Cou_nameEN = cou.groupNameEN;
             course.Cou_credits = cou.credit;
             course.Ter_id = cou.semester;
             course.Flag = cou.flag;
-          
+            course.GroupFull = cou.groupFull;
+           
             if (cou.schedule != null)
             {
                 foreach (ScheduleObject x in cou.schedule)
@@ -63,6 +67,7 @@ namespace CScore.ResponseObjects
                     ex.Gro_id = x.groupID;
                     ex.Gro_NameAR = x.groupNameAR;
                     ex.Gro_NameEN = x.groupNameEN;
+                  
                     ex.ClassDuration = x.timeDuration;
                     ex.ClassRoomAR = x.classRoomAR;
                     ex.ClassRoomEN = x.classRoomEN;
@@ -73,7 +78,7 @@ namespace CScore.ResponseObjects
                     ex.DayAR = x.dayAR;
                     ex.DayEN = x.dayEN;
                     course.Schedule.Add(ex);
-
+                    
                 }
             }
             return course;

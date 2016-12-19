@@ -73,7 +73,7 @@ namespace CScore.DAL
         }
 
 
-        public static async Task<List<Announcements>> getSentAnnouncements(int NumberOfAnnouncements, int StartFrom, String user_id)
+        public static async Task<List<Announcements>> getSentAnnouncements(int NumberOfAnnouncements, int StartFrom, int user_id)
         {
             var results = await DBuilder._connection.Table<AnboxL>().Where(t => t.Ano_sender.Equals(user_id)).OrderByDescending(i => i.Ano_id).ToListAsync();
 

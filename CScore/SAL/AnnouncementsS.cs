@@ -169,7 +169,7 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             String path = "/posts";
-            path += "/announcement?";
+            path += "/announcement/";
             path+=  Convert.ToString(ano_id)+"?";
             path = path + String.Format("token={0}", AuthenticatorS.token);
             String requestType = "GET";
