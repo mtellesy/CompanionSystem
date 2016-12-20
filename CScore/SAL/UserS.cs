@@ -54,7 +54,7 @@ namespace CScore.SAL
             }
 
             StatusWithObject<String> req = new StatusWithObject<String>();
-            //start from here baby
+            
             req = await AuthenticatorS.sendRequest(path, null, requestType);
 
             jsonString = req.statusObject;

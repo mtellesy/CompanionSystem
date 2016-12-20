@@ -80,14 +80,12 @@ namespace CScore.SAL
         //              *** returns a list of all results ***
         public static async Task<StatusWithObject<List<AllResult>>> getAllResult(int ter_id)
         {
-            String path = "/result/" + User.use_id + "/transcript?";
-            if (Convert.ToString(ter_id) != "0")
-            {
-                path += "term_id={0}&"+ Convert.ToString(ter_id);
-
-            }
-            path += String.Format("token={0}", AuthenticatorS.token);
-            String requestType = "GET";
+            String path = "/students/" + User.use_id.ToString() + "/transcript?";
+           if (ter_id != 0)
+           {
+               path += "term_id={0}&"+ Convert.ToString(ter_id);
+           }
+            
 
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -100,12 +98,17 @@ namespace CScore.SAL
             int code;
                         
             //      authentication part
-            StatusWithObject<List<AllResult>> auth = new StatusWithObject<List<AllResult>>();
+           StatusWithObject<List<AllResult>> auth = new StatusWithObject<List<AllResult>>();
             auth = await AuthenticatorS.autoAuthentication<List<AllResult>>();
-            if (auth.status.status == false)
+            int nothing = 0; 
+            if(auth.status.status == false)
             {
                 return auth;
-            }
+            } 
+
+          path += String.Format("token={0}", AuthenticatorS.token);
+            String requestType = "GET";
+
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
@@ -140,6 +143,7 @@ namespace CScore.SAL
             }
             returnedValue.status = status;
             returnedValue.statusCode = code;
+       
             returnedValue.statusObject = results;
             return returnedValue;
         }

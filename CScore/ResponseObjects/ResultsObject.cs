@@ -38,8 +38,8 @@ namespace CScore.ResponseObjects
         {
             BCL.AllResult result = new BCL.AllResult();
             result.Cou_id = Jresult.courseID;
-            result.Cou_nameAR = Jresult.courseNameAR;
-            result.Cou_nameEN = Jresult.courseNameEN;
+            result.Cou_nameAR = Jresult.NameAR;
+            result.Cou_nameEN = Jresult.NameEN;
             result.Cou_credits = Jresult.credit;
             result.Res_total = Jresult.finalMark;
             result.Ter_id = Jresult.termID;
