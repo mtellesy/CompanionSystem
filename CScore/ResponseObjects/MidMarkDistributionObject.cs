@@ -14,9 +14,9 @@ namespace CScore.ResponseObjects
 
         public String Cou_id { get; set; }
 
-        public String MidMarkAR { get; set; }
+        public String midMarkAR { get; set; }
 
-        public String MidMarkEN { get; set; }
+        public String midMarkEN { get; set; }
 
         public float grade { get; set; }
     }

@@ -19,14 +19,14 @@ namespace CScore.ResponseObjects
             BCL.MidMarkDistribution y = new BCL.MidMarkDistribution();
             result.Cou_id = Jresult.course_id;
             result.Final = Jresult.finalMark;
-            int id = 0;
+            
             result.MidExams = new List<BCL.MidMarkDistribution>();
             foreach (MidMarkDistributionObject grade in Jresult.midMark)
             {
                 y.Cou_id = Jresult.course_id;
                 y.Ter_id = Jresult.termID;
-                y.Mid_nameAR = grade.MidMarkAR;
-                y.Mid_nameEN = grade.MidMarkEN;
+                y.Mid_nameAR = grade.midMarkAR;
+                y.Mid_nameEN = grade.midMarkEN;
                 y.MidMarkDistributionID = grade.MidMarkDistributionID;
                 y.Grade = grade.grade;
                 result.MidExams.Add(y);

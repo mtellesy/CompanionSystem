@@ -18,8 +18,7 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             String path = "/results";
-            path+= String.Format("?token={0}",AuthenticatorS.token);
-            String requestType = "GET";
+           
             
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -38,6 +37,9 @@ namespace CScore.SAL
             {
                 return auth;
             }
+
+            path += String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "GET";
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
