@@ -52,13 +52,14 @@ namespace CScore.ResponseObjects
             BCL.Schedule ex = new BCL.Schedule();
              course.Cou_id = cou.courseID;
 
-            course.Cou_nameAR = cou.groupNameAR;
-            course.Cou_nameEN = cou.groupNameEN;
+            course.Cou_nameAR = cou.nameAR;
+            course.Cou_nameEN = cou.nameEN;
             course.Cou_credits = cou.credit;
             course.Ter_id = cou.semester;
-            course.Flag = cou.flag;
-            course.GroupFull = cou.groupFull;
-           
+            
+             course.Flag = cou.flag;
+             course.GroupFull = cou.groupFull;
+            course.Schedule = new List<Schedule>();
             if (cou.schedule != null)
             {
                 foreach (ScheduleObject x in cou.schedule)
@@ -67,6 +68,7 @@ namespace CScore.ResponseObjects
                     ex.Gro_id = x.groupID;
                     ex.Gro_NameAR = x.groupNameAR;
                     ex.Gro_NameEN = x.groupNameEN;
+                    
                   
                     ex.ClassDuration = x.timeDuration;
                     ex.ClassRoomAR = x.classRoomAR;
@@ -77,6 +79,7 @@ namespace CScore.ResponseObjects
                     ex.DayID = x.dayID;
                     ex.DayAR = x.dayAR;
                     ex.DayEN = x.dayEN;
+                    
                     course.Schedule.Add(ex);
                     
                 }

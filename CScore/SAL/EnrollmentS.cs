@@ -123,7 +123,7 @@ namespace CScore.SAL
                 case 200:
                     List<CourseObject> courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
                     Course temp = new Course();
-                    foreach (CourseObject x in courseResult)
+                    foreach(CourseObject x in courseResult)
                     {
                         temp = CourseObject.convertToCourse(x);
                         courses.Add(temp);
