@@ -23,7 +23,7 @@ namespace CScore.SAL
             {
                 path += String.Format("state={0}&", state);
             }
-            path += String.Format("token={0}", AuthenticatorS.token);
+           
                         
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -42,6 +42,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
+            path += String.Format("token={0}", AuthenticatorS.token);
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
