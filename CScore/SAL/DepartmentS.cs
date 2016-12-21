@@ -18,9 +18,9 @@ namespace CScore.SAL
         {
             // decleration of path and request type
             String path = "/departments";
-            if (Convert.ToString( id) != "0")
+            if ( id != 0)
             {
-                path += "?id={0}" + id;
+                path += "/" + id;
             }
             String requestType = "GET";
 

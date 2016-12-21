@@ -27,11 +27,11 @@ namespace CScore.ResponseObjects
         public string lecturerNameEN { set; get; }
         public int managerID { set; get; }
         //      department
-        public String departmentID { set; get; }
+        public int departmentID { set; get; }
         public String departmentNameAR { set; get; }
         public String departmentNameEN { set; get; }
         //      branch
-        public String branchID { set; get; }
+        public int branchID { set; get; }
         public String branchNameAR { set; get; }
         public String branchNameEN { set; get; }
 
@@ -56,6 +56,7 @@ namespace CScore.ResponseObjects
             course.Cou_nameEN = cou.nameEN;
             course.Cou_credits = cou.credit;
             course.Ter_id = cou.semester;
+            
             
              course.Flag = cou.flag;
              course.GroupFull = cou.groupFull;
