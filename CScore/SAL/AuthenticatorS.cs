@@ -55,8 +55,6 @@ namespace CScore.SAL
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new Status();
 
-              //String fullPath = "https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyAoVToLOAWOxSYTe_3SSHqWB3vjFXYWUtA";
-
               // httpClient stuff
               HttpClient request = new HttpClient();
             request.Timeout = TimeSpan.FromMilliseconds(5000);

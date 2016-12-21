@@ -86,7 +86,7 @@ namespace CScore.SAL
             //      declaration of path and request type
             String path = "/enrollment/" + User.use_id;
             String requestType = "GET";
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+           
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -105,7 +105,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
-
+            path = path + String.Format("?token={0}", AuthenticatorS.token);
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
@@ -156,8 +156,7 @@ namespace CScore.SAL
             {
                 path += "forse={0}&" + forse;
             }
-            path = path + String.Format("token={0}", AuthenticatorS.token);
-            String requestType = "POST";
+           
 
 
             //      declaration of the status with its object that will be returned from send request method
@@ -185,6 +184,9 @@ namespace CScore.SAL
             {
                 return auth;
             }
+
+            path = path + String.Format("token={0}", AuthenticatorS.token);
+            String requestType = "POST";
 
             //      data retrieval  part (request and response)
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
@@ -259,7 +261,7 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<Status>> sendDroppedCourses(Course course)
         {
             //      declaration of path and request type
-            String path = "/enrollment/" + User.use_id;
+            String path = "/enrollment/drop.php?studentid=" + User.use_id;
            
 
             //      declaration of the status with its object that will be returned from send request method
@@ -284,8 +286,9 @@ namespace CScore.SAL
             {
                 return auth;
             }
-           path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "DELETE";
+
+          // remove it in the real test  path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "POST";
 
             //      data retrieval  part( request and response)
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
@@ -331,81 +334,7 @@ namespace CScore.SAL
 
         }
 
-        //              *** sends course Code (String )that student wants to drop in, returns a status ***
-        public static async Task<StatusWithObject<Status>> sendDroppedCourseString(String course)
-        {
-            //      declaration of path and request type
-            String path = "/enrollment/" + User.use_id;
-
-
-            //      declaration of the status with its object that will be returned from send request method
-            StatusWithObject<String> req = new StatusWithObject<String>();
-            CourseObject coursesToEnroll = new CourseObject();
-            
-
-            String jsonString;
-            jsonString = JsonConvert.SerializeObject(course);
-
-
-            //      declaration of the returned value and its contents
-            StatusWithObject<Status> returnedValue = new StatusWithObject<Status>();
-            Status resultStatus = new Status();
-            Status status = new Status();
-            int code;
-
-            //      authentication part
-            StatusWithObject<Status> auth = new StatusWithObject<Status>();
-            auth = await AuthenticatorS.autoAuthentication<Status>();
-            if (auth.status.status == false)
-            {
-                return auth;
-            }
-          //  path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "DELETE";
-
-            //      data retrieval  part( request and response)
-            req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
-            jsonString = req.statusObject;
-            code = req.statusCode;
-
-            if (req.status.status == false)
-            {
-                returnedValue.status = req.status;
-                returnedValue.statusCode = req.statusCode;
-                returnedValue.statusObject = null;
-                return returnedValue;
-            }
-            switch (code)
-            {
-
-                case 200:
-                    status.message = "Course drop Succeeded.";
-                    status.status = true;
-                    break;
-                case 403:
-                    status.message = "Forbidden.";
-                    status.status = false;
-                    break;
-                case 404:
-                    status.message = "Course not Found.";
-                    status.status = false;
-                    break;
-
-                default:
-                    resultStatus = null;
-                    status.status = false;
-                    status.message = FixedResponses.getResponse(code);
-                    break;
-
-
-            }
-            returnedValue.status = status;
-            returnedValue.statusCode = code;
-            returnedValue.statusObject = null;
-            return returnedValue;
-
-
-        }
+       
         //  TOTO NEEDS TO KNOW ABOUT ADDING IS GROUP FULL API
     }
 }
