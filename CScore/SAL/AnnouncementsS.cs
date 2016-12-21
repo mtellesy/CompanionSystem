@@ -234,9 +234,10 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<Announcements>> sendAnnouncement(Announcements announcement)
         {
             //      declaration of path and request type
-            String path = "/posts";
+            // String path = "/posts";
+            String path = "/posts/announcement/get.php";
             //path += "/announcement/sent";
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+
             String requestType = "POST";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -258,7 +259,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
-
+           // path = path + String.Format("?token={0}", AuthenticatorS.token);
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
