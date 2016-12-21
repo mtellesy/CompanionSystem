@@ -45,6 +45,7 @@ namespace CScore.ResponseObjects
         public int classTimeID { get; set; }
         public string timeStart { get; set; }
         public double timeDuration { get; set; }
+        public double duration { get; set; }
         public int classRoomID { get; set; }
         public string classRoomAR { get; set; }
         public string classRoomEN { get; set; }

@@ -49,15 +49,13 @@ namespace CScore.ResponseObjects
         public static BCL.Course convertToCourse(CourseObject cou)
         {
             BCL.Course course = new BCL.Course();
-            BCL.Schedule ex = new BCL.Schedule();
+        
              course.Cou_id = cou.courseID;
 
             course.Cou_nameAR = cou.nameAR;
             course.Cou_nameEN = cou.nameEN;
             course.Cou_credits = cou.credit;
             course.Ter_id = cou.semester;
-            
-            
              course.Flag = cou.flag;
              course.GroupFull = cou.groupFull;
             course.Schedule = new List<Schedule>();
@@ -65,12 +63,11 @@ namespace CScore.ResponseObjects
             {
                 foreach (ScheduleObject x in cou.schedule)
                 {
+                    BCL.Schedule ex = new BCL.Schedule();
                     ex.Tea_id = x.lecturerID;
                     ex.Gro_id = x.groupID;
                     ex.Gro_NameAR = x.groupNameAR;
                     ex.Gro_NameEN = x.groupNameEN;
-                    
-                  
                     ex.ClassDuration = x.timeDuration;
                     ex.ClassRoomAR = x.classRoomAR;
                     ex.ClassRoomEN = x.classRoomEN;
@@ -80,7 +77,6 @@ namespace CScore.ResponseObjects
                     ex.DayID = x.dayID;
                     ex.DayAR = x.dayAR;
                     ex.DayEN = x.dayEN;
-                    
                     course.Schedule.Add(ex);
                     
                 }
