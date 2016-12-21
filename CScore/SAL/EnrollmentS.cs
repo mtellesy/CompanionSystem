@@ -287,7 +287,7 @@ namespace CScore.SAL
                 return auth;
             }
 
-          // remove it in the real test  path = path + String.Format("?token={0}", AuthenticatorS.token);
+          // Please remove it in the real test  path = path + String.Format("?token={0}", AuthenticatorS.token);
             String requestType = "POST";
 
             //      data retrieval  part( request and response)
