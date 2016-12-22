@@ -60,10 +60,12 @@ namespace CScore.DAL
                     course.Cou_id = data.Cou_id;
                     course.Cou_nameAR = data.Cou_nameAR;
                     course.Cou_nameEN = data.Cou_nameEN;
+                   
                     course.Schedule = new List<Schedule>();
 
                     // now get the schedule for each course group 
-                    var schedule = await DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(data.Cou_id)).Where(i => i.Gro_id.Equals(data.Gro_id)).ToListAsync();
+                    var schedule = await DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(data.Cou_id)).Where(i => i.Gro_id.Equals(data.Gro_id)).
+                        Where(i => i.dayID.Equals(data.dayID)).Where(i => i.Ter_id.Equals(termID)).ToListAsync();
 
                     foreach (var courseGro in schedule)
                     {
