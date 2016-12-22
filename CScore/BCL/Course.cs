@@ -152,17 +152,16 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.CourseS.getCourses(courseID, null, null);
-                if (returnedValue.status.status == true)
-                {
-                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
-                }
+              
             }
-            foreach (Course x in returnedValue.statusObject)
+            else
             {
-                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
-                returnedValue.statusObject.Add(result);
+                returnedValue.statusObject = null;
+                returnedValue.statusCode = 1;
+                returnedValue.status.message = SAL.FixedResponses.getResponse(returnedValue.statusCode);
+                returnedValue.status.status = false;
             }
-
+          
             return returnedValue;
         }
         //  overload
@@ -172,58 +171,34 @@ namespace CScore.BCL
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
-                returnedValue = await SAL.CourseS.getCourses(null,Convert.ToString( dep_id), null);
-                if (returnedValue.status.status == true)
-                {
-                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
-                }
-            }
-            foreach (Course x in returnedValue.statusObject)
-            {
-                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
-                returnedValue.statusObject.Add(result);
-            }
+                returnedValue = await SAL.CourseS.getCourses(null, dep_id.ToString(), null);
 
+            }
+            else
+            {
+                returnedValue.statusObject = null;
+                returnedValue.statusCode = 1;
+                returnedValue.status.message = SAL.FixedResponses.getResponse(returnedValue.statusCode);
+                returnedValue.status.status = false;
+            }
             return returnedValue;
         }
         //  overload
-        public static async Task<StatusWithObject<List<Course>>> getCourses(int dep_id, String branch)
+        public static async Task<StatusWithObject<List<Course>>> getCourses(int dep_id, int branch)
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
-                returnedValue = await SAL.CourseS.getCourses(null, Convert.ToString(dep_id), branch);
-                if (returnedValue.status.status == true)
-                {
-                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
-                }
-            }
-            foreach (Course x in returnedValue.statusObject)
-            {
-                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
-                returnedValue.statusObject.Add(result);
-            }
+                returnedValue = await SAL.CourseS.getCourses(null,dep_id.ToString(), branch.ToString());
 
-            return returnedValue;
-        }
-        //  overload
-        public static async Task<StatusWithObject<List<Course>>> getCourses(String courseID,int dep_id, String branch)
-        {
-            Course result = new Course();
-            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
-            if (await UpdateBox.CheckForInternetConnection())
-            {
-                returnedValue = await SAL.CourseS.getCourses(courseID, Convert.ToString(dep_id), branch);
-                if (returnedValue.status.status == true)
-                {
-                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
-                }
             }
-            foreach (Course x in returnedValue.statusObject)
+            else
             {
-                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
-                returnedValue.statusObject.Add(result);
+                returnedValue.statusObject = null;
+                returnedValue.statusCode = 1;
+                returnedValue.status.message = SAL.FixedResponses.getResponse(returnedValue.statusCode);
+                returnedValue.status.status = false;
             }
 
             return returnedValue;
@@ -236,15 +211,14 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.CourseS.getCourses(null, null, null);
-                if (returnedValue.status.status == true)
-                {
-                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
-                }
+
             }
-            foreach (Course x in returnedValue.statusObject)
+            else
             {
-                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
-                returnedValue.statusObject.Add(result);
+                returnedValue.statusObject = null;
+                returnedValue.statusCode = 1;
+                returnedValue.status.message = SAL.FixedResponses.getResponse(returnedValue.statusCode);
+                returnedValue.status.status = false;
             }
 
             return returnedValue;
@@ -262,12 +236,10 @@ namespace CScore.BCL
                 {
                     await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
                 }
+                returnedValue.statusObject = new List<Course>();
             }
-            foreach (Course x in returnedValue.statusObject)
-            {
-                result = await DAL.CourseD.getCourse(x.Cou_id, User.use_type);
-                returnedValue.statusObject.Add(result);
-            }
+            returnedValue.statusObject = await DAL.CourseD.getUserCoursesSchedule(BCL.Semester.current_term);
+           
 
             return returnedValue;
 

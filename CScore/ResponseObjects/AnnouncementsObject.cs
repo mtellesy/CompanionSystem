@@ -23,6 +23,7 @@ namespace CScore.ResponseObjects
         //         By D.U.S.T
         public string courseID { get; set; }
         public int termID { get; set; }
+        public int referenceID { get; set; }
 
         public static BCL.Announcements convertToAnnouncement(AnnouncementsObject ano)
         {
@@ -34,6 +35,7 @@ namespace CScore.ResponseObjects
             //announcement.Cou_id = ano.postByName;
             announcement.Cou_id = ano.courseID;
             announcement.Ter_id = ano.termID;
+            announcement.ReferenceID = ano.referenceID.ToString();
 
             return announcement;
         }
