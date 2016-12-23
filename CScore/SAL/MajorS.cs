@@ -97,7 +97,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+           // path = path + String.Format("?token={0}", AuthenticatorS.token);
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
