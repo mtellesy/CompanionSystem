@@ -16,7 +16,9 @@ namespace CScore.DAL
         public static async Task<List<MidMarkDistribution>> getSemeterMidMarkDistribution(String cou_id)
         {
             List<MidMarkDistribution> r = new List<BCL.MidMarkDistribution>();
-            var results = await DBuilder._connection.Table<MidMarkDistributionL>().Where(i=>i.Cou_id.Equals(cou_id)).ToListAsync();//NEEDS NOT NULL OPERATOR FOR FINALMARK
+            var results = await DBuilder._connection.Table<MidMarkDistributionL>().Where(i=>i.Cou_id.Equals(cou_id))
+                .Where(i => i.ter_id.Equals(Semester.current_term)).ToListAsync();
+            //NEEDS NOT NULL OPERATOR FOR FINALMARK
                                                                                             //    var checker = await DBuilder._connection.Table<ResultsL>().CountAsync();
             foreach (var x in results)
             {
@@ -41,14 +43,22 @@ namespace CScore.DAL
             midMarks.Mid_nameEN = r.Mid_nameEN;
             midMarks.grade = r.Grade;
             midMarks.ter_id = r.Ter_id;
-            var results = await DBuilder._connection.Table<MidMarkDistributionL>().Where(i => i.Cou_id.Equals(r.Cou_id)).CountAsync();
 
-            if (results <= 0)
+            var results = DBuilder._connection.Table<MidMarkDistributionL>().Where(i => i.Cou_id.Equals(r.Cou_id)).Where(
+                i => i.ter_id.Equals(r.Ter_id)).Where(i => i.MidMarkDistributionID.Equals(r.MidMarkDistributionID));
+          
+
+            if (await results.CountAsync() <= 0)
             {
                 await DBuilder._connection.InsertAsync(midMarks);
             }
             else
+            {
+                var x = await results.FirstAsync();
+                midMarks.ID = x.ID;
                 await DBuilder._connection.UpdateAsync(midMarks);
+            }
+               
 
         }
 

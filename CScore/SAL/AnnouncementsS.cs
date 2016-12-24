@@ -23,7 +23,7 @@ namespace CScore.SAL
             {
                 path += String.Format("state={0}&", state);
             }
-            path += String.Format("token={0}", AuthenticatorS.token);
+           
                         
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -42,6 +42,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
+            path += String.Format("token={0}", AuthenticatorS.token);
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
@@ -105,9 +106,7 @@ namespace CScore.SAL
             {
                 path += String.Format("privacy={0}&", privacy);
             }
-            path += String.Format("token={0}", AuthenticatorS.token);
-            String requestType = "GET";
-
+           
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
@@ -125,6 +124,10 @@ namespace CScore.SAL
             {
                 return auth;
             }
+
+            //  path += String.Format("token={0}", AuthenticatorS.token);
+            String requestType = "GET";
+
             
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
@@ -231,9 +234,10 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<Announcements>> sendAnnouncement(Announcements announcement)
         {
             //      declaration of path and request type
-            String path = "/posts";
+            // String path = "/posts";
+            String path = "/posts/announcement/get.php";
             //path += "/announcement/sent";
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+
             String requestType = "POST";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -255,7 +259,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
-
+           // path = path + String.Format("?token={0}", AuthenticatorS.token);
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);

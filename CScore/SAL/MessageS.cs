@@ -81,10 +81,12 @@ namespace CScore.SAL
         {
 
             //      declaration of path and request type
+            String path = "/messages.php?";
+            /* Remove this for the real test
             String path = "/messages?";
             path = path + String.Format("display={0}&", display);
             path = path + String.Format("start={0}&", start);
-            path = path + String.Format("token={0}", AuthenticatorS.token);
+            */
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -104,7 +106,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
-
+            path = path + String.Format("token={0}", AuthenticatorS.token);
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;

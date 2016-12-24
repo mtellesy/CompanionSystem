@@ -45,13 +45,20 @@ namespace CScore.BCL
         public static async Task<StatusWithObject<List<Department>>> getAvailableDepartments()
         {
             StatusWithObject<List<Department>> returnedValue = new StatusWithObject<List<Department>>();
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
+
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.MajorS.getAvailableDepartments();
             }
             else
             {
+                returnedValue.status.status = false;
+                returnedValue.statusCode = 1;
+                returnedValue.status.message = SAL.FixedResponses.getResponse(1);
                 returnedValue = null;
+
             }
             return returnedValue;
         }

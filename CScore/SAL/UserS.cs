@@ -24,13 +24,13 @@ namespace CScore.SAL
             StatusWithObject<String> log = new StatusWithObject<String>();
 
             String jsonString;
-            String path = "/users/?" + use_id.ToString() + "&refresh";
+            String path = "/users/" + use_id.ToString() + "?refresh";
             String requestType = "GET";
             int code; 
 
             auth = await AuthenticatorS.authenticate();
             code = auth.statusCode;
-
+            
             if(auth.status.status == false)
             {
                if(code == 401)
@@ -54,7 +54,7 @@ namespace CScore.SAL
             }
 
             StatusWithObject<String> req = new StatusWithObject<String>();
-            //start from here baby
+            
             req = await AuthenticatorS.sendRequest(path, null, requestType);
 
             jsonString = req.statusObject;
@@ -70,7 +70,7 @@ namespace CScore.SAL
             switch(code)
             {
                 case 200:
-                    UserObject JUser = JsonConvert.DeserializeObject<UserObject>(jsonString);
+                    UserObject JUser = await JsonConvert.DeserializeObjectAsync<UserObject>(jsonString);
                     user = getMyUser(JUser);
                     status.message = "User Profile returned";
                     status.status = true; 

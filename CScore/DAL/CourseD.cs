@@ -60,9 +60,12 @@ namespace CScore.DAL
                     course.Cou_id = data.Cou_id;
                     course.Cou_nameAR = data.Cou_nameAR;
                     course.Cou_nameEN = data.Cou_nameEN;
+                   
+                    course.Schedule = new List<Schedule>();
 
                     // now get the schedule for each course group 
-                    var schedule = await DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(data.Cou_id)).Where(i => i.Gro_id.Equals(data.Gro_id)).ToListAsync();
+                    var schedule = await DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(data.Cou_id)).Where(i => i.Gro_id.Equals(data.Gro_id)).
+                        Where(i => i.dayID.Equals(data.dayID)).Where(i => i.Ter_id.Equals(termID)).ToListAsync();
 
                     foreach (var courseGro in schedule)
                     {
@@ -92,14 +95,17 @@ namespace CScore.DAL
 
         public static async Task saveUserCoursesSchedule(List<Course> courses)
         {
-            ScheduleL schedule = new ScheduleL();
+            
 
             foreach(Course course in courses)
             {
+                ScheduleL schedule = new ScheduleL();
                 schedule.Cou_id = course.Cou_id;
                 schedule.Cou_nameAR = course.Cou_nameAR;
                 schedule.Cou_nameEN = course.Cou_nameEN;
                 schedule.Ter_id = course.Ter_id;
+                
+                
                
                 foreach (Schedule courseSchedule in course.Schedule)
                 {
@@ -116,14 +122,27 @@ namespace CScore.DAL
                     schedule.classRoomEN = courseSchedule.ClassRoomEN;
                     //now add it to database so you'll have row for every course time
                     //but before that make sure that the coulmn does exsits
-                    var checker = await DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(schedule.Cou_id))
+                    var checker =  DBuilder._connection.Table<ScheduleL>().Where(i => i.Cou_id.Equals(schedule.Cou_id))
                         .Where(i => i.Gro_id.Equals(schedule.Gro_id))
-                        .Where(i => i.classTimeID.Equals(schedule.classTimeID)).CountAsync();
-                    if (checker <= 0)
+                        .Where(i => i.dayID.Equals(schedule.dayID));
+                    int count = await checker.CountAsync();
+                    if(count > 0)
+                    {
+                        var t = await checker.FirstAsync();
+                        schedule.id = t.id;
+                    }
+                    
+                    if (count <= 0)
                         await DBuilder._connection.InsertAsync(schedule);
                     else
+                    {
+                       
+                       
                         await DBuilder._connection.UpdateAsync(schedule);
+                    }
+                      
                 }
+              
             }
            
         }

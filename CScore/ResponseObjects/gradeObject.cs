@@ -10,8 +10,8 @@ namespace CScore.ResponseObjects
     {
         //      course
         public String courseID { set; get; }
-        public String courseNameAR { set; get; }
-        public String courseNameEN { set; get; }
+        public String NameAR { set; get; }
+        public String NameEN { set; get; }
         public float finalMark { set; get; }
         public int credit { set; get; }
 

@@ -20,7 +20,10 @@ namespace CScore.ResponseObjects
         public string postTime { get; set; }
         public int postBy { get; set; }
         public string postByName { get; set; }
-
+        //         By D.U.S.T
+        public string courseID { get; set; }
+        public int termID { get; set; }
+        public int referenceID { get; set; }
 
         public static BCL.Announcements convertToAnnouncement(AnnouncementsObject ano)
         {
@@ -29,7 +32,10 @@ namespace CScore.ResponseObjects
             announcement.Ano_sender = ano.postBy;
             announcement.Ano_time = ano.postTime;
             announcement.Ano_content = ano.content;
-            announcement.Cou_id = ano.postByName;
+            //announcement.Cou_id = ano.postByName;
+            announcement.Cou_id = ano.courseID;
+            announcement.Ter_id = ano.termID;
+            announcement.ReferenceID = ano.referenceID.ToString();
 
             return announcement;
         }
