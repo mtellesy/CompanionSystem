@@ -16,13 +16,14 @@ namespace CScore.ResponseObjects
         public static BCL.Result convertToResult(ResultsObject Jresult)
         {
             BCL.Result result = new BCL.Result();
-            BCL.MidMarkDistribution y = new BCL.MidMarkDistribution();
+            
             result.Cou_id = Jresult.course_id;
             result.Final = Jresult.finalMark;
             
             result.MidExams = new List<BCL.MidMarkDistribution>();
             foreach (MidMarkDistributionObject grade in Jresult.midMark)
             {
+                BCL.MidMarkDistribution y = new BCL.MidMarkDistribution();
                 y.Cou_id = Jresult.course_id;
                 y.Ter_id = Jresult.termID;
                 y.Mid_nameAR = grade.midMarkAR;

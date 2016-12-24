@@ -18,8 +18,8 @@ namespace CScore.DAL
         {
             List<Result> r = new List<Result>();
             var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i=>i.Ter_id.Equals(Semester.current_term)).ToListAsync();//NEEDS NOT NULL OPERATOR FOR FINALMARK
-               var checker = await DBuilder._connection.Table<ResultsL>().CountAsync();
-            if (checker > 0)
+              
+            if (results.Count > 0)
             {
                 foreach (var x in results)
                 {
@@ -65,9 +65,11 @@ namespace CScore.DAL
             studentCourses.Cou_id = r.Cou_id;
             studentCourses.finalMark = r.Final;
             studentCourses.Ter_id = Semester.current_term;
-            var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Cou_id.Equals(r.Cou_id)).CountAsync();
+            var results = DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Cou_id.Equals(r.Cou_id)).Where(
+                i => i.Ter_id.Equals(studentCourses.Ter_id));
+            
 
-            if (results <= 0)
+            if (await results.CountAsync() <= 0)
             {
                 await DBuilder._connection.InsertAsync(studentCourses);
             }
@@ -75,6 +77,7 @@ namespace CScore.DAL
             {
                 await DBuilder._connection.UpdateAsync(studentCourses);
             }
+
             foreach (MidMarkDistribution x in r.MidExams)
             {
                 await MidMarkDistributionD.saveSemesterMidMarkDistribution(x);
