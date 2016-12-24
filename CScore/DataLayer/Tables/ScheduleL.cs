@@ -12,7 +12,9 @@ namespace CScore.DataLayer.Tables
 {
    public class ScheduleL
     {
-        [PrimaryKey]
+        [PrimaryKey,AutoIncrement]
+        public int id { get; set; }
+        // [PrimaryKey]
         public String Cou_id { get; set; }
         
         public int Gro_id { get; set; }
