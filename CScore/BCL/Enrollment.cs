@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
+    class ReservedDayAndTime
+    {
+        public int dayID { get; set; }
+        public int classTimeID { get; set; }
+    }
+
     public static class Enrollment
     {
         //              done
         //              *** Properties ***
         private static int creditSum{ get; set; }
         public static int creditMax { get; set; }
-        private static List<int> reservedLectureTimes{ get; set; }
+        private static List<ReservedDayAndTime> reservedLectureTimes{ get; set; }
         private static List<Course> enrollableCourses { get; set; }
         private static List<Course> enrolledCourses { get; set; }
 
@@ -27,9 +33,13 @@ namespace CScore.BCL
             
         }
 
-        private static bool isTimeReserved(int time)
+        private static bool isTimeReserved(int time, int day)
         {
-            if (reservedLectureTimes.Contains(time))
+            ReservedDayAndTime dayTime = new ReservedDayAndTime();
+            dayTime.dayID = day;
+            dayTime.classTimeID = time;
+            
+            if (reservedLectureTimes.Contains(dayTime))
                 return true;
             else
                 return false;
@@ -48,28 +58,39 @@ namespace CScore.BCL
             Status s1 = new Status();
             s1.status = true;
             s1.message = "";
-            int time = 0;
             bool res1, res2, res3;
-            res1= isCreditAtMax();
+            res1 = isCreditAtMax();
             if (res1)
             {
                 s1.message += "Sorry, you have reached the maximum limit of credit for this semester.";
+                s1.status = false;
+                return s1;
             }
             res2 = isGroupFull(c.Cou_id, c.Schedule[0].Gro_id);
             if (res2)
             {
-                s1.message += "Sorry, the group is full.";                
-            }
-            res3=isTimeReserved(time);
-            if (res3)
-            {
-                s1.message += "Sorry, the group's lecture time conflects with another subject.";                
-            }
-            if (res1 || res2 || res3)
-            {
+                s1.message += "Sorry, the group is full.";
                 s1.status = false;
+                return s1;
+            }
+
+            int time = 0;
+            int day = 0;
+            foreach(Schedule schedule in c.Schedule)
+            {
+                time = schedule.ClassTimeID;
+                day = schedule.DayID;
+                res3 = isTimeReserved(time,day);
+                if (res3)
+                {
+                    s1.message += "Sorry, the group's lecture time conflects with another subject.";
+                    s1.status = false;
+                    return s1;
+
+                }
             }
             return s1;
+
         }
 
         private static void addCreditSum(Course c)
@@ -82,24 +103,30 @@ namespace CScore.BCL
             creditSum -= c.Cou_credits;
         }
 
-        private static void addReservedLectureTime(Course course, int gro_id)
+        public static void addReservedLectureTime(Course course, int gro_id)
         {
             foreach(Schedule x in course.Schedule)
             {
                 if (x.Gro_id == gro_id)
                 {
-                    reservedLectureTimes.Add(x.ClassTimeID);
+                    ReservedDayAndTime timeDate = new ReservedDayAndTime();
+                    timeDate.classTimeID= x.ClassTimeID;
+                    timeDate.dayID = x.DayID;
+                    reservedLectureTimes.Add(timeDate);
                 }
             }
         }
 
-        private static void deleteReservedLectureTime(Course course,int gro_id)
+        public static void deleteReservedLectureTime(Course course,int gro_id)
         {
             foreach (Schedule x in course.Schedule)
             {
                 if (x.Gro_id == gro_id)
                 {
-                    reservedLectureTimes.Remove(x.ClassTimeID);
+                    ReservedDayAndTime timeDate = new ReservedDayAndTime();
+                    timeDate.dayID = x.DayID;
+                    timeDate.classTimeID = x.ClassTimeID;
+                    reservedLectureTimes.Remove(timeDate);
                 }
             }
         }
@@ -207,7 +234,6 @@ namespace CScore.BCL
                 if (returnedValue.statusObject.status == true)
                 {
                     subCreditSum(course);
-                    deleteReservedLectureTime(course, gro_id);
                     deleteReservedLectureTime(course, gro_id);
                 }
             }

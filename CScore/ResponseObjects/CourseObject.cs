@@ -27,16 +27,17 @@ namespace CScore.ResponseObjects
         public string lecturerNameEN { set; get; }
         public int managerID { set; get; }
         //      department
-        public String departmentID { set; get; }
+        public int departmentID { set; get; }
         public String departmentNameAR { set; get; }
         public String departmentNameEN { set; get; }
         //      branch
-        public String branchID { set; get; }
+        public int branchID { set; get; }
         public String branchNameAR { set; get; }
         public String branchNameEN { set; get; }
 
         //      schedule
         public int semester { get; set; }
+        public int termID { get; set; }
         public List<ScheduleObject> schedule { set; get; }
 
         //      enrolled flag
@@ -49,31 +50,42 @@ namespace CScore.ResponseObjects
         public static BCL.Course convertToCourse(CourseObject cou)
         {
             BCL.Course course = new BCL.Course();
-            BCL.Schedule ex = new BCL.Schedule();
+        
              course.Cou_id = cou.courseID;
-
-            course.Cou_nameAR = cou.groupNameAR;
-            course.Cou_nameEN = cou.groupNameEN;
+            
+            course.Cou_nameAR = cou.nameAR;
+            course.Cou_nameEN = cou.nameEN;
             course.Cou_credits = cou.credit;
             course.Ter_id = cou.semester;
-            course.Flag = cou.flag;
-            course.GroupFull = cou.groupFull;
-           
+             course.Flag = cou.flag;
+             course.GroupFull = cou.groupFull;
+            course.Schedule = new List<Schedule>();
             if (cou.schedule != null)
             {
                 foreach (ScheduleObject x in cou.schedule)
                 {
+                    BCL.Schedule ex = new BCL.Schedule();
                     ex.Tea_id = x.lecturerID;
-                    ex.Gro_id = x.groupID;
-                    ex.Gro_NameAR = x.groupNameAR;
-                    ex.Gro_NameEN = x.groupNameEN;
-                  
+                   if(x.groupID != 0) // beacuse if it's zero means the user is Student and group info is outside schedule
+                    {
+                        ex.Gro_id = x.groupID;
+                        ex.Gro_NameAR = x.groupNameAR;
+                        ex.Gro_NameEN = x.groupNameEN;
+                    }
+                   else
+                    {
+                        ex.Gro_id = cou.groupID;
+                        ex.Gro_NameAR = cou.groupNameAR;
+                        ex.Gro_NameEN = cou.groupNameEN;
+                    }
+                   
                     ex.ClassDuration = x.timeDuration;
                     ex.ClassRoomAR = x.classRoomAR;
                     ex.ClassRoomEN = x.classRoomEN;
                     ex.ClassRoomID = x.classRoomID;
                     ex.ClassStart = x.timeStart;
                     ex.ClassTimeID = x.classTimeID;
+                    
                     ex.DayID = x.dayID;
                     ex.DayAR = x.dayAR;
                     ex.DayEN = x.dayEN;

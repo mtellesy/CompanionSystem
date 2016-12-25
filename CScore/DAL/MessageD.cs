@@ -153,6 +153,7 @@ namespace CScore.DAL
             DbMessage.Mes_id = message.Mes_id;
             DbMessage.Mes_sender = message.Mes_sender;
             DbMessage.Mes_status = message.Mes_status;
+            DbMessage.Mes_receiver = message.Mes_reciever;
             //DbMessage.Mes_time = current time 
             DbMessage.Mes_content = message.Mes_content;
             

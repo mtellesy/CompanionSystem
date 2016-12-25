@@ -12,6 +12,9 @@ namespace CScore.DataLayer.Tables
 {
     public class MidMarkDistributionL
     {
+        [PrimaryKey,AutoIncrement]
+        public int ID { get; set; }
+
         public int MidMarkDistributionID { get; set; }
 
         public int ter_id { set; get; }

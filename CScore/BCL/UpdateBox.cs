@@ -18,7 +18,7 @@ namespace CScore.BCL
     {
       public static async Task<Boolean> test()
         {
-            return await Plugin.Connectivity.CrossConnectivity.Current.IsRemoteReachable("www.google.com");
+            return true;//await Plugin.Connectivity.CrossConnectivity.Current.IsRemoteReachable("www.google.com");
             
         }
         public static async Task<bool> CheckForInternetConnection()

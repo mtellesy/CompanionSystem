@@ -17,9 +17,8 @@ namespace CScore.SAL
         {
             // declaration of path and request type
 
-            String path = "enrollment/status";
-            String Path =path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "GET";
+            String path = "/enrollment/status";
+           
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -40,6 +39,9 @@ namespace CScore.SAL
             {
                 return auth;
             }
+
+            String Path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "GET";
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(Path, null, requestType);
@@ -84,7 +86,7 @@ namespace CScore.SAL
             //      declaration of path and request type
             String path = "/enrollment/" + User.use_id;
             String requestType = "GET";
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+           
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -103,7 +105,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
-
+            path = path + String.Format("?token={0}", AuthenticatorS.token);
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
@@ -121,7 +123,7 @@ namespace CScore.SAL
                 case 200:
                     List<CourseObject> courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
                     Course temp = new Course();
-                    foreach (CourseObject x in courseResult)
+                    foreach(CourseObject x in courseResult)
                     {
                         temp = CourseObject.convertToCourse(x);
                         courses.Add(temp);
@@ -154,8 +156,7 @@ namespace CScore.SAL
             {
                 path += "forse={0}&" + forse;
             }
-            path = path + String.Format("token={0}", AuthenticatorS.token);
-            String requestType = "POST";
+           
 
 
             //      declaration of the status with its object that will be returned from send request method
@@ -183,6 +184,9 @@ namespace CScore.SAL
             {
                 return auth;
             }
+
+            path = path + String.Format("token={0}", AuthenticatorS.token);
+            String requestType = "POST";
 
             //      data retrieval  part (request and response)
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
@@ -257,9 +261,8 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<Status>> sendDroppedCourses(Course course)
         {
             //      declaration of path and request type
-            String path = "/enrollment/" + User.use_id;
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "DELETE";
+            String path = "/enrollment/drop.php?studentid=" + User.use_id;
+           
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -283,6 +286,9 @@ namespace CScore.SAL
             {
                 return auth;
             }
+
+          // Please remove it in the real test  path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "POST";
 
             //      data retrieval  part( request and response)
             req = await AuthenticatorS.sendRequest(path, jsonString, requestType);
@@ -309,7 +315,7 @@ namespace CScore.SAL
                     break;
                 case 404:
                     status.message = "Course not Found.";
-                    status.status = true;
+                    status.status = false;
                     break;
 
                 default:
@@ -327,6 +333,8 @@ namespace CScore.SAL
 
 
         }
+
+       
         //  TOTO NEEDS TO KNOW ABOUT ADDING IS GROUP FULL API
     }
 }

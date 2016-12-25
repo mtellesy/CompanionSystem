@@ -18,19 +18,20 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<List<Course>>> getCourses(String cou_id, String dep_id, String branch)
         {
             // declaration of path and request type
-            String path = "/courses?";
+            String path = "/courses/course.php?";
             if (cou_id != null)
             {
-                path += "id={0}&" + cou_id;
+                path += "courseid=" + cou_id + "&";
             }
             if (dep_id != "0"&& dep_id!= null)
             {
-                path += "?department={0}&" + dep_id;
+                path += "departmentid=" + dep_id +"&";
             }
             if (branch != null)
             {
-                path += "?branch={0}" + branch;
+                path += "branchid=" + branch;
             }
+            
             String requestType = "GET";
 
             //      declaration of the status with its object that will be returned from send request method
@@ -58,13 +59,19 @@ namespace CScore.SAL
             switch (code)
             {
                 case 200:
-                    List<CourseObject> courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
+                   
+                    List<CourseObject> courseResult;
                     Course temp = new Course();
+                    
+                    courseResult = JsonConvert.DeserializeObject<List<CourseObject>>(jsonString);
+                       
                     foreach (CourseObject x in courseResult)
                     {
                         temp = CourseObject.convertToCourse(x);
                         courses.Add(temp);
                     }
+                    
+                  
                     status.message = "Courses retrieved successfully ";
                     status.status = true;
                     break;
@@ -94,11 +101,10 @@ namespace CScore.SAL
             }
             else
             {
-                 path = "/students/" + User.use_id + "/ courses";
+                 path = "/students/" + User.use_id + "/courses";
 
             }
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
-            String requestType = "GET";
+            
 
             //      declaration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
@@ -119,6 +125,8 @@ namespace CScore.SAL
                 return auth;
             }
 
+            path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "GET";
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;

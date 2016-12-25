@@ -187,7 +187,7 @@ namespace CScore.BCL
                 return false;
         }
 
-        public static async Task<List<Messages>> getMessages(int NumberOfMessages, int startFrom, String type)
+        public static async Task<StatusWithObject<List<Messages>>> getMessages(int NumberOfMessages, int startFrom, String type)
         {
             // type is used for to know which type of Messages it will return (received or sent)
             List<Messages> messages = new List<Messages>();
@@ -211,9 +211,10 @@ namespace CScore.BCL
             //Receive
             else if (type == "received" || type == "R" || type == "Received" || type == "RECEIVED")
                 messages = await DAL.MessageD.getReceivedMessages(NumberOfMessages, startFrom, User.use_id);
-            else return null;
+            else returnedValue.statusObject = null;
+            returnedValue.statusObject = messages;
 
-                return messages ;
+                return returnedValue ;
         }
 
     }

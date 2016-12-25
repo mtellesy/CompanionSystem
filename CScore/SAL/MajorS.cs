@@ -77,7 +77,7 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             String path = "/major/"+User.use_id;
-            path = path + String.Format("?token={0}", AuthenticatorS.token);
+           
             String requestType = "GET";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -97,6 +97,7 @@ namespace CScore.SAL
             {
                 return auth;
             }
+           // path = path + String.Format("?token={0}", AuthenticatorS.token);
 
             //      data retrieval  part
             req = await AuthenticatorS.sendRequest(path, null, requestType);
@@ -139,8 +140,9 @@ namespace CScore.SAL
         //              *** returns sends the user's wanted deparment to server ***
         public static async Task<StatusWithObject<String>> sendDepartment(int dep_id)
         {
-            String path = "major/"+dep_id+"/"+User.use_id;
-            path += String.Format("?token={0}", AuthenticatorS.token);
+            //  add this in the real test String path = "major/"+dep_id+"/"+User.use_id;
+            String path = "/major/major.php?departmentid="+dep_id + "&studentid=" + User.use_id;
+
             String requestType = "POST";
 
             //      decleration of the status with its object that will be returned from send request method
@@ -161,6 +163,7 @@ namespace CScore.SAL
                 return auth;
             }
 
+           // please add it in the real test path += String.Format("?token={0}", AuthenticatorS.token);
 
             req = await AuthenticatorS.sendRequest(path, null, requestType);
             jsonString = req.statusObject;
