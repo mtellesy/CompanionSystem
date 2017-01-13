@@ -157,5 +157,152 @@ namespace CScore.DAL
         }
 
 
+        /// <summary>
+        /// Get Lecturer Students ( all of them )
+        /// in the current term
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<List<OtherUsers>> getLecturerStudent()
+        {
+            // get data 
+            var Students = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Ter_id.Equals(Semester.current_term)).ToListAsync();
+
+            // to check if the user we requisted is exsited or not ( if not return null) 
+            var checker = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Ter_id.Equals(Semester.current_term)).CountAsync();
+
+            var returnedStudents = new List<OtherUsers>();
+            if (checker > 0)
+            {
+                foreach(var stu in Students)
+                {
+                    OtherUsers student = new OtherUsers();
+                    student.use_id = stu.Stu_id;
+                    student.use_nameEN = stu.Stu_nameEN;
+                    student.use_nameAR = stu.Stu_nameAR;
+                    student.courseID = stu.Cou_id;
+                    student.groupID = stu.Gro_id;
+                    student.termID = stu.Ter_id;
+                    returnedStudents.Add(student);
+
+                }
+
+                return returnedStudents;
+            }
+            else return null;
+
+        }
+
+        /// <summary>
+        /// Get Lecturer Students ( based on courseID)
+        /// in the current term
+        /// </summary>
+        /// <returns></returns>
+        public static async  Task<List<OtherUsers>> getLecturerStudent(String courseID)
+        {
+            // get data 
+            var Students = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Ter_id.Equals(Semester.current_term))
+                .Where(i=>i.Cou_id.Equals(courseID)).ToListAsync();
+
+            // to check if the user we requisted is exsited or not ( if not return null) 
+            var checker = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Ter_id.Equals(Semester.current_term))
+                 .Where(i => i.Cou_id.Equals(courseID)).CountAsync();
+
+            var returnedStudents = new List<OtherUsers>();
+            if (checker > 0)
+            {
+                foreach (var stu in Students)
+                {
+                    OtherUsers student = new OtherUsers();
+                    student.use_id = stu.Stu_id;
+                    student.use_nameEN = stu.Stu_nameEN;
+                    student.use_nameAR = stu.Stu_nameAR;
+                    student.courseID = stu.Cou_id;
+                    student.groupID = stu.Gro_id;
+                    student.termID = stu.Ter_id;
+                    returnedStudents.Add(student);
+
+                }
+
+                return returnedStudents;
+            }
+            else return null;
+
+        }
+    /// <summary>
+    /// Get Lecturer Students ( based on courseID and groupID)
+    /// in the current term
+    /// </summary>
+    /// <returns></returns>
+    public static async Task<List<OtherUsers>> getLecturerStudent(String courseID,int groupID)
+    {
+        // get data 
+        var Students = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Ter_id.Equals(Semester.current_term))
+            .Where(i => i.Cou_id.Equals(courseID)).Where(i => i.Gro_id.Equals(groupID)).ToListAsync();
+
+        // to check if the user we requisted is exsited or not ( if not return null) 
+        var checker = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Ter_id.Equals(Semester.current_term))
+             .Where(i => i.Cou_id.Equals(courseID)).Where(i => i.Gro_id.Equals(groupID)).CountAsync();
+
+        var returnedStudents = new List<OtherUsers>();
+        if (checker > 0)
+        {
+            foreach (var stu in Students)
+            {
+                OtherUsers student = new OtherUsers();
+                student.use_id = stu.Stu_id;
+                student.use_nameEN = stu.Stu_nameEN;
+                student.use_nameAR = stu.Stu_nameAR;
+                student.courseID = stu.Cou_id;
+                student.groupID = stu.Gro_id;
+                student.termID = stu.Ter_id;
+                returnedStudents.Add(student);
+
+            }
+
+            return returnedStudents;
+        }
+        else return null;
+    }
+
+        public static async Task saveLecturerStudents(List<OtherUsers> students)
+        {
+            
+            if(students !=null)
+            foreach(var stu in students)
+                {
+                    DataLayer.Tables.LecturerStudentsL DBuser = new DataLayer.Tables.LecturerStudentsL();
+                    DBuser.Cou_id = stu.courseID;
+                    DBuser.Gro_id = stu.groupID;
+                    DBuser.Stu_nameAR = stu.use_nameAR;
+                    DBuser.Stu_nameEN = stu.use_nameEN;
+                    DBuser.Stu_id = stu.use_id;
+                    DBuser.Ter_id = stu.termID;
+
+                    // first we make suer the user not exsited already
+                    var results = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Stu_id.Equals(DBuser.Stu_id))
+                    .Where(i=> i.Cou_id.Equals(DBuser.Cou_id))
+                    .Where(i=> i.Gro_id.Equals(DBuser.Gro_id))
+                    .Where(i=> i.Ter_id.Equals(DBuser.Ter_id)).CountAsync();
+
+
+                    //if the user is not exsited
+                    if (results <= 0)
+                    {
+                        await DBuilder._connection.InsertAsync(DBuser);
+                    }
+                    else
+                    {
+                        var userID = await DBuilder._connection.Table<LecturerStudentsL>().Where(i => i.Stu_id.Equals(DBuser.Stu_id))
+                        .Where(i => i.Cou_id.Equals(DBuser.Cou_id))
+                        .Where(i => i.Gro_id.Equals(DBuser.Gro_id))
+                        .Where(i => i.Ter_id.Equals(DBuser.Ter_id)).FirstAsync();
+                        DBuser.id = userID.id;
+                        await DBuilder._connection.UpdateAsync(DBuser);// if the user is existed update his info
+
+                    }
+
+                }
+
+        }
     }
 }

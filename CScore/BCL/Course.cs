@@ -95,6 +95,9 @@ namespace CScore.BCL
             }
         }
         //      tempGro_id
+        /// <summary>
+        /// Temporary group id that is used only for enrollment
+        /// </summary>
         public int TemGro_id
         {
             set
@@ -231,6 +234,7 @@ namespace CScore.BCL
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
+                await DAL.CourseD.deleteUserCoursesSchedule(BCL.Semester.current_term);
                 returnedValue = await SAL.CourseS.getEnrolledCourses();
                 if (returnedValue.status.status == true)
                 {
@@ -245,6 +249,82 @@ namespace CScore.BCL
 
         }
 
+        public static async Task<StatusWithObject<List<Course>>> getStudentCourses()
+        {
+            Course result = new Course();
+            StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+                await DAL.CourseD.deleteUserCoursesSchedule(BCL.Semester.current_term);
+                returnedValue = await SAL.CourseS.getEnrolledCourses();
+                if (returnedValue.status.status == true)
+                {
+                    await DAL.CourseD.deleteStudentSemesterCourses();
+                    if(returnedValue.statusObject != null || returnedValue.statusObject.Count > 0)
+                    {
+                        await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                        foreach (Course c in returnedValue.statusObject)
+                        {
+                            await DAL.CourseD.saveStudentSemesterCourses(c);
+                        }
+                    }
+                 
+                }
+                returnedValue.statusObject = new List<Course>();
+            }
+          List<Course> newCourses = new List<Course>();
+            returnedValue.statusObject = await DAL.CourseD.getStudentSemesterCourses();
+            if(returnedValue.statusObject != null)
+            foreach (Course c in returnedValue.statusObject)
+            {
+             Course newC =   await DAL.CourseD.getCourse(c.Cou_id,"S");
+                if (newC != null)
+                {
+                    c.Cou_credits = newC.Cou_credits;
+                    c.Cou_nameEN = newC.Cou_nameEN;
+                    c.Cou_nameAR = newC.Cou_nameAR;
+                   
+                }
+                    
+                newCourses.Add(c);
+            }
+            returnedValue.statusObject = newCourses;
 
+            return returnedValue;
+        }
+
+        public Course getACopy()
+        {
+            var OriCourses = new Course();
+            OriCourses.Cou_id = cou_id;
+            OriCourses.Cou_nameAR = cou_nameAR;
+            OriCourses.Cou_nameEN = cou_nameEN;
+            OriCourses.Cou_credits = cou_credits;
+            OriCourses.Flag = flag;
+            OriCourses.GroupFull = groupFull;
+            OriCourses.Schedule = new List<CScore.BCL.Schedule>();
+            foreach (var sch in schedule)
+            {
+                var newItem = new CScore.BCL.Schedule();
+                newItem.ClassDuration = sch.ClassDuration;
+                newItem.ClassRoomAR = sch.ClassRoomAR;
+                newItem.ClassRoomEN = sch.ClassRoomEN;
+                newItem.ClassRoomID = sch.ClassRoomID;
+                newItem.ClassStart = sch.ClassStart;
+                newItem.ClassTimeID = sch.ClassTimeID;
+                newItem.DayAR = sch.DayAR;
+                newItem.DayEN = sch.DayEN;
+                newItem.DayID = sch.DayID;
+                newItem.Gro_id = sch.Gro_id;
+                newItem.Gro_NameAR = sch.Gro_NameAR;
+                newItem.Gro_NameEN = sch.Gro_NameEN;
+                newItem.Tea_id = sch.Tea_id;
+                OriCourses.Schedule.Add(newItem);
+            }
+            OriCourses.Tea_id = tea_id;
+            OriCourses.TemGro_id = temGro_id;
+            OriCourses.Ter_id = ter_id;
+            return OriCourses;
+        }
     }
 }

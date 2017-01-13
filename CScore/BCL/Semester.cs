@@ -144,5 +144,27 @@ namespace CScore.BCL
                 exam = value;
             }
         }
+
+        public static async Task<StatusWithObject<Semester>> getCurrentSemester()
+        {
+            StatusWithObject<Semester> semester = new StatusWithObject<Semester>();
+            semester.status = new Status();
+            semester.status.status = false;
+            
+            if(await BCL.UpdateBox.CheckForInternetConnection())
+            {
+               semester = await SAL.SemesterS.getSemesterSchedule();
+                if(semester.status.status)
+                {
+                    await DAL.SemesterD.saveSemesterSchedule(semester.statusObject);
+                }
+            }
+            semester.statusObject = await DAL.SemesterD.getSemesterSchedule();
+            if(semester.statusObject != null)
+            {
+                current_term = semester.statusObject.Ter_id;
+            }
+            return semester;
+        }
     }
 }

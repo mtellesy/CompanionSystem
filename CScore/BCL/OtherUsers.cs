@@ -38,6 +38,20 @@ namespace CScore.BCL
 
         public String academicRankEN { get; set; }
 
+        //used only to save lecturer students
+        /// <summary>
+        /// courseID is used only when getting lecturer studetns
+        /// </summary>
+        public String courseID { get; set; }
+        /// <summary>
+        /// termID is used only when getting lecturer studetns
+        /// </summary>
+        public int termID { get; set; }
+        /// <summary>
+        /// groupId is used only when getting lecturer studetns
+        /// </summary>
+        public int groupID { get; set; }
+
         public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
         {
             StatusWithObject<OtherUsers> returndValue = new StatusWithObject<OtherUsers>();
@@ -46,7 +60,7 @@ namespace CScore.BCL
 
             if (await UpdateBox.CheckForInternetConnection())
             {
-               // SAL.UserS userCatcher = new SAL.UserS();
+             
              returndValue =  await SAL.UserS.getOtherUser(userID);
              if(returndValue.status.status == true)
                 await DAL.UsersD.saveOtherUser(returndValue.statusObject);
@@ -56,5 +70,74 @@ namespace CScore.BCL
             returndValue.statusObject = user;
             return returndValue;
         }
+
+
+        /// <summary>
+        /// Get all the lecturer Students for this semester
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<StatusWithObject<List<OtherUsers>>> getLecturerStudents()
+        {
+            StatusWithObject<List<OtherUsers>> returndValue = new StatusWithObject<List<OtherUsers>>();
+            returndValue.status.status = false;
+            returndValue.status.message = "";
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+
+                returndValue = await SAL.UserS.getLecturerStudents();
+                if (returndValue.status.status == true)
+                    await DAL.UsersD.saveLecturerStudents(returndValue.statusObject);
+                returndValue.statusObject = new List<OtherUsers>();
+            }
+            returndValue.statusObject = await DAL.UsersD.getLecturerStudent();
+
+            return returndValue;
+        }
+        /// <summary>
+        /// Get lecturer Students for this semester by courseID
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<StatusWithObject<List<OtherUsers>>> getLecturerStudents(String courseID)
+        {
+            StatusWithObject<List<OtherUsers>> returndValue = new StatusWithObject<List<OtherUsers>>();
+            returndValue.status.status = false;
+            returndValue.status.message = "";
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+
+                returndValue = await SAL.UserS.getLecturerStudents();
+                if (returndValue.status.status == true)
+                    await DAL.UsersD.saveLecturerStudents(returndValue.statusObject);
+                returndValue.statusObject = new List<OtherUsers>();
+            }
+            returndValue.statusObject = await DAL.UsersD.getLecturerStudent(courseID);
+
+            return returndValue;
+        }
+        /// <summary>
+        /// Get lecturer Students for this semester by courseID
+        /// and GroupID
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<StatusWithObject<List<OtherUsers>>> getLecturerStudents(String courseID,int groupID)
+        {
+            StatusWithObject<List<OtherUsers>> returndValue = new StatusWithObject<List<OtherUsers>>();
+            returndValue.status.status = false;
+            returndValue.status.message = "";
+            if (await UpdateBox.CheckForInternetConnection())
+            {
+
+                returndValue = await SAL.UserS.getLecturerStudents();
+                if (returndValue.status.status == true)
+                    await DAL.UsersD.saveLecturerStudents(returndValue.statusObject);
+                returndValue.statusObject = new List<OtherUsers>();
+            }
+            returndValue.statusObject = await DAL.UsersD.getLecturerStudent(courseID,groupID);
+
+            return returndValue;
+        }
     }
+
+    
+    
 }
