@@ -57,6 +57,7 @@ namespace CScore.ResponseObjects
             course.Cou_nameEN = cou.nameEN;
             course.Cou_credits = cou.credit;
             course.Ter_id = cou.semester;
+            course.Tea_id = cou.lecturerID;
              course.Flag = cou.flag;
              course.GroupFull = cou.groupFull;
             course.Schedule = new List<Schedule>();
@@ -65,7 +66,7 @@ namespace CScore.ResponseObjects
                 foreach (ScheduleObject x in cou.schedule)
                 {
                     BCL.Schedule ex = new BCL.Schedule();
-                    ex.Tea_id = x.lecturerID;
+                    ex.Tea_id = cou.lecturerID;
                    if(x.groupID != 0) // beacuse if it's zero means the user is Student and group info is outside schedule
                     {
                         ex.Gro_id = x.groupID;

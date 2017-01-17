@@ -73,6 +73,7 @@
     <Compile Include="DataLayer\Tables\SemesterL.cs" />
     <Compile Include="DataLayer\Tables\StudentCoursesL.cs" />
     <Compile Include="DataLayer\Tables\Users.cs" />
+    <Compile Include="FixdStrings\Announcements.cs" />
     <Compile Include="FixdStrings\Buttons.cs" />
     <Compile Include="FixdStrings\Courses.cs" />
     <Compile Include="FixdStrings\Enrollment.cs" />
@@ -80,7 +81,10 @@
     <Compile Include="FixdStrings\Language.cs" />
     <Compile Include="FixdStrings\Logout.cs" />
     <Compile Include="FixdStrings\Major.cs" />
+    <Compile Include="FixdStrings\Messages.cs" />
+    <Compile Include="FixdStrings\Settings.cs" />
     <Compile Include="FixdStrings\Time.cs" />
+    <Compile Include="FixdStrings\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseObjects\AnnouncementsObject.cs" />
     <Compile Include="ResponseObjects\AuthenticationObject.cs" />

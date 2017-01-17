@@ -79,6 +79,7 @@ namespace CScore.BCL
         public static async Task<StatusWithObject<List<OtherUsers>>> getLecturerStudents()
         {
             StatusWithObject<List<OtherUsers>> returndValue = new StatusWithObject<List<OtherUsers>>();
+            returndValue.status = new Status();
             returndValue.status.status = false;
             returndValue.status.message = "";
             if (await UpdateBox.CheckForInternetConnection())

@@ -34,6 +34,7 @@ namespace CScore.DAL
                         newMess.Mes_sender = mesg.Mes_sender;
                         newMess.Mes_content = mesg.Mes_content;
                         newMess.Mes_status = mesg.Mes_status;
+                        newMess.Mes_subject = mesg.Mes_subject;
                         messages.Add(newMess);
                         index++; // okay go and fetch the next one 
 
@@ -91,6 +92,7 @@ namespace CScore.DAL
                         newMess.Mes_sender = mesg.Mes_sender;
                         newMess.Mes_content = mesg.Mes_content;
                         newMess.Mes_status = mesg.Mes_status;
+                        newMess.Mes_subject = mesg.Mes_subject;
                         messages.Add(newMess);
                         index++;
                        
@@ -140,6 +142,7 @@ namespace CScore.DAL
                 message.Mes_sender = results.Select(i => i.Mes_sender).First();
                 message.Mes_content = results.Select(i => i.Mes_content).First();
                 message.Mes_status = results.Select(i => i.Mes_status).First();
+                message.Mes_subject = results.Select(i => i.Mes_subject).First();
 
                 return message;
             }
@@ -156,6 +159,7 @@ namespace CScore.DAL
             DbMessage.Mes_receiver = message.Mes_reciever;
             //DbMessage.Mes_time = current time 
             DbMessage.Mes_content = message.Mes_content;
+            DbMessage.Mes_subject = message.Mes_subject;
             
          var results =  await DBuilder._connection.Table<InboxL>().Where(i => i.Mes_id.Equals(message.Mes_id)).CountAsync();
 

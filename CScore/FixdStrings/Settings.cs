@@ -6,41 +6,39 @@ using System.Threading.Tasks;
 
 namespace CScore.FixdStrings
 {
-   public class Courses
+    public class Settings
     {
-        public static String CourseCode()
-        {
-            Language e = LanguageSetter.getLanguage();
-            switch(e)
-            {
-                case (Language.AR): return "رمز المادة";
-
-                case (Language.EN):
-                default: return "Course Code";
-            }
-        }
-
-        public static String CourseDoesNotExist()
+        public static String SettingsSaved()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "المادة غير موجودة";
+                case (Language.AR): return "تم حفظ الإعدادات بنجاح";
 
                 case (Language.EN):
-                default: return "Course does not exist";
+                default: return "The Settings saved successfully";
             }
         }
-
-        public static String PleaseTypeCourseCode()
+        public static String SettingsStatus()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "رجاءً, قم بكتابة رمز المادة";
+                case (Language.AR): return "حالة الإعدادات";
 
                 case (Language.EN):
-                default: return "Please, Type the course code";
+                default: return "Settings Status";
+            }
+        }
+         public static String SettingsLable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "الإعدادات";
+
+                case (Language.EN):
+                default: return "Settings";
             }
         }
     }
