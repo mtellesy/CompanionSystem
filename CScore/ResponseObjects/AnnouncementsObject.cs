@@ -52,7 +52,10 @@ content: string
         {
             AnnouncementsObject announcement = new AnnouncementsObject();
             announcement.postID = ano.Ano_id;
-            //announcement.referenceID = ano.referenceID
+            Random x = new Random();
+            announcement.referenceID = x.Next(1, 1000);
+            announcement.content = ano.Ano_content;
+            announcement.courseID = ano.Cou_id;
             //
             return announcement;
         }

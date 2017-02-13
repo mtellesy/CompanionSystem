@@ -235,7 +235,7 @@ namespace CScore.SAL
         {
             //      declaration of path and request type
             // String path = "/posts";
-            String path = "/posts/announcement/get.php";
+            String path = "/posts/announcement/get.php?userid=" + User.use_id;
             //path += "/announcement/sent";
 
             String requestType = "POST";
@@ -296,6 +296,67 @@ namespace CScore.SAL
             returnedValue.statusCode = code;
             return returnedValue;
 
+        }
+
+        public static async Task<StatusWithObject<Notification>> getNotifications()
+        {
+            //      declaration of path and request type
+            String path = "/notificationAnnouncements?userid=" + User.use_id;
+        
+            //path = path + String.Format("token={0}", AuthenticatorS.token);
+            String requestType = "GET";
+
+            //      decleration of the status with its object that will be returned from send request method
+            StatusWithObject<String> req = new StatusWithObject<String>();
+            String jsonString;
+
+            //      decleration of the returned value and its contents
+            StatusWithObject<Notification> returnedValue = new StatusWithObject<Notification>();
+            Notification notification = new Notification();
+            Status status = new Status();
+            int code;
+
+            //      authentication  part
+            StatusWithObject<Notification> auth = new StatusWithObject<Notification>();
+            auth = await AuthenticatorS.autoAuthentication<Notification>();
+            if (auth.status.status == false)
+            {
+                return auth;
+            }
+
+            //      data retrieval  part
+            req = await AuthenticatorS.sendRequest(path, null, requestType);
+            jsonString = req.statusObject;
+            code = req.statusCode;
+
+            if (req.status.status == false)
+            {
+                returnedValue.status = req.status;
+                returnedValue.statusCode = req.statusCode;
+                returnedValue.statusObject = null;
+                return returnedValue;
+            }
+            switch (code)
+            {
+                case 200:
+                    Notification notificationResult = JsonConvert.DeserializeObject<Notification>(jsonString);
+                    notification = notificationResult;
+                    status.message = "Notification retrieved successfully.";
+                    status.status = true;
+                    break;
+
+                default:
+                    notification = null;
+                    status.status = false;
+                    status.message = FixedResponses.getResponse(code);
+                    break;
+
+
+            }
+            returnedValue.status = status;
+            returnedValue.statusCode = code;
+            returnedValue.statusObject = notification;
+            return returnedValue;
         }
 
     }

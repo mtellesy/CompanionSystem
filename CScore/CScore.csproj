@@ -100,6 +100,7 @@
     <Compile Include="ResponseObjects\AuthenticationObject.cs" />
     <Compile Include="ResponseObjects\MessageObject.cs" />
     <Compile Include="ResponseObjects\MidMarkDistributionObject.cs" />
+    <Compile Include="ResponseObjects\Notification.cs" />
     <Compile Include="ResponseObjects\ResponceMessageObject.cs" />
     <Compile Include="ResponseObjects\CourseObject.cs" />
     <Compile Include="ResponseObjects\DepartmentObject.cs" />
