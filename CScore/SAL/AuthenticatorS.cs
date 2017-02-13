@@ -167,7 +167,7 @@ namespace CScore.SAL
            // Task<StatusWithObject<String>>
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
             Status status = new BCL.Status();
-            
+            User.use_id = UserID;
             HttpClient request = new HttpClient();
             request.Timeout = TimeSpan.FromMilliseconds(5000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
@@ -280,7 +280,8 @@ namespace CScore.SAL
         //this method is used also to return user data
         public static async Task<StatusWithObject<String>> authenticate()
         {
-            String path = "/users/authenticate" + String.Format("?token={0}", token);
+            //String path = "/users/authenticate" + String.Format("?token={0}", token);
+            String path = "/users/authenticate?userid=" + User.use_id;
             String fullPath = domain + path;
 
             Status status = new Status();
