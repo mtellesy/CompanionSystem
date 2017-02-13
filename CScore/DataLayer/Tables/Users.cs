@@ -41,6 +41,11 @@ namespace CScore.DataLayer.Tables
 
         public String academicRankEN { get; set; }
         
+        public int color_r { set; get; }
+
+        public int color_g { set; get; }
+
+        public int color_b { set; get; }
 
     }
 }

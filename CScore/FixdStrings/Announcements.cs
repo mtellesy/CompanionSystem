@@ -13,10 +13,10 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "تم إرسال الإعلان بنجاح";
+                case (Language.AR): return "تم إرسال الإعلان";
 
                 case (Language.EN):
-                default: return "The Announcement has been successfully sent";
+                default: return "Announcement sent";
             }
         }
 
@@ -28,7 +28,7 @@ namespace CScore.FixdStrings
                 case (Language.AR): return "فشلت محاولة إرسال الإعلان";
 
                 case (Language.EN):
-                default: return "Announcement sending has failed";
+                default: return "Failed to send announcement";
             }
         }
 
@@ -44,7 +44,7 @@ namespace CScore.FixdStrings
             }
         }
 
-        public static String AnnouncementsLable()
+        public static string AnnouncementsLable()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)

@@ -90,7 +90,7 @@ namespace CScore.FixdStrings
             {
                 case (Language.AR): return "رجوع";
                 case (Language.EN):
-                default: return "Back";
+                default: return "BACK";
             }
         }
     }

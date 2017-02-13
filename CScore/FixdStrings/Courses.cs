@@ -38,7 +38,7 @@ namespace CScore.FixdStrings
                 case (Language.AR): return "المادة غير موجودة";
 
                 case (Language.EN):
-                default: return "Course does not exist";
+                default: return "Course does't exist";
             }
         }
 
@@ -47,10 +47,10 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "رجاءً, قم بكتابة رمز المادة";
+                case (Language.AR): return "قم بكتابة رمز المادة";
 
                 case (Language.EN):
-                default: return "Please, Type the course code";
+                default: return "Type the course code";
             }
         }
 

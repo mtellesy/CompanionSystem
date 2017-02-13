@@ -12,6 +12,9 @@ namespace CScore.BCL
         public T statusObject;
         public int statusCode;
 
-       
+        public static implicit operator StatusWithObject<T>(List<Course> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace CScore.DAL
             DBuser.academicRankEN = user.academicRankEN;
             DBuser.academicRankAR = user.academicRankAR;
 
+
             // first we make suer the user not exsited already
             var results = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(user.use_id)).CountAsync();
           
@@ -45,8 +46,14 @@ namespace CScore.DAL
             //if the user is not exsited
           if (results <= 0 )
             {
+               
                 await DBuilder._connection.InsertAsync(DBuser);
-           }
+                Random r = new Random();
+
+                DBuser.color_r = r.Next(10, 250);
+                DBuser.color_g = r.Next(10, 250);
+                DBuser.color_b = r.Next(10, 250);
+            }
            else 
            await DBuilder._connection.UpdateAsync(DBuser);// if the user is exsited update his info
 
@@ -81,6 +88,9 @@ namespace CScore.DAL
                 returnUser.academicRankID = DBuser.Select(i => i.academicRankID).First();
                 returnUser.academicRankEN = DBuser.Select(i => i.academicRankEN).First();
                 returnUser.academicRankAR = DBuser.Select(i => i.academicRankAR).First();
+                returnUser.color_r = DBuser.Select(i => i.color_r).First();
+                returnUser.color_g = DBuser.Select(i => i.color_g).First();
+                returnUser.color_b = DBuser.Select(i => i.color_b).First();
 
                 return returnUser;
             }

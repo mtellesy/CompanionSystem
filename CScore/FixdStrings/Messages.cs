@@ -13,10 +13,10 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "تم إرسال الرسالة بنجاح";
+                case (Language.AR): return "تم إرسال الرسالة";
 
                 case (Language.EN):
-                default: return "The Message has been successfully sent";
+                default: return "Message sent";
             }
         }
 
@@ -28,7 +28,7 @@ namespace CScore.FixdStrings
                 case (Language.AR): return "فشلت محاولة إرسال الرسالة";
 
                 case (Language.EN):
-                default: return "Message sending has failed";
+                default: return "Failed to send message";
             }
         }
 
@@ -37,10 +37,10 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "حالة إرسال الرسالة";
+                case (Language.AR): return "حالة الرسالة";
 
                 case (Language.EN):
-                default: return "Message Send Status";
+                default: return "Message Status";
             }
         }
 

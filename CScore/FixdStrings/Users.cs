@@ -16,7 +16,7 @@ namespace CScore.FixdStrings
                 case (Language.AR): return "المستخدم غير موجود";
 
                 case (Language.EN):
-                default: return "User does not exist";
+                default: return "User doesn't exist";
             }
         }
 
@@ -25,10 +25,10 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "رجاءً, قم بكتابة إسم المستخدم";
+                case (Language.AR): return "قم بكتابة إسم المستخدم";
 
                 case (Language.EN):
-                default: return "Please, type the user name";
+                default: return "Type the user name";
             }
         }
     }

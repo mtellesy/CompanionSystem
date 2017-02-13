@@ -36,7 +36,7 @@ namespace CScore.DataLayer
             await _connection.CreateTableAsync<ScheduleL>();
             await _connection.CreateTableAsync<AttachmentL>();
             await _connection.CreateTableAsync<LanguageL>();
-
+            await _connection.CreateTableAsync<ThemeL>();
             if (userType == "S" )
             {
                 await _connection.CreateTableAsync<MidMarkDistributionL>();

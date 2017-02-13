@@ -18,9 +18,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "حالة عملية تسجيل المواد";
+                case (Language.AR): return " عملية تسجيل المواد";
                 case (Language.EN):
-                default: return "Enrollment Process Status";
+                default: return "Enrollment Status";
             }
         }
         /// <summary>
@@ -32,9 +32,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "حالة عملية إسقاط المواد";
+                case (Language.AR): return "عملية إسقاط المواد";
                 case (Language.EN):
-                default: return "Disenrollment Process Status";
+                default: return "Disenrollment Status";
             }
         }
         /// <summary>
@@ -46,9 +46,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "حالة إضافة المواد";
+                case (Language.AR): return "تم اضافة المادة";
                 case (Language.EN):
-                default: return "Courses Enrollment Status";
+                default: return "Course added";
             }
         }
         /// <summary>
@@ -60,9 +60,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "تم حذف المادة بنجاح";
+                case (Language.AR): return "تم حذف المادة";
                 case (Language.EN):
-                default: return "The course has been successfully droped";
+                default: return "Course dropped";
             }
         }
         /// <summary>
@@ -77,7 +77,7 @@ namespace CScore.FixdStrings
             {
                 case (Language.AR): return "لم تقم بإجراء أي تعديلات";
                 case (Language.EN):
-                default: return "Nothing Has Changed";
+                default: return "Nothing has changed";
             }
         }
         /// <summary>
@@ -90,9 +90,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "عذراً, وقت هذه المجموعة يتعارض مع مادة\\مواد أخرى:\n";
+                case (Language.AR): return "وقت هذه المجموعة يتعارض مع مادة\\مواد أخرى:\n\n";
                 case (Language.EN):
-                default: return "Sorry, the group's lecture time conflects with another subject(s):\n";
+                default: return "Group's lecture time conflicts with another course(s):\n\n";
             }
         }
         /// <summary>
@@ -107,7 +107,7 @@ namespace CScore.FixdStrings
             {
                 case (Language.AR): return "تسجيل المواد غير متاح الأن\n";
                 case (Language.EN):
-                default: return "Enrollment is not available\n";
+                default: return "Enrollment isn't available\n";
             }
         }
         /// <summary>
@@ -121,7 +121,7 @@ namespace CScore.FixdStrings
             {
                 case (Language.AR): return "\nالمواد التي تم إسقاطها:\n";
                 case (Language.EN):
-                default: return "\nDroped Courses:\n";
+                default: return "\nDropped Courses:\n";
             }
         }
         /// <summary>
@@ -147,9 +147,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "عدد الوحدات المتاح للإسقاط:";
+                case (Language.AR): return " الوحدات المتاحة للإسقاط:";
                 case (Language.EN):
-                default: return "Available Credits to drop:";
+                default: return "Credits to drop:";
             }
         }
         /// <summary>
@@ -161,9 +161,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "عدد الوحدات المتاحة:";
+                case (Language.AR): return "الوحدات المتاحة:";
                 case (Language.EN):
-                default: return "Available Credits:";
+                default: return "Allowed:";
             }
         }
         /// <summary>
@@ -175,9 +175,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "إجمالي لوحدات:";
+                case (Language.AR): return "الإجمالي:";
                 case (Language.EN):
-                default: return "Total Credits:";
+                default: return "Total:";
             }
         }
         /// <summary>
@@ -191,7 +191,7 @@ namespace CScore.FixdStrings
             {
                 case (Language.AR): return "لست مسجلاً في أي مادة";
                 case (Language.EN):
-                default: return "You're not Enrolled in any Course";
+                default: return "You didn't enroll in any course";
             }
         }
         /// <summary>
@@ -219,7 +219,7 @@ namespace CScore.FixdStrings
             {
                 case (Language.AR): return "تسجيل المواد متاح";
                 case (Language.EN):
-                default: return "Enrollment is Available";
+                default: return "Enrollment is available";
             }
         }
         /// <summary>

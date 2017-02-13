@@ -58,6 +58,7 @@
     <Compile Include="DAL\MidMarkDistributionD.cs" />
     <Compile Include="DAL\ResultD.cs" />
     <Compile Include="DAL\SemesterD.cs" />
+    <Compile Include="DAL\ThemeD.cs" />
     <Compile Include="DAL\UsersD.cs" />
     <Compile Include="DataLayer\DBDestroyer.cs" />
     <Compile Include="DataLayer\DBuilder.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="DataLayer\Tables\ScheduleL.cs" />
     <Compile Include="DataLayer\Tables\SemesterL.cs" />
     <Compile Include="DataLayer\Tables\StudentCoursesL.cs" />
+    <Compile Include="DataLayer\Tables\ThemeL.cs" />
     <Compile Include="DataLayer\Tables\Users.cs" />
     <Compile Include="FixdStrings\Announcements.cs" />
     <Compile Include="FixdStrings\Buttons.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="FixdStrings\Results.cs" />
     <Compile Include="FixdStrings\Schedule.cs" />
     <Compile Include="FixdStrings\Settings.cs" />
+    <Compile Include="FixdStrings\Theme.cs" />
     <Compile Include="FixdStrings\Time.cs" />
     <Compile Include="FixdStrings\Timetable.cs" />
     <Compile Include="FixdStrings\Transcript.cs" />

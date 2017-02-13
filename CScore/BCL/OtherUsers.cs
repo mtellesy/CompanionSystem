@@ -52,6 +52,13 @@ namespace CScore.BCL
         /// </summary>
         public int groupID { get; set; }
 
+        public int color_r { set; get; }
+
+        public int color_g { set; get; }
+
+        public int color_b { set; get; }
+
+
         public static async Task<StatusWithObject<OtherUsers>> getOtherUser(int userID)
         {
             StatusWithObject<OtherUsers> returndValue = new StatusWithObject<OtherUsers>();
@@ -62,8 +69,14 @@ namespace CScore.BCL
             {
              
              returndValue =  await SAL.UserS.getOtherUser(userID);
-             if(returndValue.status.status == true)
-                await DAL.UsersD.saveOtherUser(returndValue.statusObject);
+                if (returndValue.status.status == true)
+                {
+                    Random r = new Random();
+     //               returndValue.statusObject.color_r= r.Next(1,256);
+       //             returndValue.statusObject.color_g = r.Next(1, 256);
+         //           returndValue.statusObject.color_b = r.Next(1, 256);
+                    await DAL.UsersD.saveOtherUser(returndValue.statusObject);
+                }
             }
             
             user = await DAL.UsersD.getOtherUser(userID);

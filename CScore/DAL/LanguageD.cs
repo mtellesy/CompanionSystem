@@ -18,7 +18,7 @@ namespace CScore.DAL
             if(await DBuilder._connection.Table<LanguageL>().CountAsync() > 0)
             {
                 var Result = await DBuilder._connection.Table<LanguageL>().FirstAsync();
-                language = Result.lan;
+                language = Result.lan ;
             }
 
             return language;

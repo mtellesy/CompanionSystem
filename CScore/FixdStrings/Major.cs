@@ -13,9 +13,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch(e)
             {
-                case (Language.AR): return "قم بإختيار أحد الأقسام أولاً";
+                case (Language.AR): return "قم بإختيار أحد الأقسام ";
                 case (Language.EN):
-                default: return "Please choose a department first";
+                default: return "Choose a department ";
             }
         }
 
@@ -35,9 +35,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "عذراً, التخصص غير متاح";
+                case (Language.AR): return "التخصص غير متاح";
                 case (Language.EN):
-                default: return "Sorry Major is Not Available";
+                default: return "Major isn't available";
             }
         }
 
@@ -46,9 +46,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "التخصص متاح";
+                case (Language.AR): return "التخصص متاح الآن";
                 case (Language.EN):
-                default: return "Major is Available";
+                default: return "Major is available";
             }
         }
 
@@ -57,9 +57,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "تمت عملية التخصص بنجاح";
+                case (Language.AR): return "لقد قمت بالتخصص";
                 case (Language.EN):
-                default: return "You Have Been Successfully Majored";
+                default: return "You have majored!";
             }
         }
 
@@ -82,9 +82,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "التخصص في الأقسام متاح الأن";
+                case (Language.AR): return "التخصص  متاح الأن";
                 case (Language.EN):
-                default: return "Major is now Available";
+                default: return "Major is available";
             }
         }
 
