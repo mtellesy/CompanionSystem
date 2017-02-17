@@ -274,7 +274,7 @@ namespace CScore.SAL
 
         }
 
-        public static async Task<StatusWithObject<Notification>> getNotifications()
+        public static async Task<StatusWithObject<List<Notification>>> getNotifications()
         {
             //      declaration of path and request type
             String path = "/notificationMessages?userid=" + User.use_id;
@@ -287,14 +287,14 @@ namespace CScore.SAL
             String jsonString;
 
             //      decleration of the returned value and its contents
-            StatusWithObject<Notification> returnedValue = new StatusWithObject<Notification>();
-            Notification notification = new Notification();
+            StatusWithObject< List < Notification >>returnedValue = new StatusWithObject<List<Notification>>();
+            List<Notification> notification = new List<Notification>();
             Status status = new Status();
             int code;
 
             //      authentication  part
-            StatusWithObject<Notification> auth = new StatusWithObject<Notification>();
-            auth = await AuthenticatorS.autoAuthentication<Notification>();
+            StatusWithObject< List < Notification >> auth = new StatusWithObject<List<Notification>> ();
+            auth = await AuthenticatorS.autoAuthentication<List<Notification>>();
             if (auth.status.status == false)
             {
                 return auth;
@@ -315,7 +315,7 @@ namespace CScore.SAL
             switch (code)
             {
                 case 200:
-                    Notification notificationResult = JsonConvert.DeserializeObject<Notification>(jsonString);
+                    List<Notification> notificationResult = JsonConvert.DeserializeObject<List<Notification>>(jsonString);
                     notification = notificationResult;
                     status.message = "Notification retrieved successfully.";
                     status.status = true;
