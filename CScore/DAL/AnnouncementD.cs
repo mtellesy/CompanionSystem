@@ -19,7 +19,19 @@ namespace CScore.DAL
             if (CourseID != null)
                 results = await DBuilder._connection.Table<AnboxL>().Where(t => t.Cou_id.Equals(CourseID)).OrderByDescending(i => i.Ano_id).ToListAsync();
             else
+            {
                 results = await DBuilder._connection.Table<AnboxL>().OrderByDescending(i => i.Ano_id).ToListAsync();
+                var newR = new List<AnboxL>();
+                foreach(var r in results.ToList())
+                {
+                    if(r.Ano_sender != User.use_id)
+                    {
+                        newR.Add(r);
+                    }
+                }
+                results = newR;
+            }
+                
 
             int index = 1; // start from one when you fetch the messages
             if (NumberOfAnnouncements <= 0) // if you got zero or less send the default number of Announcements
