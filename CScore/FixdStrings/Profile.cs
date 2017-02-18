@@ -111,5 +111,38 @@ namespace CScore.FixdStrings
                 default: return "Number of notices";
             }
         }
+        public static String currentSemester()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "الفصل الحالي";
+
+                case (Language.EN):
+                default: return "Current semeter";
+            }
+        }
+        public static String personalTab()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "شخصي";
+
+                case (Language.EN):
+                default: return "personal";
+            }
+        }
+        public static String academicTab()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "أكاديمي";
+
+                case (Language.EN):
+                default: return "academic";
+            }
+        }
     }
 }

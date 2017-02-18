@@ -65,5 +65,82 @@ namespace CScore.FixdStrings
                 default: return "My Courses";
             }
         }
+        public static String courseNameAR()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "اسم المادة بالعربية";
+
+                case (Language.EN):
+                default: return "Course name in Arabic";
+            }
+        }
+        public static String courseNameEN()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "اسم المادة بالاإنجليزية";
+
+                case (Language.EN):
+                default: return "Course name in English";
+            }
+        }
+        public static String courseCredits()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "الوحدات";
+
+                case (Language.EN):
+                default: return "Credits";
+            }
+        }
+        public static String lecturerNameAR()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "اسم المحاضر بالعربية";
+
+                case (Language.EN):
+                default: return "Lecturer name in English";
+            }
+        }
+        public static String lecturerNameEN()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "اسم المحاضر بالانجليزية";
+
+                case (Language.EN):
+                default: return "Lecturer name in Arabic";
+            }
+        }
+        public static String sendMessage()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "ارسال رسالة";
+
+                case (Language.EN):
+                default: return "MESSAGE";
+            }
+        }
+        public static String profile()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "الملف الشخصي";
+
+                case (Language.EN):
+                default: return "PROFILE";
+            }
+        }
     }
 }

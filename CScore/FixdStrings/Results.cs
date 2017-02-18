@@ -30,6 +30,17 @@ namespace CScore.FixdStrings
                 default: return "Result";
             }
         }
+        public static String notSet()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "لم ترصد";
+
+                case (Language.EN):
+                default: return "not set";
+            }
+        }
         public static String Total()
         {
             Language e = LanguageSetter.getLanguage();

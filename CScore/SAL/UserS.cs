@@ -112,7 +112,7 @@ namespace CScore.SAL
             user.use_email = Juser.email;
             user.use_gender = Juser.gender;
             user.use_id = Juser.userID;
-            user.use_nameAR = Juser.nameAR;
+            user.use_nameAR = Juser.firstNameAR +" "+ Juser.lastNameAR;
             user.use_nameEN = Juser.nameEN;
             user.use_phone = Juser.phoneNumber;
             user.use_typeID = Juser.userTypeID;
