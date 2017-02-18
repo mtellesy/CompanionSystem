@@ -47,3 +47,5 @@ F:\CompanionSystem\CScore\bin\Debug\Plugin.Connectivity.Abstractions.xml
 F:\CompanionSystem\CScore\obj\Debug\CScore.csprojResolveAssemblyReference.cache
 F:\CompanionSystem\CScore\obj\Debug\CScore.dll
 F:\CompanionSystem\CScore\obj\Debug\CScore.pdb
+F:\CompanionSystem\CScore\obj\Debug\CScore.dll.mdb
+F:\CompanionSystem\CScore\bin\Debug\CScore.dll.mdb
