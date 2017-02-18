@@ -52,8 +52,8 @@ namespace CScore.DAL
                 int whenToStart = StartFrom; // when we start fetching
                 foreach (var anno in results)
                 {
-                    if (whenToStart >= 1 && index <= NumberOfAnnouncements) // <==
-                    {
+                    //if (whenToStart >= 1 && index <= NumberOfAnnouncements) // <==
+                    //{
                         // if (index <= NumberOfMessages) we add it ^uphere^ 
                         //{
                         Announcements newAnno = new Announcements();
@@ -66,10 +66,10 @@ namespace CScore.DAL
                         index++;
                         // }
 
-                    }
-                    else break;
+                    //}
+                    //else break;
 
-                    whenToStart--;
+                    //whenToStart--;
 
                 }
             }

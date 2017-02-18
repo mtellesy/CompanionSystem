@@ -92,21 +92,22 @@ namespace CScore.SAL
                 path += String.Format("/sent");
 
             }
-            path += "?";
-            if (display != 0)
-            {
-                path += String.Format("display={0}&", display);
-            }
-            if (start != 0)
-            {
-                path += String.Format("start={0}&", start);
-            }
-            
-            if (privacy != null)
-            {
-                path += String.Format("privacy={0}&", privacy);
-            }
-           
+            //path += "?";
+            //if (display != 0)
+            //{
+            //    path += String.Format("display={0}&", display);
+            //}
+            //if (start != 0)
+            //{
+            //    path += String.Format("start={0}&", start);
+            //}
+
+            //if (privacy != null)
+            //{
+            //    path += String.Format("privacy={0}&", privacy);
+            //}
+            path += "/get.php?userid=" + User.use_id;
+
             //      decleration of the status with its object that will be returned from send request method
             StatusWithObject<String> req = new StatusWithObject<String>();
             String jsonString;
