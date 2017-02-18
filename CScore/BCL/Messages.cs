@@ -161,6 +161,8 @@ namespace CScore.BCL
         {
             Messages result = new Messages();
             StatusWithObject<Messages> returnedValue = new StatusWithObject<Messages>();
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.MessageS.getMessage(messageId);
@@ -171,6 +173,7 @@ namespace CScore.BCL
             }
             result = await DAL.MessageD.getMessage(messageId);
             returnedValue.statusObject = result;
+            returnedValue.status.status = true;
             return returnedValue;
         }
 
@@ -201,6 +204,8 @@ namespace CScore.BCL
             //if there is a internet bring from SAL and save in DB then bring them from DAL anyway 
             Messages result = new Messages();
             StatusWithObject<List<Messages>> returnedValue = new StatusWithObject<List<Messages>>();
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.MessageS.getMessages(NumberOfMessages, startFrom);
@@ -220,8 +225,8 @@ namespace CScore.BCL
                 messages = await DAL.MessageD.getReceivedMessages(NumberOfMessages, startFrom, User.use_id);
             else returnedValue.statusObject = null;
             returnedValue.statusObject = messages;
-
-                return returnedValue ;
+            returnedValue.status.status = true;
+            return returnedValue ;
         }
 
     }

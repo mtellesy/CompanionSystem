@@ -58,6 +58,8 @@ namespace CScore.BCL
         public static async  Task<StatusWithObject<List<Result>>> getSemesterResults()
         {
             StatusWithObject<List<Result>> returnedValue = new StatusWithObject<List<Result>>();
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.ResultS.getSemesterResult();
@@ -71,7 +73,7 @@ namespace CScore.BCL
                 }                                
             }
             returnedValue.statusObject= await  DAL.ResultD.getSemesterResult();
-
+            returnedValue.status.status = true;
             return returnedValue;
         }
 

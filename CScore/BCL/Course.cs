@@ -152,6 +152,7 @@ namespace CScore.BCL
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            returnedValue.status = new Status();
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.CourseS.getCourses(courseID, null, null);
@@ -172,6 +173,7 @@ namespace CScore.BCL
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            returnedValue.status = new Status();
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.CourseS.getCourses(null, dep_id.ToString(), null);
@@ -191,6 +193,7 @@ namespace CScore.BCL
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            returnedValue.status = new Status();
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.CourseS.getCourses(null,dep_id.ToString(), branch.ToString());
@@ -211,6 +214,7 @@ namespace CScore.BCL
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            returnedValue.status = new Status();
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.CourseS.getCourses(null, null, null);
@@ -232,6 +236,8 @@ namespace CScore.BCL
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
             if (await UpdateBox.CheckForInternetConnection())
             {
                 await DAL.CourseD.deleteUserCoursesSchedule(BCL.Semester.current_term);
@@ -243,8 +249,8 @@ namespace CScore.BCL
                 returnedValue.statusObject = new List<Course>();
             }
             returnedValue.statusObject = await DAL.CourseD.getUserCoursesSchedule(BCL.Semester.current_term);
-           
 
+            returnedValue.status.status = true;
             return returnedValue;
 
         }
@@ -253,6 +259,8 @@ namespace CScore.BCL
         {
             Course result = new Course();
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
             if (await UpdateBox.CheckForInternetConnection())
             {
                 await DAL.CourseD.deleteUserCoursesSchedule(BCL.Semester.current_term);
@@ -270,6 +278,7 @@ namespace CScore.BCL
                     }
                  
                 }
+
                 returnedValue.statusObject = new List<Course>();
             }
           List<Course> newCourses = new List<Course>();
@@ -289,6 +298,8 @@ namespace CScore.BCL
                 newCourses.Add(c);
             }
             returnedValue.statusObject = newCourses;
+            
+            returnedValue.status.status = true;
 
             return returnedValue;
         }

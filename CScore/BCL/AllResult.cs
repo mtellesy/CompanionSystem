@@ -136,7 +136,8 @@ namespace CScore.BCL
         {
             List<AllResult>  result= new List<AllResult>();
             StatusWithObject<List<AllResult>> returnedValue = new StatusWithObject<List<AllResult>>();
-        
+            returnedValue.status = new Status();
+            returnedValue.status.status = false;
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.ResultS.getAllResult(ter_id);
@@ -151,6 +152,7 @@ namespace CScore.BCL
             }
             result =await DAL.ResultD.getAllResult();
             returnedValue.statusObject = result;
+            returnedValue.status.status = true;
             return returnedValue;
         }
 
