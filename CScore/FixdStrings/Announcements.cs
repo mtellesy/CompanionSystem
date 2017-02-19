@@ -67,5 +67,16 @@ namespace CScore.FixdStrings
                 default: return "Send Announcement";
             }
         }
+        public static String commposeAnnouncement()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "اكتب الإعلان";
+
+                case (Language.EN):
+                default: return "Compose announcement";
+            }
+        }
     }
 }

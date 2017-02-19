@@ -52,5 +52,16 @@ namespace CScore.FixdStrings
                 default: return "Total";
             }
         }
+        public static String semesterGPA()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "المعدل الفصلي";
+
+                case (Language.EN):
+                default: return "Semester GPA";
+            }
+        }
     }
 }

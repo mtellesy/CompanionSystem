@@ -142,5 +142,16 @@ namespace CScore.FixdStrings
                 default: return "PROFILE";
             }
         }
+        public static String totalUnits()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "مجموع الوحدات";
+
+                case (Language.EN):
+                default: return "Total units";
+            }
+        }
     }
 }

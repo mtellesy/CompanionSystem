@@ -67,5 +67,38 @@ namespace CScore.FixdStrings
                 default: return "Send Message";
             }
         }
+        public static String sendTo()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "إلى";
+
+                case (Language.EN):
+                default: return "TO";
+            }
+        }
+        public static String messageTitle()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "العنوان";
+
+                case (Language.EN):
+                default: return "Subject";
+            }
+        }
+        public static String commposeMessage()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "اكتب الرسالة";
+
+                case (Language.EN):
+                default: return "Compose message";
+            }
+        }
     }
 }

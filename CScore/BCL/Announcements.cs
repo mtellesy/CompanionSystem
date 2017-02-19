@@ -157,6 +157,7 @@ namespace CScore.BCL
                     foreach (Announcements x in returnedValue.statusObject)
                     {
                         await DAL.AnnouncementD.saveAnnouncement(x);
+                        int j = 1 + 1;
                     }
                 }
             }

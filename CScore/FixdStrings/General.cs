@@ -52,5 +52,25 @@ namespace CScore.FixdStrings
                 default: return "Not Available";
             }
         }
+        public static String sent()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "المرسلة";
+                case (Language.EN):
+                default: return "sent";
+            }
+        }
+        public static String recieved()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "المستلمة";
+                case (Language.EN):
+                default: return "recieved";
+            }
+        }
     }
 }
