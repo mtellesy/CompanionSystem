@@ -31,5 +31,16 @@ namespace CScore.FixdStrings
                 default: return "Type the user name";
             }
         }
+        public static String UserOrPasswordNotCurrect()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "رقم مستخدم او كلمة المرور غير صحيحة";
+
+                case (Language.EN):
+                default: return "User id or Password is not Currect";
+            }
+        }
     }
 }

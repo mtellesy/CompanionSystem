@@ -22,6 +22,17 @@ namespace CScore.FixdStrings
                 default: return "Status";
             }
         }
+        public static String Youve()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "لديك ";
+
+                case (Language.EN):
+                default: return "You've ";
+            }
+        }
         public static String Name()
         {
             Language e = LanguageSetter.getLanguage();
@@ -52,5 +63,16 @@ namespace CScore.FixdStrings
                 default: return "Not Available";
             }
         }
+        public static String CantReachTheServer()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "لا يمكن الوصول الى الخادم!";
+                case (Language.EN):
+                default: return "Can't Reach The Server!";
+            }
+        }
+
     }
 }

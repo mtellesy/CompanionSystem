@@ -57,7 +57,7 @@ namespace CScore.SAL
 
               // httpClient stuff
               HttpClient request = new HttpClient();
-            request.Timeout = TimeSpan.FromMilliseconds(5000);
+            request.Timeout = TimeSpan.FromMilliseconds(15000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
             HttpContent content = null;
 
@@ -169,7 +169,7 @@ namespace CScore.SAL
             Status status = new BCL.Status();
             User.use_id = UserID;
             HttpClient request = new HttpClient();
-            request.Timeout = TimeSpan.FromMilliseconds(5000);
+            request.Timeout = TimeSpan.FromMilliseconds(15000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
           //  HttpContent content = null;
             String path = String.Format("/users/authenticate?user={0}&password={1}", UserID, password);
@@ -288,7 +288,7 @@ namespace CScore.SAL
             StatusWithObject<String> responseObject = new StatusWithObject<String>();
 
             HttpClient request = new HttpClient();
-            request.Timeout = TimeSpan.FromMilliseconds(5000);
+            request.Timeout = TimeSpan.FromMilliseconds(15000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
             if(await UpdateBox.CheckForInternetConnection())
             {
@@ -373,7 +373,7 @@ namespace CScore.SAL
         public static async Task logout()
         {
             HttpClient request = new HttpClient();
-            request.Timeout = TimeSpan.FromMilliseconds(5000);
+            request.Timeout = TimeSpan.FromMilliseconds(15000);
             HttpResponseMessage httpResponse = new HttpResponseMessage();
 
             String  path = "/users/authenticate" + String.Format("?token={0}", token);

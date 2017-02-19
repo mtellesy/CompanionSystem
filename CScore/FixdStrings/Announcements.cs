@@ -20,6 +20,30 @@ namespace CScore.FixdStrings
             }
         }
 
+        public static String YouveNewNotifications()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "لديك إعلان جديدة";
+
+                case (Language.EN):
+                default: return "You've a new Announcement";
+            }
+        }
+
+        public static String newMessage()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return " إعلانات جديدة";
+
+                case (Language.EN):
+                default: return " new Announcements";
+            }
+        }
+
         public static String AnnouncementSendFaild()
         {
             Language e = LanguageSetter.getLanguage();
