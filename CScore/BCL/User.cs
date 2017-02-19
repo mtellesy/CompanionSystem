@@ -56,6 +56,10 @@ namespace CScore.BCL
                         message.status = true;
                         message.message = "You have been successfully logged in";
                         break;
+                    case 401:
+                        message.status = false;
+                        message.message = FixdStrings.Users.UserOrPasswordNotCurrect();
+                        break;
                     default:
                         message.status = false;
                         message.message = AuthenticatorS.statusCode.ToString();

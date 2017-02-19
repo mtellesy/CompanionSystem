@@ -47,15 +47,23 @@ namespace CScore.DAL
           if (results <= 0 )
             {
                
-                await DBuilder._connection.InsertAsync(DBuser);
+              
                 Random r = new Random();
 
                 DBuser.color_r = r.Next(10, 250);
                 DBuser.color_g = r.Next(10, 250);
                 DBuser.color_b = r.Next(10, 250);
+                await DBuilder._connection.InsertAsync(DBuser);
             }
-           else 
-           await DBuilder._connection.UpdateAsync(DBuser);// if the user is exsited update his info
+           else
+            {
+                var t = await DBuilder._connection.Table<Users>().Where(i => i.Use_id.Equals(user.use_id)).FirstAsync();
+                DBuser.color_r = t.color_r;
+                DBuser.color_g = t.color_g;
+                DBuser.color_b = t.color_r;
+                await DBuilder._connection.UpdateAsync(DBuser);// if the user is exsited update his info
+
+            }
 
         }
 

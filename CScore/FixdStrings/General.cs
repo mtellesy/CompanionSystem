@@ -22,6 +22,17 @@ namespace CScore.FixdStrings
                 default: return "Status";
             }
         }
+        public static String Youve()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "لديك ";
+
+                case (Language.EN):
+                default: return "You've ";
+            }
+        }
         public static String Name()
         {
             Language e = LanguageSetter.getLanguage();
@@ -53,16 +64,31 @@ namespace CScore.FixdStrings
             }
         }
         public static String sent()
-        {
-            Language e = LanguageSetter.getLanguage();
+{
+Language e = LanguageSetter.getLanguage();
             switch (e)
             {
                 case (Language.AR): return "المرسلة";
                 case (Language.EN):
                 default: return "sent";
             }
+}
+        public static String CantReachTheServer()
+
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+case (Language.AR): return "لا يمكن الوصول الى الخادم!";
+                case (Language.EN):
+                default: return "Can't Reach The Server!";
+                
+            }
         }
-        public static String recieved()
+        
+
+                
+public static String recieved()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
@@ -72,5 +98,6 @@ namespace CScore.FixdStrings
                 default: return "recieved";
             }
         }
+
     }
 }
