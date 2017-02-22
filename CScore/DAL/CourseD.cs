@@ -60,7 +60,7 @@ namespace CScore.DAL
                     course.Cou_id = data.Cou_id;
                     course.Cou_nameAR = data.Cou_nameAR;
                     course.Cou_nameEN = data.Cou_nameEN;
-                   
+                    
                     course.Schedule = new List<Schedule>();
 
                     // now get the schedule for each course group 
@@ -103,6 +103,7 @@ namespace CScore.DAL
                 schedule.Cou_id = course.Cou_id;
                 schedule.Cou_nameAR = course.Cou_nameAR;
                 schedule.Cou_nameEN = course.Cou_nameEN;
+               
                 schedule.Ter_id = course.Ter_id;
                 
                 
@@ -147,6 +148,52 @@ namespace CScore.DAL
            
         }
 
-      
+        public static async Task saveStudentSemesterCourses(Course c)
+        {
+            CScore.DataLayer.Tables.StudentCoursesL studentCourses = new StudentCoursesL();
+            studentCourses.Cou_id = c.Cou_id;
+            studentCourses.Cou_credits = c.Cou_credits;
+           // studentCourses.finalMark = 0;
+            studentCourses.Ter_id = Semester.current_term;
+            var results = DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Cou_id.Equals(c.Cou_id)).Where(
+                i => i.Ter_id.Equals(studentCourses.Ter_id));
+
+
+            if (await results.CountAsync() <= 0)
+            {
+                await DBuilder._connection.InsertAsync(studentCourses);
+            }
+            else
+            {
+                await DBuilder._connection.UpdateAsync(studentCourses);
+            }
+
+          
+        }
+
+        public static async Task<List<Course>> getStudentSemesterCourses()
+        {
+            List<Course> c = new List<Course>();
+            var results = await DBuilder._connection.Table<StudentCoursesL>().Where(i => i.Ter_id.Equals(Semester.current_term)).ToListAsync();//NEEDS NOT NULL OPERATOR FOR FINALMARK
+
+            if (results.Count > 0)
+            {
+                foreach (var x in results)
+                {
+                    Course ReturnedCourse = new Course();
+                    ReturnedCourse.Cou_id = x.Cou_id;
+                    ReturnedCourse.Tea_id = x.Tea_id;
+                    ReturnedCourse.Ter_id = x.Ter_id;
+                
+                    c.Add(ReturnedCourse);
+                }
+                return c;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

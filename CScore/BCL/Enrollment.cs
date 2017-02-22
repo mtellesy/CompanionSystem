@@ -24,9 +24,30 @@ namespace CScore.BCL
 
         //              *** Methods ***
 
+
+
+        /// <summary>
+        /// always call this method before the start of enrollment process
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<int> getCurrentCreditSum()
+        {
+            StatusWithObject<List<Course>> courses =
+            await BCL.Course.getStudentCourses();
+
+           creditSum = 0;
+
+            foreach(Course course in courses.statusObject)
+            {
+                creditSum += course.Cou_credits;
+            }
+
+            return creditSum;
+        }
+
         private static bool isCreditAtMax()
         {
-            if (creditMax == creditSum || creditMax>= creditSum)
+            if (creditMax == creditSum || creditMax <= creditSum)
                 return true;
             else 
                 return false;
@@ -35,6 +56,10 @@ namespace CScore.BCL
 
         private static bool isTimeReserved(int time, int day)
         {
+            if (reservedLectureTimes == null)
+            {
+                return false;
+            }
             ReservedDayAndTime dayTime = new ReservedDayAndTime();
             dayTime.dayID = day;
             dayTime.classTimeID = time;
@@ -66,13 +91,13 @@ namespace CScore.BCL
                 s1.status = false;
                 return s1;
             }
-            res2 = isGroupFull(c.Cou_id, c.Schedule[0].Gro_id);
-            if (res2)
-            {
-                s1.message += "Sorry, the group is full.";
-                s1.status = false;
-                return s1;
-            }
+            //res2 = isGroupFull(c.Cou_id, c.Schedule[0].Gro_id);
+            //if (res2)
+            //{
+            //    s1.message += "Sorry, the group is full.";
+            //    s1.status = false;
+            //    return s1;
+            //}
 
             int time = 0;
             int day = 0;
@@ -105,6 +130,8 @@ namespace CScore.BCL
 
         public static void addReservedLectureTime(Course course, int gro_id)
         {
+            if(reservedLectureTimes == null)
+            reservedLectureTimes = new List<ReservedDayAndTime>();
             foreach(Schedule x in course.Schedule)
             {
                 if (x.Gro_id == gro_id)
