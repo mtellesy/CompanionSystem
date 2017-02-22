@@ -95,6 +95,9 @@ namespace CScore.BCL
             }
         }
         //      tempGro_id
+        /// <summary>
+        /// Temporary group id that is used only for enrollment
+        /// </summary>
         public int TemGro_id
         {
             set

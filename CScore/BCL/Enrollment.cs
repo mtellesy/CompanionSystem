@@ -20,7 +20,11 @@ namespace CScore.BCL
         public static int creditMax { get; set; }
         private static List<ReservedDayAndTime> reservedLectureTimes{ get; set; }
         private static List<Course> enrollableCourses { get; set; }
-        private static List<Course> enrolledCourses { get; set; }
+        /// <summary>
+        /// List of Courses that The student wants to enroll in.
+        /// </summary>
+        public static List<Course> enrolledCourses { get; set; }
+
 
         //              *** Methods ***
 
@@ -130,7 +134,7 @@ namespace CScore.BCL
             creditSum -= c.Cou_credits;
         }
 
-        public static void addReservedLectureTime(Course course, int gro_id)
+        private static void addReservedLectureTime(Course course, int gro_id)
         {
             if(reservedLectureTimes == null)
             reservedLectureTimes = new List<ReservedDayAndTime>();
@@ -146,7 +150,7 @@ namespace CScore.BCL
             }
         }
 
-        public static void deleteReservedLectureTime(Course course,int gro_id)
+        private static void deleteReservedLectureTime(Course course,int gro_id)
         {
             foreach (Schedule x in course.Schedule)
             {
@@ -164,6 +168,10 @@ namespace CScore.BCL
         }
 
         
+        /// <summary>
+        /// Get the courses which the student can enroll in the current semester.
+        /// </summary>
+        /// <returns>Return Status of process wither it succeeded or faild, and the list of courses in case it succeeded</returns>
         public static async Task<StatusWithObject<List<Course>>> getEnrollableCourses()
         {
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
@@ -244,6 +252,10 @@ namespace CScore.BCL
         }
 
 
+        /// <summary>
+        /// Now wither Enrollment is Enabled or not.
+        /// </summary>
+        /// <returns></returns>
         public static async Task<bool> isEnrollmentEnabled()
         {
             bool returnedValue = false;
@@ -257,6 +269,12 @@ namespace CScore.BCL
             return returnedValue;
         }
 
+        /// <summary>
+        /// Drop Student Course.
+        /// </summary>
+        /// <param name="course">Course Object</param>
+        /// <param name="gro_id">Group ID</param>
+        /// <returns></returns>
         public static async  Task<StatusWithObject<Status>> dropCourse(Course course,int gro_id)
         {
             StatusWithObject<Status> returnedValue = new StatusWithObject<Status>();
@@ -272,6 +290,34 @@ namespace CScore.BCL
             return returnedValue;
         }
 
+        /// <summary>
+        /// Add courses with TemGro_id to the list of courses the student wants to enroll in.
+        /// </summary>
+        /// <param name="c">Course object</param>
+        public static void addToCourseList(Course c)
+        {  
+            if(enrolledCourses == null)
+            {
+                enrolledCourses = new List<Course>();
+            }
+            addReservedLectureTime(c,c.TemGro_id);
+            addCreditSum(c);
+            enrolledCourses.Add(c);
+        }
+        /// <summary>
+        /// remove courses with TemGro_id from the list of courses the student wants to enroll in.
+        /// </summary>
+        /// <param name="c">Course object</param>
+        public static void removeFromCourseList(Course c)
+        {
+            subCreditSum(c);
+            deleteReservedLectureTime(c, c.TemGro_id);
+
+          int index = enrolledCourses.IndexOf(enrolledCourses.Where(i => i.Cou_id.Equals(c.Cou_id))
+                      .Where(i => i.TemGro_id.Equals(c.TemGro_id)).First());
+
+            enrolledCourses.Remove(enrolledCourses[index]);
+        }
         
     }
 }
