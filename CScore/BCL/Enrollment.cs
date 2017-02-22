@@ -60,11 +60,13 @@ namespace CScore.BCL
             {
                 return false;
             }
-            ReservedDayAndTime dayTime = new ReservedDayAndTime();
-            dayTime.dayID = day;
-            dayTime.classTimeID = time;
-            
-            if (reservedLectureTimes.Contains(dayTime))
+
+            //ReservedDayAndTime dayTime = new ReservedDayAndTime();
+            //dayTime.dayID = day;
+            //dayTime.classTimeID = time;
+
+            int count = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).Count();
+            if (count>0)
                 return true;
             else
                 return false;
@@ -151,8 +153,11 @@ namespace CScore.BCL
                 if (x.Gro_id == gro_id)
                 {
                     ReservedDayAndTime timeDate = new ReservedDayAndTime();
-                    timeDate.dayID = x.DayID;
-                    timeDate.classTimeID = x.ClassTimeID;
+                    //timeDate.dayID = x.DayID;
+                    //timeDate.classTimeID = x.ClassTimeID;
+                    timeDate = reservedLectureTimes.Where(i => i.dayID.Equals(x.DayID))
+                        .Where(i => i.classTimeID.Equals(x.ClassTimeID)).First();
+
                     reservedLectureTimes.Remove(timeDate);
                 }
             }
