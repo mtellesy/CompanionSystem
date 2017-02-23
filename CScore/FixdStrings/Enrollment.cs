@@ -95,5 +95,35 @@ namespace CScore.FixdStrings
                 default: return "Sorry, the group's lecture time conflects with another subject(s):\n";
             }
         }
+        /// <summary>
+        /// String for Conflect between courses
+        /// </summary>
+        /// <returns></returns>
+        public static String enrollmentNotAvailable()
+        {
+
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "تسجيل المواد غير متاح الأن\n";
+                case (Language.EN):
+                default: return "Enrollment is not available\n";
+            }
+        }
+         /// <summary>
+         /// "Droped Courses:" message
+         /// </summary>
+         /// <returns></returns>
+         public static String dropedCourses()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "\nالمواد التي تم إسقاطها:\n";
+                case (Language.EN):
+                default: return "\nDroped Courses:\n";
+            }
+        }
+
     }
 }

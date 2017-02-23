@@ -83,5 +83,3 @@ C:\Users\MTellesy\Documents\GitHub\CompanionSystem\CScore\obj\Debug\CScore.dll.m
 C:\Users\MTellesy\Documents\GitHub\CompanionSystem\CScore\bin\Debug\CScore.dll.mdb
 C:\Users\MTellesy\Documents\GitHub\CompanionSystem\CScore\obj\Debug\CScore.dll.mdb
 C:\Users\MTellesy\Documents\GitHub\CompanionSystem\CScore\bin\Debug\CScore.dll.mdb
-C:\Users\MTellesy\Documents\GitHub\CompanionSystem\CScore\obj\Debug\CScore.dll.mdb
-C:\Users\MTellesy\Documents\GitHub\CompanionSystem\CScore\bin\Debug\CScore.dll.mdb
