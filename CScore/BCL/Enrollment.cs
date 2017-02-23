@@ -402,6 +402,18 @@ namespace CScore.BCL
 
             enrolledCourses.Remove(enrolledCourses[index]);
         }
+
+        /// <summary>
+        ///  remove an already Enrolled course with TemGro_id from reserved time and its credit from credit sum.
+        ///  without removing it from the list of course becasue it will not be there.
+        /// </summary>
+        /// <param name="c"></param>
+        public static void removeFromCourseList_Enrolled(Course c)
+        {
+            subCreditSum(c);
+            deleteReservedLectureTime(c, c.TemGro_id);
+        }
+
         /// <summary>
         /// Add courses with TemGro_id to the list of courses the student wants to Drop.
         /// </summary>
@@ -424,8 +436,9 @@ namespace CScore.BCL
             }
             addReservedLectureTime(c, c.TemGro_id);
             addCreditSum(c);
-            int index = dropedCourses.IndexOf(enrolledCourses.Where(i => i.Cou_id.Equals(c.Cou_id))
-                      .Where(i => i.TemGro_id.Equals(c.TemGro_id)).First());
+            var w = dropedCourses.ToList();
+            var k = w.Where(i => i.Cou_id.Equals(c.Cou_id)).Where(i => i.TemGro_id.Equals(c.TemGro_id)).First();
+            int index = dropedCourses.IndexOf(k);
             dropedCourses.Remove(dropedCourses[index]);
            
         }

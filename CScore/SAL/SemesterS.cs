@@ -47,7 +47,7 @@ namespace CScore.SAL
                 case 200:
                     SemesterObject semesterResult = JsonConvert.DeserializeObject<SemesterObject>(jsonString);
                     semester = SemesterObject.convertToSemester(semesterResult);
-                    status.message = "Course current semester retrieved successfully";
+                    status.message = "current semester retrieved successfully";
                     status.status = true;
                     break;
                    

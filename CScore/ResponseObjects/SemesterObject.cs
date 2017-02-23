@@ -16,6 +16,10 @@ namespace CScore.ResponseObjects
         public String year { set; get; }
         public String termStart { set; get; }
         public String termEnd { set; get; }
+        public String lastStudyingDate { get; set; }
+        public String courseEnrollmentStart { get; set; }
+        public String courseEnrollmentDuration { get; set; }
+        public String courseDisEnrollmentStart { get; set; }
         public List<ExamsObject> exam { set; get; }
 
         //      converters
@@ -28,6 +32,10 @@ namespace CScore.ResponseObjects
             semester.Ter_nameEN = sem.nameEN;
             semester.Ter_start = sem.termStart;
             semester.Ter_end = sem.termEnd;
+            semester.Ter_lastStudyDate = sem.lastStudyingDate;
+            semester.Ter_enrollment = sem.courseEnrollmentStart;
+            semester.Ter_dropCourses = sem.courseDisEnrollmentStart;
+
             semester.Year = sem.year;
             semester.Exam = new List<Exams>();
             if (sem.exam != null)
@@ -44,9 +52,7 @@ namespace CScore.ResponseObjects
                     semester.Exam.Add(ex);
                 }
             }
-            semester.Ter_enrollment = null;
-            semester.Ter_dropCourses = null;
-            semester.Ter_lastStudyDate = null;
+           
             return semester;
         }
 

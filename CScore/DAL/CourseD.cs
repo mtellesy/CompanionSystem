@@ -95,7 +95,10 @@ namespace CScore.DAL
 
         public static async Task deleteUserCoursesSchedule(int termID)
         {
-            await DBuilder._connection.DeleteAsync<ScheduleL>(termID);
+           // var s = await DBuilder._connection.Table<ScheduleL>().ToListAsync();
+            await DBuilder._connection.DeleteAllAsync<ScheduleL>();
+              //await DBuilder._connection.DeleteAsync<ScheduleL>(s);
+        
         }
 
         public static async Task saveUserCoursesSchedule(List<Course> courses)
