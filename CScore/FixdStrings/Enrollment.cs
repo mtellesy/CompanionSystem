@@ -46,9 +46,9 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "تم إضافة المادة بنجاح";
+                case (Language.AR): return "حالة إضافة المواد";
                 case (Language.EN):
-                default: return "The course has been successfully added";
+                default: return "Courses Enrollment Status";
             }
         }
         /// <summary>
