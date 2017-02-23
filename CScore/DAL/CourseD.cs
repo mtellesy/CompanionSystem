@@ -93,6 +93,11 @@ namespace CScore.DAL
           
         }
 
+        public static async Task deleteUserCoursesSchedule(int termID)
+        {
+            await DBuilder._connection.DeleteAsync<ScheduleL>(termID);
+        }
+
         public static async Task saveUserCoursesSchedule(List<Course> courses)
         {
             
@@ -148,6 +153,8 @@ namespace CScore.DAL
            
         }
 
+
+
         public static async Task saveStudentSemesterCourses(Course c)
         {
             CScore.DataLayer.Tables.StudentCoursesL studentCourses = new StudentCoursesL();
@@ -169,6 +176,11 @@ namespace CScore.DAL
             }
 
           
+        }
+
+        public static async Task deleteStudentSemesterCourses()
+        {
+            await DBuilder._connection.DeleteAllAsync<StudentCoursesL>();
         }
 
         public static async Task<List<Course>> getStudentSemesterCourses()

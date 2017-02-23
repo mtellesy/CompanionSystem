@@ -234,6 +234,7 @@ namespace CScore.BCL
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
+                await DAL.CourseD.deleteUserCoursesSchedule(BCL.Semester.current_term);
                 returnedValue = await SAL.CourseS.getEnrolledCourses();
                 if (returnedValue.status.status == true)
                 {
@@ -254,10 +255,11 @@ namespace CScore.BCL
             StatusWithObject<List<Course>> returnedValue = new StatusWithObject<List<Course>>();
             if (await UpdateBox.CheckForInternetConnection())
             {
+                await DAL.CourseD.deleteUserCoursesSchedule(BCL.Semester.current_term);
                 returnedValue = await SAL.CourseS.getEnrolledCourses();
                 if (returnedValue.status.status == true)
                 {
-                    
+                    await DAL.CourseD.deleteStudentSemesterCourses();
                     await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
                     foreach(Course c in returnedValue.statusObject)
                     {
