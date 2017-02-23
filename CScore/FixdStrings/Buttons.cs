@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.FixdStrings
 {
-  public  class Buttons
+    public class Buttons
     {
         /// <summary>
         /// String for "OK" word

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.FixdStrings
 {
-  public class Enrollment
+    public class Enrollment
     {
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace CScore.FixdStrings
         public static String disenrollmentStatus()
         {
             Language e = LanguageSetter.getLanguage();
-            switch(e)
+            switch (e)
             {
                 case (Language.AR): return "حالة عملية إسقاط المواد";
                 case (Language.EN):
@@ -86,7 +86,7 @@ namespace CScore.FixdStrings
         /// <returns></returns>
         public static String enrollmentConflectMessage()
         {
-            
+
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
@@ -110,11 +110,11 @@ namespace CScore.FixdStrings
                 default: return "Enrollment is not available\n";
             }
         }
-         /// <summary>
-         /// "Droped Courses:" message
-         /// </summary>
-         /// <returns></returns>
-         public static String dropedCourses()
+        /// <summary>
+        /// "Droped Courses:" message
+        /// </summary>
+        /// <returns></returns>
+        public static String dropedCourses()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
