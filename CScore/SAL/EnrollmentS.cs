@@ -12,7 +12,81 @@ namespace CScore.SAL
     public static class EnrollmentS
     {
         //              done ^.^
-        //              *** returns enrollment status***
+        /// <summary>
+        /// returns Course disenrollment (drop) status
+        /// </summary>
+        /// <returns></returns>
+      public static async Task<StatusWithObject<bool>> disEnrollmentStatus()
+        {
+            // declaration of path and request type
+
+            String path = "/enrollment/dropStatus";
+
+
+            //      declaration of the status with its object that will be returned from send request method
+            StatusWithObject<String> req = new StatusWithObject<String>();
+            String jsonString;
+
+            //      declaration of the returned value and its contents
+            StatusWithObject<bool> returnedValue = new StatusWithObject<bool>();
+            bool enrollment = false;
+            Status status = new Status();
+            int code;
+
+            //      use this only if the endpoint tag = security  
+
+            //      authentication part
+            StatusWithObject<bool> auth = new StatusWithObject<bool>();
+            auth = await AuthenticatorS.autoAuthentication<bool>();
+            if (auth.status.status == false)
+            {
+                return auth;
+            }
+
+            String Path = path + String.Format("?token={0}", AuthenticatorS.token);
+            String requestType = "GET";
+
+            //      data retrieval  part
+            req = await AuthenticatorS.sendRequest(Path, null, requestType);
+            jsonString = req.statusObject;
+            code = req.statusCode;
+
+            if (req.status.status == false)
+            {
+                returnedValue.status = req.status;
+                returnedValue.statusCode = req.statusCode;
+                returnedValue.statusObject = false;
+                return returnedValue;
+            }
+            switch (code)
+            {
+                case 200:
+                    EnrollmentObject results = JsonConvert.DeserializeObject<EnrollmentObject>(jsonString);
+                    BCL.Enrollment.creditMin = results.allowed_credits;
+                    enrollment = results.status;
+                    status.message = "Disenrollment status returned";
+                    status.status = true;
+                    break;
+
+                default:
+                    results = null;
+                    status.status = false;
+                    status.message = FixedResponses.getResponse(code);
+                    break;
+
+
+            }
+            returnedValue.status = status;
+            returnedValue.statusCode = code;
+            returnedValue.statusObject = enrollment;
+            return returnedValue;
+
+        }
+       
+        /// <summary>
+        /// Returns enrollment status.
+        /// </summary>
+        /// <returns></returns>
         public static async Task<StatusWithObject<bool>> enrollmentStatus()
         {
             // declaration of path and request type
