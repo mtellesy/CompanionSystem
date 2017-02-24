@@ -121,6 +121,8 @@ namespace CScore.BCL
                    .Select(grp => grp.First())
                    .ToList();
             int count = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).Count();
+            //foreach()
+
             if (count>0)
             {
                 returnedStatus.status = true;
@@ -399,6 +401,17 @@ namespace CScore.BCL
             addReservedLectureTime(c,c.TemGro_id);
             addCreditSum(c);
             enrolledCourses.Add(c);
+        }
+        /// <summary>
+        /// Add courses with TemGro_id to the list of courses the student wants to enroll in.
+        /// </summary>
+        /// <param name="c">Course object</param>
+        public static void addToCourseList_Enrolled(Course c)
+        {
+           
+            addReservedLectureTime(c, c.TemGro_id);
+            addCreditSum(c);
+           // enrolledCourses.Add(c);
         }
         /// <summary>
         /// remove courses with TemGro_id from the list of courses the student wants to enroll in.
