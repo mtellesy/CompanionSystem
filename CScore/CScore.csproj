@@ -71,6 +71,7 @@
     <Compile Include="DataLayer\Tables\SemesterL.cs" />
     <Compile Include="DataLayer\Tables\StudentCoursesL.cs" />
     <Compile Include="DataLayer\Tables\Users.cs" />
+    <Compile Include="FixdStrings\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseObjects\AnnouncementsObject.cs" />
     <Compile Include="ResponseObjects\AuthenticationObject.cs" />

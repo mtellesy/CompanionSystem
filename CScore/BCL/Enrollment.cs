@@ -117,17 +117,23 @@ namespace CScore.BCL
                 returnedStatus.status = false;
                 return returnedStatus;
             }
-            var list = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).Select(i => i.courseID).Distinct();
+            var list = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).GroupBy(test => test.courseID)
+                   .Select(grp => grp.First())
+                   .ToList();
             int count = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).Count();
             if (count>0)
             {
                 returnedStatus.status = true;
                 returnedStatus.message = "(";
-                foreach(String conflictedCourse in list.ToList())
+                    int x = 0;
+                foreach(String conflictedCourse in list.Select(i=> i.courseID).ToList())
                 {
-                    returnedStatus.message += " " + conflictedCourse + "," ;
+                    if (x > 0 || x < list.Count() - 1) returnedStatus.message += ",";
+                  //  if(x >= list.Count())
+                   returnedStatus.message += " " + conflictedCourse;
+                    x++;
                 }
-                returnedStatus.message += ").";
+              //  returnedStatus.message += ").";
                 return returnedStatus;
 
             }
@@ -175,18 +181,19 @@ namespace CScore.BCL
 
             int time = 0;
             int day = 0;
-            foreach(Schedule schedule in c.Schedule)
+            s1.message = "Sorry, the group's lecture time conflects with another subject(s):";
+            foreach (Schedule schedule in c.Schedule)
             {
                 time = schedule.ClassTimeID;
                 day = schedule.DayID;
               var status = isTimeReserved(time,day);
                 if (status.status)
                 {
-                    s1.message += "Sorry, the group's lecture time conflects with another subject(s)" + status.message;
+                    s1.message += status.message + " in " + schedule.DayEN + " at " + FixdStrings.Time.getTimeByID(schedule.ClassTimeID);
+                    s1.message += " ) \n";
                     s1.status = false;
-                    return s1;
-
                 }
+               
             }
             return s1;
 
@@ -200,6 +207,11 @@ namespace CScore.BCL
         private static void subCreditSum(Course c)
         {
             creditSum -= c.Cou_credits;
+        }
+
+        public static int getCreditSum()
+        {
+            return creditSum;
         }
 
         private static void addReservedLectureTime(Course course, int gro_id)
@@ -443,5 +455,24 @@ namespace CScore.BCL
            
         }
 
+        public static void addToDropList_Enrolled(Course c)
+        {
+           
+            dropedCourses.Add(c);
+        }
+
+        public static void removeFromDropList_Enrolled(Course c)
+        {
+            if (dropedCourses == null)
+            {
+                dropedCourses = new List<Course>();
+            }
+       
+            var w = dropedCourses.ToList();
+            var k = w.Where(i => i.Cou_id.Equals(c.Cou_id)).Where(i => i.TemGro_id.Equals(c.TemGro_id)).First();
+            int index = dropedCourses.IndexOf(k);
+            dropedCourses.Remove(dropedCourses[index]);
+
+        }
     }
 }
