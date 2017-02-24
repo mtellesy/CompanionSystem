@@ -199,6 +199,7 @@ namespace CScore.DAL
                     ReturnedCourse.Cou_id = x.Cou_id;
                     ReturnedCourse.Tea_id = x.Tea_id;
                     ReturnedCourse.Ter_id = x.Ter_id;
+                    ReturnedCourse.TemGro_id = x.Gro_id;
                 
                     c.Add(ReturnedCourse);
                 }
