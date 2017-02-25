@@ -124,6 +124,72 @@ namespace CScore.FixdStrings
                 default: return "\nDroped Courses:\n";
             }
         }
+        /// <summary>
+        /// "Enrolled Courses:" message
+        /// </summary>
+        /// <returns></returns>
+        public static String enrolledCourses()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "\nالمواد التي تم إضافتها:\n";
+                case (Language.EN):
+                default: return "\nEnrolled Courses:\n";
+            }
+        }
+        /// <summary>
+        /// "Available Credits to drop:" message
+        /// </summary>
+        /// <returns></returns>
+        public static String AvaialabeCreditTodrop()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "عدد الوحدات المتاح للإسقاط:";
+                case (Language.EN):
+                default: return "Available Credits to drop:";
+            }
+        }
+        /// <summary>
+        /// "Available Credits:" message
+        /// </summary>
+        /// <returns></returns>
+        public static String AvaialabeCreditToEnroll()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "عدد الوحدات المتاحة:";
+                case (Language.EN):
+                default: return "Available Credits:";
+            }
+        }
+        /// <summary>
+        /// "Total Credits:" message
+        /// </summary>
+        /// <returns></returns>
+        public static String TotalCredits()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "إجمالي لوحدات:";
+                case (Language.EN):
+                default: return "Total Credits:";
+            }
+        }
+        public static String noCoursesToDrop()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "لست مسجلاً في أي مادة";
+                case (Language.EN):
+                default: return "You're not Enrolled in any Course";
+            }
+        }
 
     }
 }

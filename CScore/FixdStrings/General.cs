@@ -22,5 +22,15 @@ namespace CScore.FixdStrings
                 default: return "Status";
             }
         }
+        public static String Error()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "خطأ";
+                case (Language.EN):
+                default: return "Error";
+            }
+        }
     }
 }

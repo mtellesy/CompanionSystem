@@ -49,11 +49,11 @@ namespace CScore.SAL
                     major = result1.status;
                     if (major == true)
                     {
-                        status.message = "Majorment is available.";
+                        status.message = FixdStrings.Major.MajorisAvailable();
                     }
                     else
                     {
-                        status.message = "Majorment is not available.";
+                        status.message = FixdStrings.Major.SorryMajorisNotAvailable();
                     }
                     status.status = true;
                     break;
@@ -187,7 +187,7 @@ namespace CScore.SAL
                     status.status = false;
                     break;
                 case 403:
-                    status.message = "You enroll in this Department.";
+                    status.message = "You're enrolled in this Department.";
                     status.status = false;
                     break;
 
