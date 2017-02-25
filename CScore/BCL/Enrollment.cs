@@ -71,22 +71,25 @@ namespace CScore.BCL
 
 
 
+           if(courses.statusObject != null || courses.statusObject.Count > 0)
+            {
+                foreach (Course course in courses.statusObject)
+                {
+                    creditSum += course.Cou_credits;
+                }
+
+                /// now add the reserved Lecture times
+                StatusWithObject<List<Course>> coursesWithSchedule
+                   = await BCL.Course.getUserCoursesSchedule();
+
+                foreach (Course c in coursesWithSchedule.statusObject)
+                {
+                    c.TemGro_id = c.Schedule[0].Gro_id;
+                    addReservedLectureTime(c, c.Schedule[0].Gro_id);
+                }
+            }
            
-
-            foreach (Course course in courses.statusObject)
-            {
-                creditSum += course.Cou_credits;
-            }
-
-            /// now add the reserved Lecture times
-            StatusWithObject<List<Course>> coursesWithSchedule
-               = await BCL.Course.getUserCoursesSchedule();
-
-            foreach (Course c in coursesWithSchedule.statusObject)
-            {
-                c.TemGro_id = c.Schedule[0].Gro_id;
-                addReservedLectureTime(c, c.Schedule[0].Gro_id);
-            }
+           
 
             return creditSum;
         }
@@ -391,8 +394,8 @@ namespace CScore.BCL
                 returnedValue= await SAL.EnrollmentS.sendDroppedCourses(course);
                 if (returnedValue.statusObject.status == true)
                 {
-                    subCreditSum(course);
-                    deleteReservedLectureTime(course, gro_id);
+                   // subCreditSum(course);
+                //    deleteReservedLectureTime(course, gro_id);
                 }
             }
             return returnedValue;

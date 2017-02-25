@@ -260,16 +260,21 @@ namespace CScore.BCL
                 if (returnedValue.status.status == true)
                 {
                     await DAL.CourseD.deleteStudentSemesterCourses();
-                    await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
-                    foreach(Course c in returnedValue.statusObject)
+                    if(returnedValue.statusObject != null || returnedValue.statusObject.Count > 0)
                     {
-                        await DAL.CourseD.saveStudentSemesterCourses(c);
+                        await DAL.CourseD.saveUserCoursesSchedule(returnedValue.statusObject);
+                        foreach (Course c in returnedValue.statusObject)
+                        {
+                            await DAL.CourseD.saveStudentSemesterCourses(c);
+                        }
                     }
+                 
                 }
                 returnedValue.statusObject = new List<Course>();
             }
           List<Course> newCourses = new List<Course>();
             returnedValue.statusObject = await DAL.CourseD.getStudentSemesterCourses();
+            if(returnedValue.statusObject != null)
             foreach (Course c in returnedValue.statusObject)
             {
              Course newC =   await DAL.CourseD.getCourse(c.Cou_id,"S");
