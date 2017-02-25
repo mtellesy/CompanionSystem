@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CScore.BCL
 {
-    class ReservedDayAndTime
+   public class ReservedDayAndTime
     {
         public String courseID { get; set; }
         public int dayID { get; set; }
@@ -120,6 +120,7 @@ namespace CScore.BCL
             var list = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).GroupBy(test => test.courseID)
                    .Select(grp => grp.First())
                    .ToList();
+            var test1 = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time));
             int count = reservedLectureTimes.Where(i => i.dayID.Equals(day)).Where(i => i.classTimeID.Equals(time)).Count();
             //foreach()
 
@@ -184,6 +185,8 @@ namespace CScore.BCL
             int time = 0;
             int day = 0;
             s1.message = "Sorry, the group's lecture time conflects with another subject(s):";
+            //choose only the schdule the have the same group id 
+            c.Schedule = c.Schedule.Where(i => i.Gro_id.Equals(c.TemGro_id)).ToList();
             foreach (Schedule schedule in c.Schedule)
             {
                 time = schedule.ClassTimeID;
@@ -234,6 +237,7 @@ namespace CScore.BCL
             }
         }
 
+        
         private static void deleteReservedLectureTime(Course course,int gro_id)
         {
             foreach (Schedule x in course.Schedule)
@@ -247,11 +251,16 @@ namespace CScore.BCL
                         .Where(i => i.classTimeID.Equals(x.ClassTimeID)).First();
 
                     reservedLectureTimes.Remove(timeDate);
+                    var j = reservedLectureTimes; //test
                 }
             }
         }
+        public static List<ReservedDayAndTime> getReservedTime()
+        {
+            var rt = reservedLectureTimes;
+            return rt;
+        }
 
-        
         /// <summary>
         /// Get the courses which the student can enroll in the current semester.
         /// </summary>
