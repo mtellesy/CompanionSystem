@@ -188,7 +188,7 @@ namespace CScore.BCL
 
             int time = 0;
             int day = 0;
-            s1.message = "Sorry, the group's lecture time conflects with another subject(s):";
+            s1.message = FixdStrings.Enrollment.enrollmentConflectMessage();
             //choose only the schdule the have the same group id 
             c.Schedule = c.Schedule.Where(i => i.Gro_id.Equals(c.TemGro_id)).ToList();
             foreach (Schedule schedule in c.Schedule)
@@ -251,10 +251,18 @@ namespace CScore.BCL
                     ReservedDayAndTime timeDate = new ReservedDayAndTime();
                     //timeDate.dayID = x.DayID;
                     //timeDate.classTimeID = x.ClassTimeID;
-                    timeDate = reservedLectureTimes.Where(i => i.dayID.Equals(x.DayID))
-                        .Where(i => i.classTimeID.Equals(x.ClassTimeID)).First();
+                    var count = reservedLectureTimes.Where(i => i.dayID.Equals(x.DayID))
+                        .Where(i => i.classTimeID.Equals(x.ClassTimeID)).Count();
 
-                    reservedLectureTimes.Remove(timeDate);
+                    if(count > 0)
+                    {
+                        timeDate = reservedLectureTimes.Where(i => i.dayID.Equals(x.DayID))
+                       .Where(i => i.classTimeID.Equals(x.ClassTimeID)).First();
+
+
+                        reservedLectureTimes.Remove(timeDate);
+                    }
+                   
                     var j = reservedLectureTimes; //test
                 }
             }
