@@ -63,6 +63,10 @@ namespace CScore.ResponseObjects
         public String lastLogin { set; get; }
         public String interests { set; get; }
         public String certification { set; get; }
+        //     to get lecturer students
+        public String courseID { get; set; }
+        public int termID { get; set; }
+        public int groupID { get; set; }
 
     }
 }

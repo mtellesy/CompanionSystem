@@ -12,7 +12,7 @@ namespace CScore.DataLayer.Tables
 {
     public class LecturerStudentsL
     {
-        [PrimaryKey]
+        [PrimaryKey,AutoIncrement]
         public int id { get; set; }
 
         public String Cou_id { get; set; }
@@ -21,6 +21,10 @@ namespace CScore.DataLayer.Tables
        
         public int Ter_id { get; set; }
 
-        public int Stu_ud { get; set; }
- }
+        public int Stu_id { get; set; }
+
+        public String Stu_nameAR { get; set; }
+
+        public String Stu_nameEN { get; set; }
+    }
 }
