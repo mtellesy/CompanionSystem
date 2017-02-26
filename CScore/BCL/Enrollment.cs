@@ -81,7 +81,8 @@ namespace CScore.BCL
                 /// now add the reserved Lecture times
                 StatusWithObject<List<Course>> coursesWithSchedule
                    = await BCL.Course.getUserCoursesSchedule();
-
+                
+                if(coursesWithSchedule.statusObject != null)
                 foreach (Course c in coursesWithSchedule.statusObject)
                 {
                     c.TemGro_id = c.Schedule[0].Gro_id;
@@ -392,7 +393,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue= await SAL.EnrollmentS.sendDroppedCourses(course);
-                if (returnedValue.statusObject.status == true)
+                if (returnedValue.status.status == true)
                 {
                    // subCreditSum(course);
                 //    deleteReservedLectureTime(course, gro_id);

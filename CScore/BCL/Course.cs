@@ -293,5 +293,38 @@ namespace CScore.BCL
             return returnedValue;
         }
 
+        public Course getACopy()
+        {
+            var OriCourses = new Course();
+            OriCourses.Cou_id = cou_id;
+            OriCourses.Cou_nameAR = cou_nameAR;
+            OriCourses.Cou_nameEN = cou_nameEN;
+            OriCourses.Cou_credits = cou_credits;
+            OriCourses.Flag = flag;
+            OriCourses.GroupFull = groupFull;
+            OriCourses.Schedule = new List<CScore.BCL.Schedule>();
+            foreach (var sch in schedule)
+            {
+                var newItem = new CScore.BCL.Schedule();
+                newItem.ClassDuration = sch.ClassDuration;
+                newItem.ClassRoomAR = sch.ClassRoomAR;
+                newItem.ClassRoomEN = sch.ClassRoomEN;
+                newItem.ClassRoomID = sch.ClassRoomID;
+                newItem.ClassStart = sch.ClassStart;
+                newItem.ClassTimeID = sch.ClassTimeID;
+                newItem.DayAR = sch.DayAR;
+                newItem.DayEN = sch.DayEN;
+                newItem.DayID = sch.DayID;
+                newItem.Gro_id = sch.Gro_id;
+                newItem.Gro_NameAR = sch.Gro_NameAR;
+                newItem.Gro_NameEN = sch.Gro_NameEN;
+                newItem.Tea_id = sch.Tea_id;
+                OriCourses.Schedule.Add(newItem);
+            }
+            OriCourses.Tea_id = tea_id;
+            OriCourses.TemGro_id = temGro_id;
+            OriCourses.Ter_id = ter_id;
+            return OriCourses;
+        }
     }
 }
