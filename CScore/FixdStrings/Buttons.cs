@@ -15,6 +15,7 @@ namespace CScore.FixdStrings
         public static String OK()
         {
             Language e = LanguageSetter.getLanguage();
+          //  var task = Task.Run(async () => { await };);
             switch (e)
             {
                 case (Language.AR): return "موافق";

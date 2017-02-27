@@ -180,6 +180,10 @@ namespace CScore.FixdStrings
                 default: return "Total Credits:";
             }
         }
+        /// <summary>
+        /// "You're not Enrolled in any Course" message String
+        /// </summary>
+        /// <returns></returns>
         public static String noCoursesToDrop()
         {
             Language e = LanguageSetter.getLanguage();
@@ -188,6 +192,34 @@ namespace CScore.FixdStrings
                 case (Language.AR): return "لست مسجلاً في أي مادة";
                 case (Language.EN):
                 default: return "You're not Enrolled in any Course";
+            }
+        }
+        /// <summary>
+        /// Enrollment Status Notification title
+        /// </summary>
+        /// <returns></returns>
+        public static String EnrollmentStatusNotification()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "حالة تسجيل المواد";
+                case (Language.EN):
+                default: return "Enrollment Status";
+            }
+        }
+        /// <summary>
+        /// "Enrollment is Available" message String 
+        /// </summary>
+        /// <returns></returns>
+        public static String EnrollmentIsAvailable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "تسجيل المواد متاح";
+                case (Language.EN):
+                default: return "Enrollment is Available";
             }
         }
 

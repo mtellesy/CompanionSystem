@@ -62,6 +62,31 @@ namespace CScore.FixdStrings
                 default: return "You Have Been Successfully Majored";
             }
         }
+
+        public static String MajorStatusNotification()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "حالة التخصص";
+                case (Language.EN):
+                default: return "Major Status";
+            }
+        }
+        /// <summary>
+        /// "Major is Available" message String 
+        /// </summary>
+        /// <returns></returns>
+        public static String MajormentIsAvailable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "التخصص في الأقسام متاح الأن";
+                case (Language.EN):
+                default: return "Major is now Available";
+            }
+        }
     }
            
     }

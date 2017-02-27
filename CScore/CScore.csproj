@@ -53,6 +53,7 @@
     <Compile Include="BCL\User.cs" />
     <Compile Include="DAL\AnnouncementD.cs" />
     <Compile Include="DAL\CourseD.cs" />
+    <Compile Include="DAL\LanguageD.cs" />
     <Compile Include="DAL\MessageD.cs" />
     <Compile Include="DAL\MidMarkDistributionD.cs" />
     <Compile Include="DAL\ResultD.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="DataLayer\Tables\AnboxL.cs" />
     <Compile Include="DataLayer\Tables\AttachmentL.cs" />
     <Compile Include="DataLayer\Tables\InboxL.cs" />
+    <Compile Include="DataLayer\Tables\LanguageL.cs" />
     <Compile Include="DataLayer\Tables\LecturerStudentsL.cs" />
     <Compile Include="DataLayer\Tables\MidMarkDistributionL.cs" />
     <Compile Include="DataLayer\Tables\ResultsL.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="FixdStrings\Enrollment.cs" />
     <Compile Include="FixdStrings\General.cs" />
     <Compile Include="FixdStrings\Language.cs" />
+    <Compile Include="FixdStrings\Logout.cs" />
     <Compile Include="FixdStrings\Major.cs" />
     <Compile Include="FixdStrings\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
