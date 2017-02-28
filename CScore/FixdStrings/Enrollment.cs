@@ -222,6 +222,20 @@ namespace CScore.FixdStrings
                 default: return "Enrollment is Available";
             }
         }
+        /// <summary>
+        /// Couses Status String
+        /// </summary>
+        /// <returns></returns>
+        public static String CourseStatus()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "حالة المادة";
+                case (Language.EN):
+                default: return "Course Status";
+            }
+        }
 
     }
 }
