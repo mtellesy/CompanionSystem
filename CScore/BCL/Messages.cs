@@ -178,10 +178,10 @@ namespace CScore.BCL
         {
             if (await UpdateBox.CheckForInternetConnection() == true)
             {
-                
-                //SAL stuff
-                // save message in dal
-                return true;
+              var messageSatus = await SAL.MessageS.sendMessage(Message);
+
+               return messageSatus.status.status;
+               // return true;
             }
             else
                 return false;

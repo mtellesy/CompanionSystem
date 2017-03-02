@@ -211,8 +211,10 @@ namespace CScore.SAL
         public static async Task<StatusWithObject<Messages>> sendMessage(Messages message)
         {
             //      declaration of path and request type
-            String path = "/messages";
+            //String path = "/messages"; # the real endpoint
+            String path = "/messages/get.php";//for testing only
             path = path + String.Format("?token={0}", AuthenticatorS.token);
+            path = path + String.Format("&userid={0}", User.use_id); //for testing only
             String requestType = "POST";
 
             //      decleration of the status with its object that will be returned from send request method
