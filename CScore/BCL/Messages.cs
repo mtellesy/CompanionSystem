@@ -179,7 +179,14 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection() == true)
             {
               var messageSatus = await SAL.MessageS.sendMessage(Message);
+                if(messageSatus.status.status)
+                {
+                    Message.Mes_id = messageSatus.statusObject.Mes_id;
+                    Message.Mes_sender = User.use_id;
+                    // attachments
 
+                   await DAL.MessageD.saveMessage(Message);
+                }
                return messageSatus.status.status;
                // return true;
             }
