@@ -16,7 +16,31 @@ namespace CScore.FixdStrings
                 case (Language.AR): return "رمز المادة";
 
                 case (Language.EN):
-                default: return "Courese Code";
+                default: return "Course Code";
+            }
+        }
+
+        public static String CourseDoesNotExist()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "المادة غير موجودة";
+
+                case (Language.EN):
+                default: return "Course does not exist";
+            }
+        }
+
+        public static String PleaseTypeCourseCode()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "رجاءً, قم بكتابة رمز المادة";
+
+                case (Language.EN):
+                default: return "Please, Type the course code";
             }
         }
     }

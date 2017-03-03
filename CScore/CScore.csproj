@@ -73,6 +73,7 @@
     <Compile Include="DataLayer\Tables\SemesterL.cs" />
     <Compile Include="DataLayer\Tables\StudentCoursesL.cs" />
     <Compile Include="DataLayer\Tables\Users.cs" />
+    <Compile Include="FixdStrings\Announcements.cs" />
     <Compile Include="FixdStrings\Buttons.cs" />
     <Compile Include="FixdStrings\Courses.cs" />
     <Compile Include="FixdStrings\Enrollment.cs" />
