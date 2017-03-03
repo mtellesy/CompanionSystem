@@ -111,8 +111,8 @@ namespace CScore.DAL
                 schedule.Cou_id = course.Cou_id;
                 schedule.Cou_nameAR = course.Cou_nameAR;
                 schedule.Cou_nameEN = course.Cou_nameEN;
-               
-                schedule.Ter_id = course.Ter_id;
+
+                schedule.Ter_id = BCL.Semester.current_term;
                 
                 
                
