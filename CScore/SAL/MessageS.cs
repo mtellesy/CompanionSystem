@@ -81,7 +81,7 @@ namespace CScore.SAL
         {
 
             //      declaration of path and request type
-            String path = "/messages.php?";
+            String path = "/messages.php?userid=" + User.use_id.ToString() + "&";
             /* Remove this for the real test
             String path = "/messages?";
             path = path + String.Format("display={0}&", display);
