@@ -23,17 +23,27 @@ namespace CScore.FixdStrings
         {
 
             language = newLang;
-            var task = Task.Run(async () => { await DAL.LanguageD.saveLanguage(newLang); });
-            task.Wait();
+            try
+            {
+                var task = Task.Run(async () => { await DAL.LanguageD.saveLanguage(newLang); });
+                task.Wait();
+            }
+            catch
+            { }
         }
 
         public static Language getLanguage()
         {
             locLang = Language.EN;
             language = Language.EN; // by defualt
-            var task = Task.Run(async () => { await getLanguageAsync(); });
-            task.Wait();
-            language = locLang;
+            try
+            {
+                var task = Task.Run(async () => { await getLanguageAsync(); });
+                task.Wait();
+                language = locLang;
+            }
+            catch
+            { }
             return language;
         }
 
