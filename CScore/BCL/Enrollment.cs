@@ -46,7 +46,10 @@ namespace CScore.BCL
         /// List of Courses that The student wants to drop.
         /// </summary>
         public static List<Course> dropedCourses { get; set; }
-
+        /// <summary>
+        /// List of Courses that already enrolled courses
+        /// </summary>
+        public static List<Course> alreadyEnrolledCourses { get; set; }
 
         //              *** Methods ***
 

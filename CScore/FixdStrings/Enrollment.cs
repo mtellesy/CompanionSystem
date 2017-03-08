@@ -236,6 +236,27 @@ namespace CScore.FixdStrings
                 default: return "Course Status";
             }
         }
+        
+        public static String Reg()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "مسجلة";
+                case (Language.EN):
+                default: return "REG";
+            }
+        }
 
+        public static String EnrollmentLable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "تسجيل المواد";
+                case (Language.EN):
+                default: return "Enrollment";
+            }
+        }
     }
 }

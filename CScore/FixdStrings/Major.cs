@@ -87,6 +87,17 @@ namespace CScore.FixdStrings
                 default: return "Major is now Available";
             }
         }
+
+        public static String MajorTitle()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "التخصص";
+                case (Language.EN):
+                default: return "Major";
+            }
+        }
     }
            
     }

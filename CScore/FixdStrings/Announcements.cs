@@ -43,5 +43,29 @@ namespace CScore.FixdStrings
                 default: return "Announcement Status";
             }
         }
+
+        public static String AnnouncementsLable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "الإعلانات";
+
+                case (Language.EN):
+                default: return "Announcements";
+            }
+        }
+
+        public static String SendAnnouncementLable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "إرسال إعلان";
+
+                case (Language.EN):
+                default: return "Send Announcement";
+            }
+        }
     }
 }
