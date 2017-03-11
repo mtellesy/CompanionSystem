@@ -79,5 +79,19 @@ namespace CScore.FixdStrings
                 default: return "DONE";
             }
         }
+        /// <summary>
+        /// String for "Back" word
+        /// </summary>
+        /// <returns></returns>
+        public static String BACK()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "رجوع";
+                case (Language.EN):
+                default: return "Back";
+            }
+        }
     }
 }

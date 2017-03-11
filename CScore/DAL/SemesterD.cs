@@ -30,6 +30,13 @@ namespace CScore.DAL
                 termSchedule.Ter_dropCourses = terms.Select(i => i.Ter_dropCourses).First();
                 termSchedule.Ter_lastStudyDate = terms.Select(i => i.Ter_lastStudyDate).First();
                 termSchedule.Year = terms.Select(i => i.year).First();
+
+                termSchedule.Exam = new List<Exams>();
+                var examTemp = await getSemesterExamSchedule(termSchedule.Ter_id);
+                if(examTemp != null)
+                {
+                    termSchedule.Exam = examTemp;
+                }
                 
                 return termSchedule;
 
@@ -38,7 +45,57 @@ namespace CScore.DAL
             else 
             return null;
         }
-        
+
+        public static async Task<List<Exams>> getSemesterExamSchedule(int termID)
+        {
+            List<Exams> examsSchedule = new List<BCL.Exams>();
+            var countOfTerms = await DBuilder._connection.Table<ExamL>().Where(i => i.Ter_id.Equals(termID)).CountAsync();
+            if (countOfTerms > 0)
+            {
+                var exams = await DBuilder._connection.Table<ExamL>().Where(i => i.Ter_id.Equals(termID)).ToListAsync();
+                foreach(var ex in exams)
+                {
+                    Exams exam = new Exams();
+                    exam.ExamTypeAR = ex.Exam_nameAR;
+                    exam.ExamTypeEN = ex.Exam_nameEN;
+                    exam.StartDate = ex.Exam_start;
+                    exam.EndDate = ex.Exam_end;
+                    examsSchedule.Add(exam);
+                }
+                
+
+                return examsSchedule;
+
+            }
+
+            else
+                return null;
+        }
+
+        public static async Task saveSemesterExamSchedule(Exams examSchedule,int termID)
+        {
+            //var count = await DBuilder._connection.Table<ExamL>().Where(i => i.Ter_id.Equals(termID)).CountAsync();
+
+            ExamL exam = new ExamL();
+            exam.Ter_id = termID;
+            exam.Exam_nameAR = examSchedule.ExamTypeAR;
+            exam.Exam_nameEN = examSchedule.ExamTypeEN;
+            exam.Exam_start = examSchedule.StartDate;
+            exam.Exam_end = examSchedule.EndDate;
+
+            var list = await DBuilder._connection.Table<ExamL>()
+                .Where(i => i.Exam_nameEN.Equals(exam.Exam_nameEN))
+                .Where(i => i.Ter_id.Equals(termID)).ToListAsync();
+            var count = list.Count();
+            if(count <= 0)
+                await DBuilder._connection.InsertAsync(exam);
+            else
+            {
+                exam.id = list.First().id;
+                await DBuilder._connection.UpdateAsync(exam);
+            }
+
+        }
 
         //save user Schedule
         public static async Task saveSemesterSchedule(Semester termSchedule)
@@ -55,6 +112,11 @@ namespace CScore.DAL
             term.Ter_dropCourses = termSchedule.Ter_dropCourses.ToString();
             term.Ter_lastStudyDate = termSchedule.Ter_lastStudyDate.ToString();
             term.year = termSchedule.Year.ToString();
+            if(termSchedule.Exam != null)
+            {
+                foreach(var exam in termSchedule.Exam)
+                await saveSemesterExamSchedule(exam,termSchedule.Ter_id);
+            }
             if (count <= 0)
             {
                 await DBuilder._connection.InsertAsync(term);

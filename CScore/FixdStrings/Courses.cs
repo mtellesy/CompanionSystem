@@ -43,5 +43,17 @@ namespace CScore.FixdStrings
                 default: return "Please, Type the course code";
             }
         }
+
+        public static String MyCoursesLable()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "موادي";
+
+                case (Language.EN):
+                default: return "My Courses";
+            }
+        }
     }
 }

@@ -32,6 +32,7 @@ namespace CScore.DataLayer
             await _connection.CreateTableAsync<AnboxL>();
             await _connection.CreateTableAsync<InboxL>();
             await _connection.CreateTableAsync<SemesterL>();
+            await _connection.CreateTableAsync<ExamL>();
             await _connection.CreateTableAsync<ScheduleL>();
             await _connection.CreateTableAsync<AttachmentL>();
             await _connection.CreateTableAsync<LanguageL>();

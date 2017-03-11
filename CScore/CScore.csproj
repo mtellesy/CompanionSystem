@@ -64,6 +64,7 @@
     <Compile Include="DataLayer\ConnectionBinder.cs" />
     <Compile Include="DataLayer\Tables\AnboxL.cs" />
     <Compile Include="DataLayer\Tables\AttachmentL.cs" />
+    <Compile Include="DataLayer\Tables\ExamL.cs" />
     <Compile Include="DataLayer\Tables\InboxL.cs" />
     <Compile Include="DataLayer\Tables\LanguageL.cs" />
     <Compile Include="DataLayer\Tables\LecturerStudentsL.cs" />
@@ -83,9 +84,11 @@
     <Compile Include="FixdStrings\Logout.cs" />
     <Compile Include="FixdStrings\Major.cs" />
     <Compile Include="FixdStrings\Messages.cs" />
+    <Compile Include="FixdStrings\Profile.cs" />
     <Compile Include="FixdStrings\Schedule.cs" />
     <Compile Include="FixdStrings\Settings.cs" />
     <Compile Include="FixdStrings\Time.cs" />
+    <Compile Include="FixdStrings\Transcript.cs" />
     <Compile Include="FixdStrings\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseObjects\AnnouncementsObject.cs" />
