@@ -88,6 +88,7 @@
     <Compile Include="FixdStrings\Schedule.cs" />
     <Compile Include="FixdStrings\Settings.cs" />
     <Compile Include="FixdStrings\Time.cs" />
+    <Compile Include="FixdStrings\Timetable.cs" />
     <Compile Include="FixdStrings\Transcript.cs" />
     <Compile Include="FixdStrings\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

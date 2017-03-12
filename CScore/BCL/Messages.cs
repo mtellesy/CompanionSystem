@@ -164,7 +164,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.MessageS.getMessage(messageId);
-                if (returnedValue.status.status == true)
+                if (returnedValue.status.status == true && returnedValue.statusObject != null)
                 {
                     await DAL.MessageD.saveMessage(returnedValue.statusObject);
                 }
@@ -204,7 +204,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.MessageS.getMessages(NumberOfMessages, startFrom);
-                if (returnedValue.status.status == true)
+                if (returnedValue.status.status == true && returnedValue.statusObject != null)
                 {
                     foreach (Messages x in returnedValue.statusObject)
                     {
