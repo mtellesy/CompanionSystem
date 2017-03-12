@@ -116,7 +116,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.AnnouncementsS.getAnnouncement(announcementId);
-                if (returnedValue.status.status == true)
+                if (returnedValue.status.status == true && returnedValue.statusObject != null)
                 {                    
                         await DAL.AnnouncementD.saveAnnouncement(returnedValue.statusObject);                    
                 }
@@ -133,7 +133,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.AnnouncementsS.sendAnnouncement(announcement);
-                if (returnedValue.status.status == true)
+                if (returnedValue.status.status == true && returnedValue.statusObject !=null)
                 {                    
                         await DAL.AnnouncementD.saveAnnouncement(announcement);                    
                 }
@@ -152,7 +152,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom, false,null);
-                if (returnedValue.status.status == true)
+                if (returnedValue.status.status == true && returnedValue.statusObject != null)
                 {
                     foreach (Announcements x in returnedValue.statusObject)
                     {
@@ -185,7 +185,7 @@ namespace CScore.BCL
             if (await UpdateBox.CheckForInternetConnection())
             {
                 returnedValue = await SAL.AnnouncementsS.getAnnouncements(NumberOfAnnouncements, startFrom, true, null);
-                if (returnedValue.status.status == true)
+                if (returnedValue.status.status == true && returnedValue.statusObject != null)
                 {
                     foreach (Announcements x in returnedValue.statusObject)
                     {
