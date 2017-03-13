@@ -8,6 +8,18 @@ namespace CScore.FixdStrings
 {
    public class Timetable
     {
+        public static String Date()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "التاريخ";
+
+                case (Language.EN):
+                default: return "Date";
+            }
+        }
+
         public static String TermName()
         {
             Language e = LanguageSetter.getLanguage();
@@ -20,7 +32,10 @@ namespace CScore.FixdStrings
             }
         }
 
-         public static String TermNameEN()
+       
+
+
+        public static String TermNameEN()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)

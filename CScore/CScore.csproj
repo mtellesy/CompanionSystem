@@ -85,6 +85,7 @@
     <Compile Include="FixdStrings\Major.cs" />
     <Compile Include="FixdStrings\Messages.cs" />
     <Compile Include="FixdStrings\Profile.cs" />
+    <Compile Include="FixdStrings\Results.cs" />
     <Compile Include="FixdStrings\Schedule.cs" />
     <Compile Include="FixdStrings\Settings.cs" />
     <Compile Include="FixdStrings\Time.cs" />

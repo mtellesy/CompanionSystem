@@ -6,40 +6,39 @@ using System.Threading.Tasks;
 
 namespace CScore.FixdStrings
 {
-    public class General
+   public class Results
     {
-        /// <summary>
-        /// String for "Status" word
-        /// </summary>
-        /// <returns></returns>
-        public static String Status()
+        public static String ResultsLable()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "الحالة";
+                case (Language.AR): return "النتائج";
+
                 case (Language.EN):
-                default: return "Status";
+                default: return "Results";
             }
         }
-        public static String Name()
+        public static String Result()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "الإسم";
+                case (Language.AR): return "النتيجة";
+
                 case (Language.EN):
-                default: return "Name";
+                default: return "Result";
             }
         }
-        public static String Error()
+        public static String Total()
         {
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "خطأ";
+                case (Language.AR): return "المجموع";
+
                 case (Language.EN):
-                default: return "Error";
+                default: return "Total";
             }
         }
     }

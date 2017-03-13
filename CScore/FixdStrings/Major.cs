@@ -24,7 +24,7 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "حالة عملية التخصص";
+                case (Language.AR): return "التخصص";
                 case (Language.EN):
                 default: return " Major Status";
             }

@@ -203,7 +203,7 @@ namespace CScore.FixdStrings
             Language e = LanguageSetter.getLanguage();
             switch (e)
             {
-                case (Language.AR): return "حالة تسجيل المواد";
+                case (Language.AR): return "تسجيل المواد";
                 case (Language.EN):
                 default: return "Enrollment Status";
             }

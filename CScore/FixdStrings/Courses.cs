@@ -19,7 +19,17 @@ namespace CScore.FixdStrings
                 default: return "Course Code";
             }
         }
+        public static String CourseName()
+        {
+            Language e = LanguageSetter.getLanguage();
+            switch (e)
+            {
+                case (Language.AR): return "إسم المادة";
 
+                case (Language.EN):
+                default: return "Course Name";
+            }
+        }
         public static String CourseDoesNotExist()
         {
             Language e = LanguageSetter.getLanguage();
